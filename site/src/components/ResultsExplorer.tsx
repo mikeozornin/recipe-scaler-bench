@@ -228,7 +228,7 @@ export function ResultsExplorer({
   const activeSortLabel = sortOptions.find((o) => o.value === sort)?.label ?? m.sortLabel;
   const isTierSort = sort === 'tier-good' || sort === 'tier-bad';
 
-  const renderGalleryCard = (run: Run) => {
+  const renderGalleryCard = (run: Run, index: number) => {
     const thumb = primaryThumbFile(run);
     const href = runHrefWithFilter(run.id, locale, base, filter);
     return (
@@ -242,8 +242,9 @@ export function ResultsExplorer({
             <img
               src={thumbImagePath(thumb, base)}
               alt=""
-              loading="lazy"
               className="h-full w-full object-cover object-top transition group-hover:scale-[1.02]"
+              decoding="async"
+              fetchpriority={index === 0 ? 'high' : 'auto'}
             />
           ) : (
             <div className="flex h-full items-center justify-center text-sm text-[oklch(var(--foreground))]">
@@ -417,10 +418,9 @@ export function ResultsExplorer({
                 {/* ~50% of row, keep prev ratio 12/7; cap height at 400px */}
                 <a
                   href={href}
-                  className="block shrink-0 overflow-hidden rounded-md bg-[oklch(var(--muted))]"
+                  className="block shrink-0 overflow-hidden rounded-md bg-[oklch(var(--muted))] aspect-[12/7]"
                   style={{
                     width: 'min(50%, calc(400px * 12 / 7))',
-                    aspectRatio: '12 / 7',
                     maxHeight: 400,
                   }}
                 >
@@ -428,8 +428,9 @@ export function ResultsExplorer({
                     <img
                       src={thumbImagePath(thumb, base)}
                       alt=""
-                      loading="lazy"
                       className="h-full w-full object-cover object-top"
+                      decoding="async"
+                      fetchpriority={index === 0 ? 'high' : 'auto'}
                     />
                   ) : (
                     <span className="text-caption flex h-full items-center justify-center text-[oklch(var(--foreground))]">
@@ -469,14 +470,19 @@ export function ResultsExplorer({
         </div>
       ) : isTierSort ? (
         <div className="flex flex-col gap-4">
-          {groupRunsByTier(filtered).map((group) => (
+          {groupRunsByTier(filtered).map((group, groupIdx) => (
             <div key={group[0].tier} className={galleryGridClass}>
-              {group.map(renderGalleryCard)}
+              {group.map((run, idx) => {
+                const globalIndex = groupIdx === 0 ? idx : -1;
+                return renderGalleryCard(run, globalIndex);
+              })}
             </div>
           ))}
         </div>
       ) : (
-        <div className={galleryGridClass}>{filtered.map(renderGalleryCard)}</div>
+        <div className={galleryGridClass}>
+          {filtered.map((run, idx) => renderGalleryCard(run, idx))}
+        </div>
       )}
     </div>
   );

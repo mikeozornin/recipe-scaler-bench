@@ -1,7 +1,18 @@
 import runsData from '../../data/runs.json';
+import imageManifest from '../../data/images-manifest.json';
 import type { Locale, QualityTier, Run } from './types';
 
 export const runs = runsData as Run[];
+
+type ManifestEntry = { hashed?: string; width?: number; height?: number; bytes?: number };
+const manifest = imageManifest as Record<string, ManifestEntry>;
+
+/** Resolve a logical image name (e.g. `thumbs/paper__x__all.webp`) to its hashed on-disk path. */
+function resolveHashedPath(category: 'thumbs' | 'full', file: string): string {
+  const key = `${category}/${file}`;
+  const entry = manifest[key];
+  return entry?.hashed ?? `${category}/${file}`;
+}
 
 export function getRunById(id: string): Run | undefined {
   return runs.find((r) => r.id === id);
@@ -37,13 +48,13 @@ export function primaryThumbFile(run: Run): string | null {
 
 export function fullImagePath(file: string, base: string): string {
   const b = base.endsWith('/') ? base.slice(0, -1) : base;
-  return `${b}/images/full/${file}`;
+  return `${b}/images/${resolveHashedPath('full', file)}`;
 }
 
 export function thumbImagePath(file: string, base: string): string {
   const b = base.endsWith('/') ? base.slice(0, -1) : base;
   const webp = file.endsWith('.webp') ? file : file.replace(/@2x\.png$/, '.webp');
-  return `${b}/images/thumbs/${webp}`;
+  return `${b}/images/${resolveHashedPath('thumbs', webp)}`;
 }
 
 export function runHref(id: string, locale: Locale, base: string): string {
