@@ -1,0 +1,9 @@
+{
+  "name": "Recipe Scaler Bench",
+  "short_name": "Recipe Scaler",
+  "icons": [
+    { "src": "/recipe-scaler-bench/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/recipe-scaler-bench/icon-mask.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" },
+    { "src": "/recipe-scaler-bench/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}

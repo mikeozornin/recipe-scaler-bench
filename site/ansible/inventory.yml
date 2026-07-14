@@ -1,0 +1,5 @@
+all:
+  hosts:
+    server:
+      ansible_host: mikeozornin.ru
+      ansible_user: root

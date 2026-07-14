@@ -1,0 +1,19 @@
+# Recipe Scaler Bench static site on mikeozornin.ru
+
+site_name: recipe-scaler-bench
+url_path: /recipe-scaler-bench/
+public_url: https://mikeozornin.ru/recipe-scaler-bench/
+
+# Built artifacts (relative to ansible/ → ../dist)
+local_dist: "{{ playbook_dir }}/../dist"
+
+# On server under the main site document root
+deploy_path: /usr/share/nginx/html/recipe-scaler-bench
+
+# Nginx
+nginx_site_config: /etc/nginx/sites-available/default
+nginx_snippet_path: /etc/nginx/snippets/recipe-scaler-bench.conf
+nginx_include_marker: recipe-scaler-bench-snippet
+
+deploy_owner: www-data
+deploy_group: root

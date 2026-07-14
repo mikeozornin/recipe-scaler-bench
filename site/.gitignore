@@ -1,0 +1,14 @@
+# build
+dist/
+.astro/
+
+# deps
+node_modules/
+
+# generated image pipeline (rebuild with npm run prepare-images)
+public/images/
+data/images-manifest.json
+
+# env
+.env
+.env.*

@@ -1,0 +1,209 @@
+---
+import '../styles/global.css';
+import { ThemeSwitcher } from '../components/ThemeSwitcher';
+import type { Locale } from '../lib/types';
+import { t } from '../lib/i18n';
+import { aboutHref, homeHref, switchLocaleHref } from '../lib/runs';
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+}
+
+const { locale, title, description } = Astro.props;
+const m = t(locale);
+const base = import.meta.env.BASE_URL;
+const pageTitle = title ? `${title} · ${m.siteTitle}` : `${m.siteTitle} — ${m.siteTagline}`;
+const desc = description ?? m.heroLead;
+const pathname = Astro.url.pathname;
+const otherLocale: Locale = locale === 'ru' ? 'en' : 'ru';
+const otherHref = switchLocaleHref(pathname, base, otherLocale);
+const home = homeHref(locale, base);
+const about = aboutHref(locale, base);
+const isAbout = pathname.includes('/about');
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={desc} />
+    <link rel="icon" href={`${base}favicon.ico`} sizes="32x32" />
+    <link rel="icon" href={`${base}icon.svg`} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
+    <link rel="manifest" href={`${base}manifest.webmanifest`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" as="image" href={`${base}icon-192.png`} fetchpriority="high" />
+    <title>{pageTitle}</title>
+    <script
+      is:inline
+      set:html={`
+      (function () {
+        var pageLocale = ${JSON.stringify(locale)};
+        var siteBase = ${JSON.stringify(base)};
+        var PREFS_KEY = 'recipe-scaler-bench-prefs';
+        var LEGACY_THEME_KEY = 'prefered-mode';
+        var VALID_THEME = { system: true, light: true, dark: true, flashlight: true };
+
+        function readPrefs() {
+          try {
+            var raw = localStorage.getItem(PREFS_KEY);
+            if (raw) {
+              var p = JSON.parse(raw);
+              if (p && typeof p === 'object') return p;
+            }
+            var legacy = localStorage.getItem(LEGACY_THEME_KEY);
+            if (VALID_THEME[legacy]) {
+              var migrated = { theme: legacy, view: 'table' };
+              localStorage.setItem(PREFS_KEY, JSON.stringify(migrated));
+              try {
+                localStorage.removeItem(LEGACY_THEME_KEY);
+              } catch (e) {}
+              return migrated;
+            }
+          } catch (e) {}
+          return { theme: 'system', view: 'table' };
+        }
+
+        function prefersDark() {
+          return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        }
+
+        function resolveTheme(mode) {
+          if (mode === 'dark') return 'dark';
+          if (mode === 'light' || mode === 'flashlight') return 'light';
+          return prefersDark() ? 'dark' : 'light';
+        }
+
+        function switchLocaleHref(pathname, base, target) {
+          var b = base.endsWith('/') ? base.slice(0, -1) : base;
+          var path = pathname;
+          if (path.indexOf(b) === 0) path = path.slice(b.length) || '/';
+          if (path.charAt(0) !== '/') path = '/' + path;
+          var isEn = path === '/en' || path.indexOf('/en/') === 0;
+          var rest = isEn ? path.slice(3) || '/' : path;
+          if (rest.charAt(0) !== '/') rest = '/' + rest;
+          if (rest === '') rest = '/';
+          if (target === 'en') {
+            if (rest === '/') return b + '/en/';
+            return b + '/en' + (rest.charAt(rest.length - 1) === '/' ? rest : rest + '/');
+          }
+          if (rest === '/') return b + '/';
+          return b + (rest.charAt(rest.length - 1) === '/' ? rest : rest + '/');
+        }
+
+        var prefs = readPrefs();
+        var mode = VALID_THEME[prefs.theme] ? prefs.theme : 'system';
+        var root = document.documentElement;
+        root.setAttribute('data-theme-mode', mode);
+        root.setAttribute('data-theme-resolved', resolveTheme(mode));
+
+        if ((prefs.locale === 'en' || prefs.locale === 'ru') && prefs.locale !== pageLocale) {
+          var next = switchLocaleHref(location.pathname, siteBase, prefs.locale);
+          if (next && next !== location.pathname) {
+            location.replace(next);
+          }
+        }
+      })();
+    `}
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-shell flex items-center gap-3 py-3">
+        <a href={home} class="flex shrink-0 items-center" title={m.navResults} aria-label={m.siteTitle}>
+          <img
+            src={`${base}icon-192.png`}
+            alt=""
+            width="32"
+            height="32"
+            class="h-8 w-8 rounded-[6px]"
+            loading="eager"
+            decoding="async"
+          />
+        </a>
+        <a href={home} class="min-w-0 flex-1" title={m.navResults}>
+          <div class="truncate text-[28px] font-bold leading-none tracking-tight">{m.siteTitle}</div>
+        </a>
+        <nav class="flex items-center gap-1 font-medium">
+          <a
+            href={home}
+            class:list={[
+              'rounded-md px-2.5 py-1.5 hover:bg-[oklch(var(--accent))]',
+              !isAbout && 'bg-[oklch(var(--accent))]',
+            ]}>{m.navResults}</a
+          >
+          <a
+            href={about}
+            class:list={[
+              'rounded-md px-2.5 py-1.5 hover:bg-[oklch(var(--accent))]',
+              isAbout && 'bg-[oklch(var(--accent))]',
+            ]}>{m.navAbout}</a
+          >
+          <a
+            href={otherHref}
+            class="rounded-md px-2.5 py-1.5 text-[oklch(var(--foreground))] hover:bg-[oklch(var(--accent))] hover:text-[oklch(var(--foreground))]"
+            hreflang={otherLocale}
+            data-locale-switch={otherLocale}
+          >
+            {otherLocale === 'en' ? m.langEn : m.langRu}
+          </a>
+          <script is:inline>
+            (function () {
+              var PREFS_KEY = 'recipe-scaler-bench-prefs';
+              document.addEventListener('click', function (e) {
+                var el = e.target && e.target.closest ? e.target.closest('[data-locale-switch]') : null;
+                if (!el) return;
+                var loc = el.getAttribute('data-locale-switch');
+                if (loc !== 'en' && loc !== 'ru') return;
+                try {
+                  var prefs = {};
+                  try {
+                    prefs = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}') || {};
+                  } catch (err) {
+                    prefs = {};
+                  }
+                  prefs.locale = loc;
+                  if (!prefs.theme) prefs.theme = 'system';
+                  if (!prefs.view) prefs.view = 'table';
+                  localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
+                } catch (err) {}
+              });
+            })();
+          </script>
+          <ThemeSwitcher client:load locale={locale} />
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <slot />
+    </main>
+
+    <footer class="border-t border-[oklch(var(--border))] py-8 text-center text-[oklch(var(--foreground))]">
+      <div class="site-shell flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
+        <span>{m.footerNote}</span>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a
+            class="hover:underline"
+            href={
+              locale === 'en'
+                ? 'https://mikeozornin.ru/blog/all/llm-and-ui-design-en/'
+                : 'https://mikeozornin.ru/blog/all/llm-and-ui-design/'
+            }
+          >
+            {m.blogPost}
+          </a>
+          <a class="hover:underline" href="https://recipe-scaler.ru/#/about">{m.product}</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

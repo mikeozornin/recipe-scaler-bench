@@ -1,0 +1,896 @@
+[
+  {
+    "id": "paper-antigravity-gemini-3-1-pro",
+    "tool": "paper",
+    "agent": "Antigravity",
+    "model": "Gemini 3.1 Pro, high",
+    "time": "15 min",
+    "tokens": null,
+    "cost": null,
+    "tier": "slop",
+    "comment": {
+      "ru": "Очень плохо использует тулы, чудовищная интеграция в инструмент",
+      "en": "Very bad at using tools, monstrous integration into the tool"
+    },
+    "images": {
+      "all": "paper__antigravity__gemini-3.1-pro__all@2x.png",
+      "desktop": "paper__antigravity__gemini-3.1-pro__desktop@2x.png",
+      "mobile": "paper__antigravity__gemini-3.1-pro__mobile@2x.png",
+      "promo": "paper__antigravity__gemini-3.1-pro__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-antigravity-gemini-3-5-flash",
+    "tool": "paper",
+    "agent": "Antigravity",
+    "model": "Gemini 3.5 Flash, high",
+    "time": "5 min",
+    "tokens": null,
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Заметно лучше, чем Gemini 3.1 Pro. Единственный, кто решил сделать дарк-мод.",
+      "en": "Noticeably better than Gemini 3.1 Pro. The only one who decided to do a dark mode."
+    },
+    "images": {
+      "all": "paper__antigravity__gemini-3.5-flash__all@2x.png",
+      "desktop": "paper__antigravity__gemini-3.5-flash__desktop@2x.png",
+      "mobile": "paper__antigravity__gemini-3.5-flash__mobile@2x.png",
+      "promo": "paper__antigravity__gemini-3.5-flash__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-claude-code-opus-4-7",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 4.7, xhigh",
+    "time": "10–15 min",
+    "tokens": null,
+    "cost": "75%+ квоты pro·5h",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Недолго. Дорого. Охуенно.",
+      "en": "Quick. Expensive. Awesome."
+    },
+    "images": {
+      "all": "paper__claude-code__opus-4.7__all@2x.png",
+      "desktop": "paper__claude-code__opus-4.7__desktop@2x.png",
+      "mobile": "paper__claude-code__opus-4.7__mobile@2x.png",
+      "promo": "paper__claude-code__opus-4.7__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-claude-code-opus-4-8",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 4.8, xhigh",
+    "time": null,
+    "tokens": null,
+    "cost": "53% квоты pro·5h (удвоенной)",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Жрёт больше, делает не факт, что лучше, чем 4.7. За три экрана съел половину уже удвоенной 5h pro-квоты.",
+      "en": "Burns more; not necessarily better than 4.7. Three screens used half of the already-doubled 5h pro quota."
+    },
+    "images": {
+      "all": "paper__claude-code__opus-4.8__all@2x.png",
+      "desktop": "paper__claude-code__opus-4.8__desktop@2x.png",
+      "mobile": "paper__claude-code__opus-4.8__mobile@2x.png",
+      "promo": "paper__claude-code__opus-4.8__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-claude-code-fable-med",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Fable, med",
+    "time": "23 min 19 s",
+    "tokens": null,
+    "cost": "37% квоты pro·5h",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Я думал, что сожрет больше, чем сожрало. В целом мало отличимо от Опуса, местами даже проще.",
+      "en": "I thought it would burn more than it did. Overall little distinguishable from Opus, in places even simpler."
+    },
+    "images": {
+      "all": "paper__claude-code__fable-med__all@2x.png",
+      "desktop": "paper__claude-code__fable-med__desktop@2x.png",
+      "mobile": "paper__claude-code__fable-med__mobile@2x.png",
+      "promo": "paper__claude-code__fable-med__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-claude-code-opus-4-7-med",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 4.7, med",
+    "time": "5–10 min",
+    "tokens": null,
+    "cost": "56% квоты pro·5h",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Сохраняет стиль Опуса 4.7, упрощает реализацию",
+      "en": "Keeps the Opus 4.7 style, simplifies the implementation"
+    },
+    "images": {
+      "all": "paper__claude-code__opus-4.7-med__all@2x.png",
+      "desktop": "paper__claude-code__opus-4.7-med__desktop@2x.png",
+      "mobile": "paper__claude-code__opus-4.7-med__mobile@2x.png",
+      "promo": "paper__claude-code__opus-4.7-med__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-claude-code-opus-4-6",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 4.6, Max reasoning",
+    "time": null,
+    "tokens": null,
+    "cost": "37% квоты pro·5h",
+    "tier": "mid",
+    "comment": {
+      "ru": "В целом выглядит как упрощенный Опус 4.7, сильно ближе к Соннету по общему лейауту",
+      "en": "In general looks like a simplified Opus 4.7, much closer to Sonnet in overall layout"
+    },
+    "images": {
+      "all": "paper__claude-code__opus-4.6__all@2x.png",
+      "desktop": "paper__claude-code__opus-4.6__desktop@2x.png",
+      "mobile": "paper__claude-code__opus-4.6__mobile@2x.png",
+      "promo": "paper__claude-code__opus-4.6__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-claude-code-sonnet-4-5",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Sonnet 4.5, xhigh",
+    "time": "8 min",
+    "tokens": null,
+    "cost": "25% квоты pro·5h",
+    "tier": "mid",
+    "comment": {
+      "ru": "Существенно ближе к китайским моделям и моделям попроще. Аккуратно, но совсем нейтрально, совсем упрощено",
+      "en": "Substantially closer to the Chinese models and the simpler ones. Neat, but completely neutral, completely simplified"
+    },
+    "images": {
+      "all": "paper__claude-code__sonnet-4.6__all@2x.png",
+      "desktop": "paper__claude-code__sonnet-4.6__desktop@2x.png",
+      "mobile": "paper__claude-code__sonnet-4.6__mobile@2x.png",
+      "promo": "paper__claude-code__sonnet-4.6__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-claude-code-haiku-4-5",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Haiku 4.5",
+    "time": "3 min",
+    "tokens": null,
+    "cost": "6% квоты pro·5h",
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Не справился даже с тулами. Нет ни одной причины использовать",
+      "en": "Didn't even cope with the tools. There's not a single reason to use it"
+    },
+    "images": {
+      "all": "paper__claude-code__haiku__all@2x.png",
+      "desktop": "paper__claude-code__haiku__desktop@2x.png",
+      "mobile": "paper__claude-code__haiku__mobile@2x.png",
+      "promo": "paper__claude-code__haiku__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-claude-code-opus-frontend-design",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 4.7, xhigh + Frontend Design",
+    "time": "17 min",
+    "tokens": null,
+    "cost": "44% квоты pro·5h",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Опус со скиллом Frontend Design — desktop only в локальном наборе",
+      "en": "Opus with Frontend Design skill — desktop only in local asset set"
+    },
+    "images": {
+      "desktop": "paper__claude-code__opus-frontend-design__desktop@2x.png"
+    }
+  },
+  {
+    "id": "paper-codex-gpt-5-5",
+    "tool": "paper",
+    "agent": "Codex",
+    "model": "GPT 5.5, xhigh",
+    "time": "15 min",
+    "tokens": null,
+    "cost": "26% квоты plus·5h",
+    "tier": "slop",
+    "comment": {
+      "ru": "Очень дешево по сравнению с опусом, результат соответствующий. Худший результат из СОТА-моделей",
+      "en": "Very cheap compared to opus, the result is accordingly. The worst result among SOTA models"
+    },
+    "images": {
+      "all": "paper__codex__gpt-5.5__all@2x.png",
+      "desktop": "paper__codex__gpt-5.5__desktop@2x.png",
+      "mobile": "paper__codex__gpt-5.5__mobile@2x.png",
+      "promo": "paper__codex__gpt-5.5__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-codex-gpt-5-4",
+    "tool": "paper",
+    "agent": "Codex",
+    "model": "GPT 5.4, xhigh",
+    "time": "15 min",
+    "tokens": null,
+    "cost": "17% квоты plus·5h",
+    "tier": "mid",
+    "comment": {
+      "ru": "Удивительно, что мне этот вариант нравится даже больше, чем у GPT 5.5",
+      "en": "Surprisingly, I like this variant even more than GPT 5.5"
+    },
+    "images": {
+      "all": "paper__codex__gpt-5.4__all@2x.png",
+      "desktop": "paper__codex__gpt-5.4__desktop@2x.png",
+      "mobile": "paper__codex__gpt-5.4__mobile@2x.png",
+      "promo": "paper__codex__gpt-5.4__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-codex-gpt-5-6-sol",
+    "tool": "paper",
+    "agent": "Codex",
+    "model": "GPT 5.6 Sol, xhigh",
+    "time": "26 min 30 s",
+    "tokens": null,
+    "cost": "4% недельной квоты",
+    "tier": "fancy",
+    "comment": {
+      "ru": "—",
+      "en": "—"
+    },
+    "images": {
+      "all": "paper__codex__gpt-5.6-sol-xhigh__all@2x.png",
+      "desktop": "paper__codex__gpt-5.6-sol-xhigh__desktop@2x.png",
+      "mobile": "paper__codex__gpt-5.6-sol-xhigh__mobile@2x.png",
+      "promo": "paper__codex__gpt-5.6-sol-xhigh__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-auto",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Auto",
+    "time": "25 min",
+    "tokens": "13.7M",
+    "cost": "$4.33",
+    "tier": "mid",
+    "comment": {
+      "ru": "Поразительно хороший результат для Авто-режима. Выбор стиля как будто от Опуса",
+      "en": "A surprisingly good result for Auto mode. The style choice is like from Opus"
+    },
+    "images": {
+      "all": "paper__cursor__auto__all@2x.png",
+      "desktop": "paper__cursor__auto__desktop@2x.png",
+      "mobile": "paper__cursor__auto__mobile@2x.png",
+      "promo": "paper__cursor__auto__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-opus-4-7",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Opus 4.7",
+    "time": "35 min",
+    "tokens": "15M",
+    "cost": "$12.30",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Вдвое дороже, чем Опус 4.7 у Кило. Очень много проверяет себя. Результат чуть лучше",
+      "en": "Twice as expensive as Opus 4.7 at Kilo. Checks itself a lot. The result is slightly better"
+    },
+    "images": {
+      "all": "paper__cursor__opus-4.7__all@2x.png",
+      "desktop": "paper__cursor__opus-4.7__desktop@2x.png",
+      "mobile": "paper__cursor__opus-4.7__mobile@2x.png",
+      "promo": "paper__cursor__opus-4.7__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-gpt-5-4",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "GPT 5.4, xhigh",
+    "time": "11 min",
+    "tokens": "4.5M",
+    "cost": "$2.20",
+    "tier": "mid",
+    "comment": {
+      "ru": "Агент другой, модель узнается. Как будто чуть лучше, чем в Кодексе",
+      "en": "The agent is different, the model is recognizable. Slightly better than in Codex"
+    },
+    "images": {
+      "all": "paper__cursor__gpt-5.4__all@2x.png",
+      "desktop": "paper__cursor__gpt-5.4__desktop@2x.png",
+      "mobile": "paper__cursor__gpt-5.4__mobile@2x.png",
+      "promo": "paper__cursor__gpt-5.4__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-gemini-3-1-pro",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Gemini 3.1 Pro",
+    "time": "8 min",
+    "tokens": "3.4M",
+    "cost": "$2.01",
+    "tier": "slop",
+    "comment": {
+      "ru": "Результат сопоставимый с Гемини в Антигравити. Очень плохо для модели такого уровня",
+      "en": "Result comparable to Gemini in Antigravity. Very bad for a model of this level"
+    },
+    "images": {
+      "all": "paper__cursor__gemini-3.1-pro__all@2x.png",
+      "desktop": "paper__cursor__gemini-3.1-pro__desktop@2x.png",
+      "mobile": "paper__cursor__gemini-3.1-pro__mobile@2x.png",
+      "promo": "paper__cursor__gemini-3.1-pro__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-grok-4-3",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Grok 4.3",
+    "time": "18 min",
+    "tokens": "3M",
+    "cost": "$1.65",
+    "tier": "slop",
+    "comment": {
+      "ru": "Впечатления смешанные. Мобилка в целом норм. Промо хуже",
+      "en": "Mixed impressions. Mobile is generally fine. Promo is worse"
+    },
+    "images": {
+      "all": "paper__cursor__grok-4.3__all@2x.png",
+      "desktop": "paper__cursor__grok-4.3__desktop@2x.png",
+      "mobile": "paper__cursor__grok-4.3__mobile@2x.png",
+      "promo": "paper__cursor__grok-4.3__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-grok-4-5",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Grok 4.5",
+    "time": "3:30",
+    "tokens": "4.2M",
+    "cost": "$1.23",
+    "tier": "mid",
+    "comment": {
+      "ru": "Очень быстро, дешево (пока 50% скидки), в целом нормально за свои деньги. Промостраница примитивная",
+      "en": "Very fast, cheap (50% discount for now), overall fine for the money. Promo is primitive"
+    },
+    "images": {
+      "all": "paper__cursor__grok-4.5__all@2x.png",
+      "desktop": "paper__cursor__grok-4.5__desktop@2x.png",
+      "mobile": "paper__cursor__grok-4.5__mobile@2x.png",
+      "promo": "paper__cursor__grok-4.5__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-glm-5-1",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "GLM 5.1 (z.ai coding plan)",
+    "time": "7 min",
+    "tokens": null,
+    "cost": "37% квоты lite·5h",
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "ГЛМ в Курсоре почему-то не смог справиться с тулами",
+      "en": "GLM in Cursor for some reason couldn't cope with the tools"
+    },
+    "images": {
+      "all": "paper__cursor__glm-5.1__all@2x.png",
+      "desktop": "paper__cursor__glm-5.1__desktop@2x.png",
+      "mobile": "paper__cursor__glm-5.1__mobile@2x.png",
+      "promo": "paper__cursor__glm-5.1__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-composer-2",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Composer 2",
+    "time": "5 min",
+    "tokens": "1.3M",
+    "cost": "$0.33",
+    "tier": "slop",
+    "comment": {
+      "ru": "Очень примитивно, но очень дешево. Не соответствует заявленному уровню",
+      "en": "Very primitive, but also very cheap. Doesn't match the claimed level"
+    },
+    "images": {
+      "all": "paper__cursor__composer-2__all@2x.png",
+      "desktop": "paper__cursor__composer-2__desktop@2x.png",
+      "mobile": "paper__cursor__composer-2__mobile@2x.png",
+      "promo": "paper__cursor__composer-2__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-composer-2-5",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Composer 2.5",
+    "time": null,
+    "tokens": "1.6M",
+    "cost": "$0.21",
+    "tier": "slop",
+    "comment": {
+      "ru": "Сопоставим по стоимости с Composer 2, качество подросло, но всё ещё сильно не очень",
+      "en": "Comparable in cost to Composer 2, quality has grown, but still very not great"
+    },
+    "images": {
+      "all": "paper__cursor__composer-2.5__all@2x.png",
+      "desktop": "paper__cursor__composer-2.5__desktop@2x.png",
+      "mobile": "paper__cursor__composer-2.5__mobile@2x.png",
+      "promo": "paper__cursor__composer-2.5__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-cursor-mimo-v2-5-pro",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "MiMo V2.5 Pro",
+    "time": null,
+    "tokens": "4.8M",
+    "cost": "4.8M из 4.1B включённых",
+    "tier": "slop",
+    "comment": {
+      "ru": "Включённая модель Курсора; в подписке очень дёшево, в дизайне слабо",
+      "en": "Included Cursor model; very cheap in subscription terms, weak on design"
+    },
+    "images": {
+      "all": "paper__cursor__mimo-v2.5-pro__all@2x.png",
+      "desktop": "paper__cursor__mimo-v2.5-pro__desktop@2x.png",
+      "mobile": "paper__cursor__mimo-v2.5-pro__mobile@2x.png",
+      "promo": "paper__cursor__mimo-v2.5-pro__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-sourcecraft-default",
+    "tool": "paper",
+    "agent": "Source Craft",
+    "model": "Default",
+    "time": "7 min",
+    "tokens": null,
+    "cost": "65 попугаев из 4500",
+    "tier": "slop",
+    "comment": {
+      "ru": "Вроде недорого, но пользоваться смысла нет, нейрослописный нейрослоп",
+      "en": "Seems inexpensive, but no point in using it, neuro-slop"
+    },
+    "images": {
+      "all": "paper__sourcecraft__default__w-0__all@2x.png",
+      "desktop": "paper__sourcecraft__default__w-0__desktop@2x.png",
+      "mobile": "paper__sourcecraft__default__w-0__mobile@2x.png",
+      "promo": "paper__sourcecraft__default__w-0__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-sourcecraft-default-thinking",
+    "tool": "paper",
+    "agent": "Source Craft",
+    "model": "Default Thinking",
+    "time": "10 min",
+    "tokens": null,
+    "cost": "74 попугаев из 4500",
+    "tier": "slop",
+    "comment": {
+      "ru": "Default и Default Thinking — как будто разные модели; у reasoning даже хуже",
+      "en": "Default and Default Thinking seem like different models; reasoning is even worse"
+    },
+    "images": {
+      "all": "paper__sourcecraft__default-thinking__all@2x.png",
+      "desktop": "paper__sourcecraft__default-thinking__desktop@2x.png",
+      "mobile": "paper__sourcecraft__default-thinking__mobile@2x.png",
+      "promo": "paper__sourcecraft__default-thinking__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-kilo-code-opus-4-7",
+    "tool": "paper",
+    "agent": "Kilo Code",
+    "model": "Opus 4.7 (Kilo cloud)",
+    "time": "27 min",
+    "tokens": "6.3M",
+    "cost": "$6.96",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Типичный Опус 4.7. Местами чисто, интересно, издалека супер-пупер",
+      "en": "Typical Opus 4.7. Clean in places, interesting, from afar it's super-duper"
+    },
+    "images": {
+      "all": "paper__kilo-code__opus-4.7__all@2x.png",
+      "desktop": "paper__kilo-code__opus-4.7__desktop@2x.png",
+      "mobile": "paper__kilo-code__opus-4.7__mobile@2x.png",
+      "promo": "paper__kilo-code__opus-4.7__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-kilo-hy3-preview",
+    "tool": "paper",
+    "agent": "Kilo Code",
+    "model": "Hy3 preview (Kilo cloud)",
+    "time": null,
+    "tokens": "1.6M",
+    "cost": "$0.06",
+    "tier": "slop",
+    "comment": {
+      "ru": "Самая модная опенсорс-модель на опенроутере. Очень так себе",
+      "en": "The trendiest open-source model on Openrouter. Very so-so"
+    },
+    "images": {
+      "all": "paper__kilo__hy3-preview__all@2x.png",
+      "desktop": "paper__kilo__hy3-preview__desktop@2x.png",
+      "mobile": "paper__kilo__hy3-preview__mobile@2x.png",
+      "promo": "paper__kilo__hy3-preview__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-kilo-code-qwen-3-6",
+    "tool": "paper",
+    "agent": "Kilo Code",
+    "model": "Qwen 3.6 Max Preview (Kilo cloud)",
+    "time": "17 min",
+    "tokens": "2.2M",
+    "cost": "$0.42",
+    "tier": "mid",
+    "comment": {
+      "ru": "В целом Квен справился неплохо. Туповато, но крепко. 1/30 от опуса по цене",
+      "en": "In general Qwen did decently. A bit dim, but pretty solid. 1/30 of Opus's price"
+    },
+    "images": {
+      "all": "paper__kilo-code__qwen-3.6__all@2x.png",
+      "desktop": "paper__kilo-code__qwen-3.6__desktop@2x.png",
+      "mobile": "paper__kilo-code__qwen-3.6__mobile@2x.png",
+      "promo": "paper__kilo-code__qwen-3.6__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-kilo-code-qwen-3-5-397",
+    "tool": "paper",
+    "agent": "Kilo Code",
+    "model": "Qwen 3.5 397",
+    "time": "6 min",
+    "tokens": null,
+    "cost": null,
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Не справился с тулами",
+      "en": "Didn't cope with the tools"
+    },
+    "images": {
+      "all": "paper__kilo-code__qwen35-397b-qwen-397__all@2x.png",
+      "desktop": "paper__kilo-code__qwen35-397b-qwen-397__desktop@2x.png",
+      "mobile": "paper__kilo-code__qwen35-397b-qwen-397__mobile@2x.png",
+      "promo": "paper__kilo-code__qwen35-397b-qwen-397__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-kilo-code-grok-build-google-skill",
+    "tool": "paper",
+    "agent": "Kilo Code",
+    "model": "Grok Build 0.1 + Google Skill",
+    "time": null,
+    "tokens": null,
+    "cost": "$0.83",
+    "tier": "slop",
+    "comment": {
+      "ru": "Тот же промпт со скиллом Google design; сравните с OpenCode Grok Build 0.1 без скилла",
+      "en": "Same prompt with Google's design skill; compare with OpenCode Grok Build 0.1 without a skill"
+    },
+    "images": {
+      "all": "paper__kilo-code__grok-build-0.1-google-skill__all@2x.png",
+      "desktop": "paper__kilo-code__grok-build-0.1-google-skill__desktop@2x.png",
+      "mobile": "paper__kilo-code__grok-build-0.1-google-skill__mobile@2x.png",
+      "promo": "paper__kilo-code__grok-build-0.1-google-skill__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-opus-4-7",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Opus 4.7, xhigh (OpenRouter)",
+    "time": null,
+    "tokens": "2.7M",
+    "cost": "$2.74",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Неплохо; после этого экрана OpenRouter забанил от американских СОТА-моделей",
+      "en": "Not bad; after this screen Openrouter banned American SOTA models"
+    },
+    "images": {
+      "desktop": "paper__opencode__opus-4.7__desktop@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-kimi-2-6",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Kimi 2.6 (OpenRouter)",
+    "time": "42 min",
+    "tokens": "3.62M",
+    "cost": "$1.78",
+    "tier": "slop",
+    "comment": {
+      "ru": "Мобилка лучше остального. Всё дублировалось, но сам стирал через скриншоты — 40+ минут",
+      "en": "Mobile is better than the rest. Everything was duplicated, then erased via screenshots — 40+ minutes"
+    },
+    "images": {
+      "all": "paper__opencode__kimi-2.6__all@2x.png",
+      "desktop": "paper__opencode__kimi-2.6__desktop@2x.png",
+      "mobile": "paper__opencode__kimi-2.6__mobile@2x.png",
+      "promo": "paper__opencode__kimi-2.6__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-grok-4-3",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Grok 4.3 (OpenRouter)",
+    "time": null,
+    "tokens": "1.57M",
+    "cost": "$1.09",
+    "tier": "slop",
+    "comment": {
+      "ru": "В отличие от Курсора, OpenCode с моделью вообще не справился",
+      "en": "Unlike Cursor, Opencode couldn't handle the model at all"
+    },
+    "images": {
+      "all": "paper__opencode__grok-4.3__all@2x.png",
+      "desktop": "paper__opencode__grok-4.3__desktop@2x.png",
+      "mobile": "paper__opencode__grok-4.3__mobile@2x.png",
+      "promo": "paper__opencode__grok-4.3__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-grok-build-0-1",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Grok Build 0.1 (OpenRouter)",
+    "time": null,
+    "tokens": "3.7M",
+    "cost": "$1.24",
+    "tier": "slop",
+    "comment": {
+      "ru": "Быстро, слабо, дорого для такого качества",
+      "en": "Fast, weak, expensive for this quality"
+    },
+    "images": {
+      "all": "paper__opencode__grok-build-0-1__all@2x.png",
+      "desktop": "paper__opencode__grok-build-0-1__desktop@2x.png",
+      "mobile": "paper__opencode__grok-build-0-1__mobile@2x.png",
+      "promo": "paper__opencode__grok-build-0-1__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-deepseek-v4-pro",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "DeepSeek V4 Pro, Max Reasoning (1)",
+    "time": null,
+    "tokens": "4.1M",
+    "cost": "$0.09",
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Дипсик очень дешев, но справился лишь один раз. Мобилку можно смотреть",
+      "en": "DeepSeek is very cheap, but managed only once. Mobile is watchable"
+    },
+    "images": {
+      "all": "paper__opencode__deepseek-v4-pro__all@2x.png",
+      "desktop": "paper__opencode__deepseek-v4-pro__desktop@2x.png",
+      "mobile": "paper__opencode__deepseek-v4-pro__mobile@2x.png",
+      "promo": "paper__opencode__deepseek-v4-pro__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-deepseek-v4-pro-2",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "DeepSeek V4 Pro, Max Reasoning (2)",
+    "time": null,
+    "tokens": "2.5M",
+    "cost": "$0.05",
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Дипсик очень дешев, но справился лишь один раз. Мобилку можно смотреть",
+      "en": "DeepSeek is very cheap, but managed only once. Mobile is watchable"
+    },
+    "images": {
+      "all": "paper__opencode__deepseek-v4-pro-2__all@2x.png",
+      "desktop": "paper__opencode__deepseek-v4-pro-2__desktop@2x.png",
+      "mobile": "paper__opencode__deepseek-v4-pro-2__mobile@2x.png",
+      "promo": "paper__opencode__deepseek-v4-pro-2__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-glm-5-1",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "GLM 5.1 (z.ai coding plan)",
+    "time": null,
+    "tokens": null,
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "В отличие от Курсора OpenCode добился чего-то от GLM — ок за свою цену",
+      "en": "Unlike Cursor, Opencode got something out of GLM — OK for its price"
+    },
+    "images": {
+      "all": "paper__opencode__glm-5.1__all@2x.png",
+      "desktop": "paper__opencode__glm-5.1__desktop@2x.png",
+      "mobile": "paper__opencode__glm-5.1__mobile@2x.png",
+      "promo": "paper__opencode__glm-5.1__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-qwen-3-5-397",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Qwen 3.5 397",
+    "time": null,
+    "tokens": null,
+    "cost": null,
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Не смогло ничего",
+      "en": "Couldn't do anything"
+    },
+    "images": {
+      "all": "paper__opencode__qwen35-397b-qwen-397__all@2x.png",
+      "desktop": "paper__opencode__qwen35-397b-qwen-397__desktop@2x.png",
+      "mobile": "paper__opencode__qwen35-397b-qwen-397__mobile@2x.png",
+      "promo": "paper__opencode__qwen35-397b-qwen-397__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-minimax-2-7",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "MiniMax 2.7 (OpenRouter)",
+    "time": "3 min",
+    "tokens": "242K",
+    "cost": "$0.03",
+    "tier": "slop",
+    "comment": {
+      "ru": "Невероятно быстро, невероятно дешево, качество соответствующее",
+      "en": "Incredibly fast, incredibly cheap, the quality is accordingly"
+    },
+    "images": {
+      "all": "paper__opencode__minimax-2.7__all@2x.png",
+      "desktop": "paper__opencode__minimax-2.7__desktop@2x.png",
+      "mobile": "paper__opencode__minimax-2.7__mobile@2x.png",
+      "promo": "paper__opencode__minimax-2.7__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-minimax-m3",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "MiniMax M3 (OpenRouter)",
+    "time": null,
+    "tokens": null,
+    "cost": "$0.28",
+    "tier": "fancy",
+    "comment": {
+      "ru": "M2.7 → M3 — огромный шаг. Из провальных в топ-3. Очень похоже на опус по стилю",
+      "en": "M2.7 → M3 — a huge step. From flop into top 3. Very similar in style to Opus"
+    },
+    "images": {
+      "all": "paper__opencode__minimax-m3__all@2x.png",
+      "desktop": "paper__opencode__minimax-m3__desktop@2x.png",
+      "mobile": "paper__opencode__minimax-m3__mobile@2x.png",
+      "promo": "paper__opencode__minimax-m3__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-qwen-3-7",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Qwen 3.7 Max Preview (OpenRouter)",
+    "time": null,
+    "tokens": "3.13M",
+    "cost": "$7.95",
+    "tier": "slop",
+    "comment": {
+      "ru": "Дорого для своего результата, не улучшилось с 3.6 Max. Плохо работал с тулами",
+      "en": "Expensive for its result, no improvement over 3.6 Max. Very bad at using tools"
+    },
+    "images": {
+      "all": "paper__opencode__qwen-3.7__all@2x.png",
+      "desktop": "paper__opencode__qwen-3.7__desktop@2x.png",
+      "mobile": "paper__opencode__qwen-3.7__mobile@2x.png",
+      "promo": "paper__opencode__qwen-3.7__promo@2x.png"
+    }
+  },
+  {
+    "id": "figma-claude-code-opus-4-7",
+    "tool": "figma",
+    "agent": "Claude Code",
+    "model": "Opus 4.7, xhigh",
+    "time": "19 min",
+    "tokens": null,
+    "cost": "121% квоты pro·5h",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Опус в своём стиле, издалека особенно, но сожрал больше целой 5-часовой квоты",
+      "en": "Opus in its style, especially from afar, but ate more than a full 5-hour quota"
+    },
+    "images": {
+      "all": "figma__claude-code__opus-4.7__all@2x.png",
+      "desktop": "figma__claude-code__opus-4.7__desktop@2x.png",
+      "mobile": "figma__claude-code__opus-4.7__mobile@2x.png",
+      "promo": "figma__claude-code__opus-4.7__promo@2x.png"
+    }
+  },
+  {
+    "id": "figma-codex-gpt-5-5",
+    "tool": "figma",
+    "agent": "Codex",
+    "model": "GPT 5.5, xhigh",
+    "time": "20 min",
+    "tokens": null,
+    "cost": "16% квоты plus·5h",
+    "tier": "slop",
+    "comment": {
+      "ru": "В фигме чуть лучше, чем в пейпере. Верстает чудовищно просто",
+      "en": "In Figma slightly better than in Paper. Lays things out monstrously simply"
+    },
+    "images": {
+      "all": "figma__codex__gpt-5.5__all@2x.png",
+      "desktop": "figma__codex__gpt-5.5__desktop@2x.png",
+      "mobile": "figma__codex__gpt-5.5__mobile@2x.png",
+      "promo": "figma__codex__gpt-5.5__promo@2x.png"
+    }
+  },
+  {
+    "id": "figma-cursor-glm-5-1",
+    "tool": "figma",
+    "agent": "Cursor",
+    "model": "GLM 5.1 (z.ai coding plan)",
+    "time": "25 min",
+    "tokens": null,
+    "cost": "13% квоты lite·5h",
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "В целом похуже чем в пейпере. GLM не осилил корректный DOM",
+      "en": "In general worse than in Paper. GLM didn't master a correct DOM"
+    },
+    "images": {
+      "all": "figma__cursor__glm-5.1__all@2x.png",
+      "desktop": "figma__cursor__glm-5.1__desktop@2x.png",
+      "mobile": "figma__cursor__glm-5.1__mobile@2x.png",
+      "promo": "figma__cursor__glm-5.1__promo@2x.png"
+    }
+  },
+  {
+    "id": "figma-cursor-composer-2",
+    "tool": "figma",
+    "agent": "Cursor",
+    "model": "Composer 2",
+    "time": "6 min",
+    "tokens": "1.4M",
+    "cost": "$0.43",
+    "tier": "slop",
+    "comment": {
+      "ru": "Катастрофически плохо, хуже чем в пейпере",
+      "en": "Catastrophically bad, worse than in Paper"
+    },
+    "images": {
+      "all": "figma__cursor__composer-2__all@2x.png",
+      "desktop": "figma__cursor__composer-2__desktop@2x.png",
+      "mobile": "figma__cursor__composer-2__mobile@2x.png",
+      "promo": "figma__cursor__composer-2__promo@2x.png"
+    }
+  }
+]

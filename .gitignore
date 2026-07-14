@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Editors
+.vscode/
+.idea/
+
+# Tmp
+tmp/
+*.tmp
+
+post-en.txt
+post-ru.txt

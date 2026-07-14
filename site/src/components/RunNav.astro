@@ -1,0 +1,285 @@
+---
+import type { Locale } from '../lib/types';
+import type { SortKey } from '../lib/prefs';
+import {
+  adjacentInList,
+  filterAndSortRuns,
+  filterToQuery,
+  queryToFilter,
+} from '../lib/filter';
+import { runHref, runs } from '../lib/runs';
+
+type Link = { href: string; label: string } | null;
+
+interface Props {
+  currentId: string;
+  locale: Locale;
+  base: string;
+  prevAria: string;
+  nextAria: string;
+  fallbackSort: SortKey;
+}
+
+const { currentId, locale, base, prevAria, nextAria, fallbackSort } = Astro.props;
+
+// SSR fallback: canonical sort, no filter. The inline script below overrides
+// this synchronously during page parse using the URL's query string — so the
+// user never sees a flash of wrong labels.
+const fallbackFilter = queryToFilter(new URLSearchParams(''), fallbackSort);
+const fallbackList = filterAndSortRuns(runs, fallbackFilter, locale);
+const { prev, next } = adjacentInList(fallbackList, currentId);
+const fallbackQs = filterToQuery(fallbackFilter);
+
+const toHref = (run: { id: string } | null): string | null =>
+  run ? runHref(run.id, locale, base) + fallbackQs : null;
+const toLabel = (run: { model: string; agent: string } | null): string | null =>
+  run ? `${run.model} (${run.agent})` : null;
+
+const prevHref = toHref(prev);
+const prevLabel = toLabel(prev);
+const nextHref = toHref(next);
+const nextLabel = toLabel(next);
+
+const runData = runs.map((r) => ({
+  id: r.id,
+  agent: r.agent,
+  model: r.model,
+  tier: r.tier,
+  cost: r.cost,
+  tool: r.tool,
+  comment: { ru: r.comment.ru, en: r.comment.en },
+}));
+const runDataJson = JSON.stringify(runData);
+const localeJson = JSON.stringify(locale);
+const baseJson = JSON.stringify(base);
+---
+
+<script is:inline set:html={`window.__RUN_DATA__=${runDataJson};window.__RUN_LOCALE__=${localeJson};window.__RUN_BASE__=${baseJson};`} />
+
+<nav
+  class="run-nav flex w-full items-start justify-between gap-4"
+  aria-label="Run navigation"
+  data-current-id={currentId}
+  data-prev-aria={prevAria}
+  data-next-aria={nextAria}
+>
+  <a
+    class="run-nav-prev run-nav-btn inline-flex items-center gap-1.5 rounded-sm bg-transparent px-0 py-1 text-sm text-[oklch(var(--foreground))] transition hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)] aria-disabled:pointer-events-none aria-disabled:opacity-30 justify-start text-left"
+    href={prevHref ?? '#'}
+    aria-label={`${prevAria}${prevLabel ? `: ${prevLabel}` : ''} (Alt+←)`}
+    title={prevLabel ? `${prevLabel} (Alt+←)` : ''}
+    aria-disabled={prev ? undefined : 'true'}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="m15 18-6-6 6-6"/></svg>
+    <span class="run-nav-prev-label">{prevLabel ?? ''}</span>
+  </a>
+  <a
+    class="run-nav-next run-nav-btn inline-flex items-center gap-1.5 rounded-sm bg-transparent px-0 py-1 text-sm text-[oklch(var(--foreground))] transition hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)] aria-disabled:pointer-events-none aria-disabled:opacity-30 justify-end text-right"
+    href={nextHref ?? '#'}
+    aria-label={`${nextAria}${nextLabel ? `: ${nextLabel}` : ''} (Alt+→)`}
+    title={nextLabel ? `${nextLabel} (Alt+→)` : ''}
+    aria-disabled={next ? undefined : 'true'}
+  >
+    <span class="run-nav-next-label">{nextLabel ?? ''}</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="m9 18 6-6-6-6"/></svg>
+  </a>
+</nav>
+
+<script is:inline>
+  (function () {
+    const TIER_ORDER = ['fancy', 'mid', 'slop', 'failed_tools', 'unknown'];
+    const VALID_SORTS = { 'cost-desc': 1, 'cost-asc': 1, 'tier-good': 1, 'tier-bad': 1, 'alpha-asc': 1, 'alpha-desc': 1 };
+
+    function readPrefsSort() {
+      try {
+        const raw = localStorage.getItem('recipe-scaler-bench-prefs');
+        if (raw) {
+          const p = JSON.parse(raw);
+          if (p && p.sort && VALID_SORTS[p.sort]) return p.sort;
+        }
+      } catch (e) {}
+      return 'tier-good';
+    }
+
+    function normalizeSearchString(value) {
+      if (!value) return '';
+      try {
+        return value.normalize('NFKD').replace(/[^\p{Letter}\p{Number}\s._/-]/gu, '').toLocaleLowerCase();
+      } catch (e) {
+        return value.toLocaleLowerCase();
+      }
+    }
+
+    function tokenizeQuery(query) {
+      const trimmed = (query || '').trim();
+      if (!trimmed) return [];
+      const tokens = [];
+      const regex = /"([^"]+)"|'([^']+)'|(\S+)/g;
+      let m;
+      while ((m = regex.exec(trimmed)) !== null) {
+        const token = m[1] || m[2] || m[3] || '';
+        const n = normalizeSearchString(token);
+        if (n) tokens.push(n);
+      }
+      return tokens;
+    }
+
+    function matchesAllTokens(haystack, tokens) {
+      if (!tokens.length) return true;
+      const n = normalizeSearchString(haystack);
+      return tokens.every(function (t) { return n.indexOf(t) >= 0; });
+    }
+
+    function parseCostUsd(cost) {
+      if (!cost || !cost.trim()) return null;
+      const m = cost.match(/\$\s*([\d.,]+)/);
+      if (!m) return null;
+      const v = parseFloat(m[1].replace(',', ''));
+      return Number.isFinite(v) ? v : null;
+    }
+
+    function tierRank(tier) {
+      const i = TIER_ORDER.indexOf(tier);
+      return i < 0 ? TIER_ORDER.length : i;
+    }
+
+    function formatRunTitle(r) { return r.model + ' (' + r.agent + '), ' + r.tool; }
+
+    function compareRuns(a, b, sort, locale) {
+      const coll = locale === 'en' ? 'en' : 'ru';
+      const cmpN = function (x, y, desc) {
+        if (x == null && y == null) return 0;
+        if (x == null) return 1;
+        if (y == null) return -1;
+        return desc ? y - x : x - y;
+      };
+      switch (sort) {
+        case 'cost-desc': return cmpN(parseCostUsd(a.cost), parseCostUsd(b.cost), true) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
+        case 'cost-asc': return cmpN(parseCostUsd(a.cost), parseCostUsd(b.cost), false) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
+        case 'tier-good': return (tierRank(a.tier) - tierRank(b.tier)) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
+        case 'tier-bad': return (tierRank(b.tier) - tierRank(a.tier)) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
+        case 'alpha-asc': return formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
+        case 'alpha-desc': return formatRunTitle(b).localeCompare(formatRunTitle(a), coll);
+        default: return 0;
+      }
+    }
+
+    function queryToFilter(params, fallbackSort) {
+      const agent = params.get('agent');
+      const tier = params.get('tier');
+      const q = params.get('q') || '';
+      const sortRaw = params.get('sort');
+      const sort = sortRaw && VALID_SORTS[sortRaw] ? sortRaw : fallbackSort;
+      return {
+        agent: agent && agent !== '' ? agent : 'all',
+        tier: tier && TIER_ORDER.indexOf(tier) >= 0 ? tier : 'all',
+        q: q,
+        sort: sort,
+      };
+    }
+
+    function filterToQuery(filter) {
+      const p = new URLSearchParams();
+      p.set('agent', filter.agent);
+      p.set('tier', filter.tier);
+      p.set('q', filter.q);
+      p.set('sort', filter.sort);
+      return '?' + p.toString();
+    }
+
+    function filterAndSort(list, filter, locale) {
+      const tokens = tokenizeQuery(filter.q);
+      const filtered = list.filter(function (r) {
+        if (filter.agent !== 'all' && r.agent !== filter.agent) return false;
+        if (filter.tier !== 'all' && r.tier !== filter.tier) return false;
+        if (!tokens.length) return true;
+        const hay = r.agent + ' ' + r.model + ' ' + ((r.comment && r.comment.ru) || '') + ' ' + ((r.comment && r.comment.en) || '');
+        return matchesAllTokens(hay, tokens);
+      });
+      return filtered.sort(function (a, b) { return compareRuns(a, b, filter.sort, locale); });
+    }
+
+    function applyNav() {
+      const nav = document.querySelector('.run-nav');
+      if (!nav) return;
+      const currentId = nav.getAttribute('data-current-id');
+      const prevAria = nav.getAttribute('data-prev-aria') || '';
+      const nextAria = nav.getAttribute('data-next-aria') || '';
+
+      const params = new URLSearchParams(window.location.search);
+      const filter = queryToFilter(params, readPrefsSort());
+      const list = filterAndSort(window.__RUN_DATA__, filter, window.__RUN_LOCALE__);
+      const idx = list.findIndex(function (r) { return r.id === currentId; });
+      const prevRun = idx > 0 ? list[idx - 1] : null;
+      const nextRun = idx >= 0 && idx < list.length - 1 ? list[idx + 1] : null;
+      const qs = filterToQuery(filter);
+
+      const base = window.__RUN_BASE__;
+      const locale = window.__RUN_LOCALE__;
+      const localePrefix = locale === 'en' ? 'en/' : '';
+      function toLink(run) {
+        if (!run) return null;
+        return {
+          href: base + (base.endsWith('/') ? '' : '/') + localePrefix + 'run/' + run.id + '/' + qs,
+          label: run.model + ' (' + run.agent + ')',
+        };
+      }
+
+      const prevLink = toLink(prevRun);
+      const nextLink = toLink(nextRun);
+      const prevEl = nav.querySelector('.run-nav-prev');
+      const nextEl = nav.querySelector('.run-nav-next');
+      const prevLabelEl = prevEl && prevEl.querySelector('.run-nav-prev-label');
+      const nextLabelEl = nextEl && nextEl.querySelector('.run-nav-next-label');
+
+      function apply(el, labelEl, link, ariaPrefix, shortcut) {
+        if (!el) return;
+        if (!link) {
+          el.setAttribute('aria-disabled', 'true');
+          el.removeAttribute('href');
+          el.setAttribute('aria-label', ariaPrefix + ' (' + shortcut + ')');
+          el.removeAttribute('title');
+          if (labelEl) labelEl.textContent = '';
+        } else {
+          el.removeAttribute('aria-disabled');
+          el.setAttribute('href', link.href);
+          el.setAttribute('aria-label', ariaPrefix + ': ' + link.label + ' (' + shortcut + ')');
+          el.setAttribute('title', link.label + ' (' + shortcut + ')');
+          if (labelEl) labelEl.textContent = link.label;
+        }
+      }
+
+      apply(prevEl, prevLabelEl, prevLink, prevAria, 'Alt+←');
+      apply(nextEl, nextLabelEl, nextLink, nextAria, 'Alt+→');
+    }
+
+    function isTypingTarget(target) {
+      if (!target || !target.tagName) return false;
+      if (target.isContentEditable) return true;
+      const tag = target.tagName;
+      return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+    }
+
+    applyNav();
+
+    document.addEventListener('keydown', function (e) {
+      // Alt only (⌥ on macOS) — never Cmd/Ctrl
+      if (!e.altKey || e.metaKey || e.ctrlKey) return;
+      if (e.code !== 'ArrowLeft' && e.code !== 'ArrowRight') return;
+      if (isTypingTarget(e.target)) return;
+
+      const nav = document.querySelector('.run-nav');
+      if (!nav) return;
+      const prevEl = nav.querySelector('.run-nav-prev');
+      const nextEl = nav.querySelector('.run-nav-next');
+      const href =
+        e.code === 'ArrowLeft'
+          ? prevEl && prevEl.getAttribute('aria-disabled') !== 'true' && prevEl.getAttribute('href')
+          : nextEl && nextEl.getAttribute('aria-disabled') !== 'true' && nextEl.getAttribute('href');
+      if (!href) return;
+
+      e.preventDefault();
+      window.location.assign(href);
+    });
+  })();
+</script>

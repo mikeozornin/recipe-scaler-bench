@@ -1,0 +1,38 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="64" height="64" rx="16" fill="white" style="fill:white;fill-opacity:1;"/>
+<rect width="64" height="64" rx="16" fill="url(#paint0_radial_230_68)"/>
+<g filter="url(#filter0_dii_230_68)" style="mix-blend-mode:screen">
+<path d="M56 50.0003V56.0003H8V50.0003H56ZM11.5 29.0003H17.5V46.6663H11.5V29.0003ZM23.167 10.3333H29.167V46.6663H23.167V10.3333ZM34.833 29.0003H40.833V46.6663H34.833V29.0003ZM46.5 19.6663H52.5V46.6663H46.5V19.6663Z" fill="url(#paint1_linear_230_68)"/>
+</g>
+<defs>
+<filter id="filter0_dii_230_68" x="7" y="8.33334" width="54" height="51.667" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="2" dy="1"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_230_68"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_230_68" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_230_68"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-1.5"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+<feBlend mode="normal" in2="effect2_innerShadow_230_68" result="effect3_innerShadow_230_68"/>
+</filter>
+<radialGradient id="paint0_radial_230_68" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(20 20.5) rotate(44.6726) scale(61.8729)">
+<stop stop-color="#FF996D" style="stop-color:#FF996D;stop-color:color(display-p3 1.0000 0.6002 0.4285);stop-opacity:1;"/>
+<stop offset="1" stop-color="#FF3F00" style="stop-color:#FF3F00;stop-color:color(display-p3 1.0000 0.2471 0.0000);stop-opacity:1;"/>
+</radialGradient>
+<linearGradient id="paint1_linear_230_68" x1="60.0615" y1="33.255" x2="14.6462" y2="33.255" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E5ECF3" style="stop-color:#E5ECF3;stop-color:color(display-p3 0.8985 0.9263 0.9542);stop-opacity:1;"/>
+<stop offset="1" stop-color="#5D7185" style="stop-color:#5D7185;stop-color:color(display-p3 0.3646 0.4427 0.5208);stop-opacity:1;"/>
+</linearGradient>
+</defs>
+</svg>
