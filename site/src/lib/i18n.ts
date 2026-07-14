@@ -58,7 +58,7 @@ const ru = {
   tiers: {
     fancy: 'Фенси',
     mid: 'Середняк',
-    slop: 'Нейрослоп',
+    weak: 'Слабо',
     failed_tools: 'Тулы не потянули',
     unknown: 'Без оценки',
   } as Record<QualityTier, string>,
@@ -124,7 +124,7 @@ const en: typeof ru = {
   tiers: {
     fancy: 'Fancy',
     mid: 'Mid',
-    slop: 'Slop',
+    weak: 'Weak',
     failed_tools: 'Failed tools',
     unknown: 'Unrated',
   },

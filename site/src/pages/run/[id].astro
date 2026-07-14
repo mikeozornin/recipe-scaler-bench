@@ -40,6 +40,13 @@ const items = screens
     label: s.label,
     thumb: thumbImagePath(run.images[s.key]!, base),
   }));
+
+const timeRaw = run.time?.replace(/^~\s*/, '').trim() || '';
+const tokensRaw = run.tokens?.trim() || '';
+const costRaw = run.cost?.trim() || '';
+const time = timeRaw && timeRaw !== '—' ? timeRaw : '';
+const tokens = tokensRaw && tokensRaw !== '—' ? tokensRaw : '';
+const cost = costRaw && costRaw !== '—' ? costRaw : '';
 ---
 
 <BaseLayout locale={locale} title={`${run.model} (${run.agent})`} description={comment}>
@@ -56,10 +63,18 @@ const items = screens
       {run.model} ({run.agent})
     </h1>
     <div class="flex flex-wrap items-center gap-3 text-sm text-[oklch(var(--foreground))]">
-      <span>{m.colTime}: <strong class="text-[oklch(var(--foreground))]">{run.time?.replace(/^~\s*/, '') || '—'}</strong></span>
-      <span>{m.colTokens}: <strong class="text-[oklch(var(--foreground))]">{run.tokens ?? '—'}</strong></span>
-      <span>{m.colCost}: <strong class="text-[oklch(var(--foreground))]">{run.cost ?? '—'}</strong></span>
-      <span class={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
+      {time && (
+        <span>{m.colTime}: <strong class="text-[oklch(var(--foreground))]">{time}</strong></span>
+      )}
+      {tokens && (
+        <span>{m.colTokens}: <strong class="text-[oklch(var(--foreground))]">{tokens}</strong></span>
+      )}
+      {cost && (
+        <span>{m.colCost}: <strong class="text-[oklch(var(--foreground))]">{cost}</strong></span>
+      )}
+      {run.tier !== 'unknown' && (
+        <span class={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
+      )}
     </div>
     <p class="max-w-3xl">{comment}</p>
   </header>

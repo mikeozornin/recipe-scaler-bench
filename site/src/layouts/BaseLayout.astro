@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import { ThemeSwitcher } from '../components/ThemeSwitcher';
 import type { Locale } from '../lib/types';
@@ -18,14 +19,20 @@ const pageTitle = title ? `${title} · ${m.siteTitle}` : `${m.siteTitle} — ${m
 const desc = description ?? m.heroLead;
 const pathname = Astro.url.pathname;
 const otherLocale: Locale = locale === 'ru' ? 'en' : 'ru';
-const otherHref = switchLocaleHref(pathname, base, otherLocale);
+const otherHref = switchLocaleHref(
+  pathname,
+  base,
+  otherLocale,
+  Astro.url.search,
+  Astro.url.hash,
+);
 const home = homeHref(locale, base);
 const about = aboutHref(locale, base);
 const isAbout = pathname.includes('/about');
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -42,13 +49,14 @@ const isAbout = pathname.includes('/about');
     />
     <link rel="preload" as="image" href={`${base}icon-192.png`} fetchpriority="high" />
     <title>{pageTitle}</title>
+    <ClientRouter fallback="swap" />
     <script
       is:inline
       set:html={`
       (function () {
-        var pageLocale = ${JSON.stringify(locale)};
         var siteBase = ${JSON.stringify(base)};
         var PREFS_KEY = 'recipe-scaler-bench-prefs';
+        var VIEW_COOKIE = 'rsb-view';
         var LEGACY_THEME_KEY = 'prefered-mode';
         var VALID_THEME = { system: true, light: true, dark: true, flashlight: true };
 
@@ -72,6 +80,12 @@ const isAbout = pathname.includes('/about');
           return { theme: 'system', view: 'table' };
         }
 
+        function syncViewCookie(view) {
+          try {
+            document.cookie = VIEW_COOKIE + '=' + view + ';path=/;max-age=31536000;SameSite=Lax';
+          } catch (e) {}
+        }
+
         function prefersDark() {
           return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
         }
@@ -82,7 +96,7 @@ const isAbout = pathname.includes('/about');
           return prefersDark() ? 'dark' : 'light';
         }
 
-        function switchLocaleHref(pathname, base, target) {
+        function switchLocaleHref(pathname, base, target, search, hash) {
           var b = base.endsWith('/') ? base.slice(0, -1) : base;
           var path = pathname;
           if (path.indexOf(b) === 0) path = path.slice(b.length) || '/';
@@ -91,25 +105,71 @@ const isAbout = pathname.includes('/about');
           var rest = isEn ? path.slice(3) || '/' : path;
           if (rest.charAt(0) !== '/') rest = '/' + rest;
           if (rest === '') rest = '/';
+          var qs = !search || search === '?' ? '' : search.charAt(0) === '?' ? search : '?' + search;
+          var frag = !hash || hash === '#' ? '' : hash.charAt(0) === '#' ? hash : '#' + hash;
+          var href;
           if (target === 'en') {
-            if (rest === '/') return b + '/en/';
-            return b + '/en' + (rest.charAt(rest.length - 1) === '/' ? rest : rest + '/');
+            href = rest === '/' ? b + '/en/' : b + '/en' + (rest.charAt(rest.length - 1) === '/' ? rest : rest + '/');
+          } else {
+            href = rest === '/' ? b + '/' : b + (rest.charAt(rest.length - 1) === '/' ? rest : rest + '/');
           }
-          if (rest === '/') return b + '/';
-          return b + (rest.charAt(rest.length - 1) === '/' ? rest : rest + '/');
+          return href + qs + frag;
         }
 
-        var prefs = readPrefs();
-        var mode = VALID_THEME[prefs.theme] ? prefs.theme : 'system';
-        var root = document.documentElement;
-        root.setAttribute('data-theme-mode', mode);
-        root.setAttribute('data-theme-resolved', resolveTheme(mode));
+        function applyShellPrefs(opts) {
+          opts = opts || {};
+          var prefs = readPrefs();
+          var mode = VALID_THEME[prefs.theme] ? prefs.theme : 'system';
+          var root = document.documentElement;
+          root.setAttribute('data-theme-mode', mode);
+          root.setAttribute('data-theme-resolved', resolveTheme(mode));
 
-        if ((prefs.locale === 'en' || prefs.locale === 'ru') && prefs.locale !== pageLocale) {
-          var next = switchLocaleHref(location.pathname, siteBase, prefs.locale);
-          if (next && next !== location.pathname) {
-            location.replace(next);
+          var view = prefs.view === 'gallery' ? 'gallery' : 'table';
+          root.setAttribute('data-view', view);
+          syncViewCookie(view);
+
+          if (opts.deferExplorer) {
+            var hasExplorer = !!document.querySelector('.results-explorer');
+            if (
+              hasExplorer &&
+              ((location.search && location.search.length > 1) || view === 'gallery')
+            ) {
+              root.classList.add('defer-explorer');
+            } else {
+              root.classList.remove('defer-explorer');
+            }
           }
+
+          if (opts.redirectLocale !== false) {
+            var pageLocale = root.getAttribute('lang') === 'en' ? 'en' : 'ru';
+            if ((prefs.locale === 'en' || prefs.locale === 'ru') && prefs.locale !== pageLocale) {
+              var next = switchLocaleHref(
+                location.pathname,
+                siteBase,
+                prefs.locale,
+                location.search,
+                location.hash,
+              );
+              var current = location.pathname + location.search + location.hash;
+              if (next && next !== current) {
+                location.replace(next);
+              }
+            }
+          }
+        }
+
+        applyShellPrefs({ deferExplorer: true });
+
+        if (!window.__rsbShellPrefsBound) {
+          window.__rsbShellPrefsBound = true;
+          // Before React hydrates the swapped page: hide mismatched view/filters.
+          document.addEventListener('astro:after-swap', function () {
+            applyShellPrefs({ deferExplorer: true });
+          });
+          // Keep theme/data-view in sync without re-hiding after React revealed the explorer.
+          document.addEventListener('astro:page-load', function () {
+            applyShellPrefs({ deferExplorer: false });
+          });
         }
       })();
     `}
@@ -158,24 +218,46 @@ const isAbout = pathname.includes('/about');
           <script is:inline>
             (function () {
               var PREFS_KEY = 'recipe-scaler-bench-prefs';
-              document.addEventListener('click', function (e) {
-                var el = e.target && e.target.closest ? e.target.closest('[data-locale-switch]') : null;
-                if (!el) return;
-                var loc = el.getAttribute('data-locale-switch');
-                if (loc !== 'en' && loc !== 'ru') return;
-                try {
-                  var prefs = {};
+
+              function syncLocaleSwitchHref(el) {
+                var url = new URL(el.getAttribute('href') || el.href, location.href);
+                el.setAttribute('href', url.pathname + location.search + location.hash);
+              }
+
+              // Capture phase: update href before ClientRouter handles the click.
+              document.addEventListener(
+                'click',
+                function (e) {
+                  var el = e.target && e.target.closest ? e.target.closest('[data-locale-switch]') : null;
+                  if (!el) return;
+                  var loc = el.getAttribute('data-locale-switch');
+                  if (loc !== 'en' && loc !== 'ru') return;
                   try {
-                    prefs = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}') || {};
-                  } catch (err) {
-                    prefs = {};
-                  }
-                  prefs.locale = loc;
-                  if (!prefs.theme) prefs.theme = 'system';
-                  if (!prefs.view) prefs.view = 'table';
-                  localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
-                } catch (err) {}
-              });
+                    var prefs = {};
+                    try {
+                      prefs = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}') || {};
+                    } catch (err) {
+                      prefs = {};
+                    }
+                    prefs.locale = loc;
+                    if (!prefs.theme) prefs.theme = 'system';
+                    if (!prefs.view) prefs.view = 'table';
+                    localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
+                  } catch (err) {}
+                  syncLocaleSwitchHref(el);
+                },
+                true,
+              );
+
+              // Keep middle-click / open-in-new-tab hrefs fresh too.
+              document.addEventListener(
+                'pointerdown',
+                function (e) {
+                  var el = e.target && e.target.closest ? e.target.closest('[data-locale-switch]') : null;
+                  if (el) syncLocaleSwitchHref(el);
+                },
+                true,
+              );
             })();
           </script>
           <ThemeSwitcher client:load locale={locale} />

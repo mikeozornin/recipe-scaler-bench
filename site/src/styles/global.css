@@ -42,6 +42,20 @@
   --flashlight-glow-offset-y: 14px;
 }
 
+/* Avoid flash of unfiltered list when URL has filter params (static HTML is query-agnostic). */
+html.defer-explorer .results-explorer {
+  visibility: hidden;
+}
+
+/* View toggle active state from prefs (set before React hydrates as table by default). */
+.results-explorer .view-btn {
+  background-color: oklch(var(--card));
+}
+html[data-view='table'] .results-explorer .view-btn[data-view-btn='table'],
+html[data-view='gallery'] .results-explorer .view-btn[data-view-btn='gallery'] {
+  background-color: oklch(var(--accent));
+}
+
 html[data-theme-resolved="light"] {
   --background: 0.995 0.004 286;
   --foreground: 0.19 0.016 286;
@@ -101,6 +115,8 @@ body {
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .text-caption {
@@ -254,6 +270,7 @@ html[data-theme-mode="flashlight"] body::before {
   margin: 0 auto;
   padding: 1.5rem 1rem 4rem;
   box-sizing: border-box;
+  flex: 1 0 auto;
 }
 
 @media (min-width: 640px) {
@@ -348,11 +365,11 @@ html[data-theme-resolved="dark"] .run-link:hover {
 }
 .tier-fancy { background: oklch(0.92 0.06 145); color: oklch(0.35 0.1 145); }
 .tier-mid { background: oklch(0.93 0.05 250); color: oklch(0.35 0.1 250); }
-.tier-slop { background: oklch(0.93 0.06 70); color: oklch(0.4 0.1 70); }
+.tier-weak { background: oklch(0.93 0.06 70); color: oklch(0.4 0.1 70); }
 .tier-failed_tools { background: oklch(0.93 0.06 25); color: oklch(0.4 0.12 25); }
 .tier-unknown { background: oklch(var(--muted)); color: oklch(var(--foreground)); }
 
 html[data-theme-resolved="dark"] .tier-fancy { background: oklch(0.32 0.06 145); color: oklch(0.9 0.05 145); }
 html[data-theme-resolved="dark"] .tier-mid { background: oklch(0.32 0.05 250); color: oklch(0.9 0.05 250); }
-html[data-theme-resolved="dark"] .tier-slop { background: oklch(0.32 0.05 70); color: oklch(0.9 0.05 70); }
+html[data-theme-resolved="dark"] .tier-weak { background: oklch(0.32 0.05 70); color: oklch(0.9 0.05 70); }
 html[data-theme-resolved="dark"] .tier-failed_tools { background: oklch(0.32 0.06 25); color: oklch(0.9 0.05 25); }

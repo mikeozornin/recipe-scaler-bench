@@ -3,8 +3,20 @@ import type { Locale } from './types';
 /** Single localStorage key for all UI preferences */
 export const PREFS_STORAGE_KEY = 'recipe-scaler-bench-prefs';
 
+/** Cookie so SSR can render gallery/table without a post-hydrate flash */
+export const VIEW_COOKIE = 'rsb-view';
+
 /** Legacy theme-only key — migrated on first read */
 const LEGACY_THEME_KEY = 'prefered-mode';
+
+function syncViewCookie(view: ViewMode) {
+  if (typeof document === 'undefined') return;
+  try {
+    document.cookie = `${VIEW_COOKIE}=${view};path=/;max-age=31536000;SameSite=Lax`;
+  } catch {
+    /* ignore */
+  }
+}
 
 export type ThemeMode = 'system' | 'light' | 'dark' | 'flashlight';
 export type ViewMode = 'table' | 'gallery';
@@ -119,6 +131,7 @@ export function setPrefs(partial: Partial<SitePrefs>): SitePrefs {
     } catch {
       /* ignore */
     }
+    if (partial.view !== undefined) syncViewCookie(next.view);
   }
   return next;
 }

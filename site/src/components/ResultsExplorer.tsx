@@ -1,9 +1,17 @@
-import { useDeferredValue, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { ArrowUpDown, Check, LayoutGrid, List } from 'lucide-react';
 import type { Locale, QualityTier, Run } from '../lib/types';
 import { t } from '../lib/i18n';
 import { getPrefs, setPrefs, type SortKey, type ViewMode } from '../lib/prefs';
-import { filterAndSortRuns, filterToQuery, queryToFilter, runHrefWithFilter, type RunFilter } from '../lib/filter';
+import {
+  DEFAULT_FILTER,
+  filterAndSortRuns,
+  filterToQuery,
+  queryToFilter,
+  runHrefWithFilter,
+  type RunFilter,
+} from '../lib/filter';
 import { primaryThumbFile, TIER_ORDER, thumbImagePath } from '../lib/runs';
 import { highlightText, tokenizeQuery } from '../lib/search';
 import { cn } from '../lib/utils';
@@ -25,21 +33,30 @@ type Props = {
   locale: Locale;
   base: string;
   kpis: ExplorerKpis;
+  /** SSR seed from the request URL (and cookie for view) — avoids filter/view flash. */
+  initialFilter?: RunFilter;
+  initialView?: ViewMode;
 };
 
+function nonempty(value: string | null | undefined): string {
+  const v = value?.trim() || '';
+  return !v || v === '—' ? '' : v;
+}
+
 function formatCostTokens(run: Run): string {
-  const cost = run.cost?.trim() || '—';
-  const tokens = run.tokens?.trim() || '—';
-  if (cost === '—' && tokens === '—') return '—';
-  if (tokens === '—') return cost;
-  if (cost === '—') return tokens;
-  return `${cost} · ${tokens}`;
+  return [nonempty(run.cost), nonempty(run.tokens)].filter(Boolean).join(' · ');
 }
 
 /** Drop estimate tildes: "~19 min" → "19 min" */
 function formatTime(time: string | null | undefined): string {
-  if (!time?.trim()) return '—';
-  return time.replace(/^~\s*/, '').trim() || '—';
+  const v = nonempty(time);
+  return v ? v.replace(/^~\s*/, '').trim() : '';
+}
+
+/** Cost · tokens · time — omit missing parts (no leading "— ·"). */
+function formatRunMeta(run: Run): string {
+  const parts = [formatCostTokens(run), formatTime(run.time)].filter(Boolean);
+  return parts.length > 0 ? parts.join(' · ') : '—';
 }
 
 /** «Opus 4.7, xhigh (Claude Code), paper» */
@@ -49,14 +66,38 @@ function formatRunTitle(run: Run): string {
 
 const runLinkClass = 'run-link font-medium leading-snug';
 
-export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
+const galleryGridClass =
+  'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+
+/** Consecutive runs sharing a tier → one row group (for tier sorts in gallery). */
+function groupRunsByTier(list: Run[]): Run[][] {
+  const groups: Run[][] = [];
+  for (const run of list) {
+    const last = groups[groups.length - 1];
+    if (last && last[0].tier === run.tier) {
+      last.push(run);
+    } else {
+      groups.push([run]);
+    }
+  }
+  return groups;
+}
+
+export function ResultsExplorer({
+  runs,
+  locale,
+  base,
+  kpis,
+  initialFilter = DEFAULT_FILTER,
+  initialView = 'table',
+}: Props) {
   const m = t(locale);
-  const [view, setView] = useState<ViewMode>('table');
-  const [agent, setAgent] = useState('all');
-  const [tier, setTier] = useState<'all' | QualityTier>('all');
-  const [sort, setSort] = useState<SortKey>('tier-good');
+  const [view, setView] = useState<ViewMode>(initialView);
+  const [agent, setAgent] = useState(initialFilter.agent);
+  const [tier, setTier] = useState<'all' | QualityTier>(initialFilter.tier);
+  const [sort, setSort] = useState<SortKey>(initialFilter.sort);
   const [sortOpen, setSortOpen] = useState(false);
-  const [q, setQ] = useState('');
+  const [q, setQ] = useState(initialFilter.q);
   const deferredQ = useDeferredValue(q);
   const [filtersStuck, setFiltersStuck] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -65,19 +106,24 @@ export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
 
   const searchTokens = useMemo(() => tokenizeQuery(deferredQ), [deferredQ]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prefs = getPrefs();
-    setView(prefs.view);
-    // URL filter params override the persisted sort default.
+    // URL is source of truth; prefs.sort only fills a missing sort param.
     const urlFilter = queryToFilter(new URLSearchParams(window.location.search), prefs.sort);
-    setAgent(urlFilter.agent);
-    setTier(urlFilter.tier);
-    setSort(urlFilter.sort);
-    setQ(urlFilter.q);
+    flushSync(() => {
+      setAgent(urlFilter.agent);
+      setTier(urlFilter.tier);
+      setSort(urlFilter.sort);
+      setQ(urlFilter.q);
+      setView(prefs.view);
+    });
+    document.documentElement.setAttribute('data-view', prefs.view);
+    document.documentElement.classList.remove('defer-explorer');
   }, []);
 
   const setViewPersist = (next: ViewMode) => {
     setView(next);
+    document.documentElement.setAttribute('data-view', next);
     setPrefs({ view: next });
   };
 
@@ -92,9 +138,10 @@ export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const qs = filterToQuery({ agent, tier, q: deferredQ, sort });
-    const { pathname, hash } = window.location;
+    const { pathname, search, hash } = window.location;
     const nextUrl = `${pathname}${qs}${hash}`;
-    if (nextUrl !== window.location.href) {
+    const current = `${pathname}${search}${hash}`;
+    if (nextUrl !== current) {
       window.history.replaceState(window.history.state, '', nextUrl);
     }
   }, [agent, tier, deferredQ, sort]);
@@ -153,19 +200,22 @@ export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
 
   const inputClass =
     'h-9 w-full min-w-[12rem] flex-1 rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] px-3 text-sm text-[oklch(var(--foreground))] placeholder:text-[oklch(var(--muted-foreground))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]';
-  const iconBtnClass = (active: boolean) =>
-    cn(
-      'inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] text-[oklch(var(--foreground))] transition hover:bg-[oklch(var(--accent))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]',
-      active && 'bg-[oklch(var(--accent))]',
-    );
+  const toolbarIconBtnClass =
+    'inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] text-[oklch(var(--foreground))] transition hover:bg-[oklch(var(--accent))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]';
+  const viewBtnClass =
+    'view-btn inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-[oklch(var(--border))] text-[oklch(var(--foreground))] transition hover:bg-[oklch(var(--accent))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]';
 
   const agentOptions = [
     { value: 'all', label: m.filterAll },
     ...agents.map((a) => ({ value: a, label: a })),
   ];
+  const hasUnrated = useMemo(() => runs.some((r) => r.tier === 'unknown'), [runs]);
   const tierOptions = [
     { value: 'all', label: m.filterAll },
-    ...TIER_ORDER.map((ti) => ({ value: ti, label: m.tiers[ti] })),
+    ...TIER_ORDER.filter((ti) => ti !== 'unknown' || hasUnrated).map((ti) => ({
+      value: ti,
+      label: m.tiers[ti],
+    })),
   ];
   const sortOptions: { value: SortKey; label: string }[] = [
     { value: 'cost-desc', label: m.sortCostDesc },
@@ -176,9 +226,50 @@ export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
     { value: 'alpha-desc', label: m.sortAlphaDesc },
   ];
   const activeSortLabel = sortOptions.find((o) => o.value === sort)?.label ?? m.sortLabel;
+  const isTierSort = sort === 'tier-good' || sort === 'tier-bad';
+
+  const renderGalleryCard = (run: Run) => {
+    const thumb = primaryThumbFile(run);
+    const href = runHrefWithFilter(run.id, locale, base, filter);
+    return (
+      <a
+        key={run.id}
+        href={href}
+        className="group overflow-hidden rounded-xl bg-[oklch(var(--muted))] transition"
+      >
+        <div className="aspect-[16/10] bg-[oklch(var(--muted))]">
+          {thumb ? (
+            <img
+              src={thumbImagePath(thumb, base)}
+              alt=""
+              loading="lazy"
+              className="h-full w-full object-cover object-top transition group-hover:scale-[1.02]"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-sm text-[oklch(var(--foreground))]">
+              {m.noImage}
+            </div>
+          )}
+        </div>
+        <div className="space-y-1 p-3">
+          <div className="flex items-start justify-between gap-2">
+            <div className={`${runLinkClass} text-sm`}>
+              {highlightText(formatRunTitle(run), searchTokens)}
+            </div>
+            {run.tier !== 'unknown' && (
+              <span className={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
+            )}
+          </div>
+          <div className="text-caption text-[oklch(var(--foreground))]">
+            {formatRunMeta(run)}
+          </div>
+        </div>
+      </a>
+    );
+  };
 
   return (
-    <div className="space-y-4">
+    <div className="results-explorer space-y-4">
       <div className="flex flex-wrap gap-x-10 gap-y-4">
         <div>
           <div className="text-[2.25rem] font-bold leading-none tracking-tight">{kpis.runs}</div>
@@ -237,7 +328,7 @@ export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
         <div ref={sortRef} className="relative shrink-0">
           <button
             type="button"
-            className={iconBtnClass(false)}
+            className={toolbarIconBtnClass}
             aria-haspopup="listbox"
             aria-expanded={sortOpen}
             aria-controls={sortMenuId}
@@ -286,7 +377,8 @@ export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
         >
           <button
             type="button"
-            className={cn(iconBtnClass(view === 'table'), 'rounded-r-none border-r-0')}
+            className={cn(viewBtnClass, 'rounded-r-none border-r-0')}
+            data-view-btn="table"
             onClick={() => setViewPersist('table')}
             aria-pressed={view === 'table'}
             aria-label={m.viewTable}
@@ -296,7 +388,8 @@ export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
           </button>
           <button
             type="button"
-            className={cn(iconBtnClass(view === 'gallery'), 'rounded-l-none')}
+            className={cn(viewBtnClass, 'rounded-l-none')}
+            data-view-btn="gallery"
             onClick={() => setViewPersist('gallery')}
             aria-pressed={view === 'gallery'}
             aria-label={m.viewGallery}
@@ -359,10 +452,11 @@ export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
                     </a>
                     <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-1">
                       <div className="whitespace-nowrap leading-snug">
-                        {formatCostTokens(run)}
-                        {` · ${formatTime(run.time)}`}
+                        {formatRunMeta(run)}
                       </div>
-                      <span className={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
+                      {run.tier !== 'unknown' && (
+                        <span className={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
+                      )}
                     </div>
                   </div>
                   <p className="leading-snug">
@@ -373,47 +467,16 @@ export function ResultsExplorer({ runs, locale, base, kpis }: Props) {
             );
           })}
         </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((run) => {
-            const thumb = primaryThumbFile(run);
-            const href = runHrefWithFilter(run.id, locale, base, filter);
-            return (
-              <a
-                key={run.id}
-                href={href}
-                className="group overflow-hidden rounded-xl bg-[oklch(var(--muted))] transition"
-              >
-                <div className="aspect-[16/10] bg-[oklch(var(--muted))]">
-                  {thumb ? (
-                    <img
-                      src={thumbImagePath(thumb, base)}
-                      alt=""
-                      loading="lazy"
-                      className="h-full w-full object-cover object-top transition group-hover:scale-[1.02]"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-sm text-[oklch(var(--foreground))]">
-                      {m.noImage}
-                    </div>
-                  )}
-                </div>
-                <div className="space-y-1 p-3">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className={`${runLinkClass} text-sm`}>
-                      {highlightText(formatRunTitle(run), searchTokens)}
-                    </div>
-                    <span className={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
-                  </div>
-                  <div className="text-caption text-[oklch(var(--foreground))]">
-                    {formatCostTokens(run)}
-                    {` · ${formatTime(run.time)}`}
-                  </div>
-                </div>
-              </a>
-            );
-          })}
+      ) : isTierSort ? (
+        <div className="flex flex-col gap-4">
+          {groupRunsByTier(filtered).map((group) => (
+            <div key={group[0].tier} className={galleryGridClass}>
+              {group.map(renderGalleryCard)}
+            </div>
+          ))}
         </div>
+      ) : (
+        <div className={galleryGridClass}>{filtered.map(renderGalleryCard)}</div>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-export type QualityTier = 'fancy' | 'mid' | 'slop' | 'failed_tools' | 'unknown';
+export type QualityTier = 'fancy' | 'mid' | 'weak' | 'failed_tools' | 'unknown';
 export type Tool = 'paper' | 'figma';
 export type Locale = 'ru' | 'en';
 

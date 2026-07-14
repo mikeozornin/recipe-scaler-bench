@@ -4,12 +4,16 @@ import { ResultsExplorer } from '../../components/ResultsExplorer';
 import { kpis, sortedRuns } from '../../lib/runs';
 import { t } from '../../lib/i18n';
 import { kpiAgentsLabel, kpiImagesLabel, kpiRunsLabel } from '../../lib/plural';
+import { queryToFilter } from '../../lib/filter';
+import { DEFAULT_PREFS } from '../../lib/prefs';
 
 const locale = 'en' as const;
 const m = t(locale);
 const base = import.meta.env.BASE_URL;
 const list = sortedRuns();
 const stats = kpis(list);
+// Static prerender: search is empty at build; client applies live query before first paint.
+const initialFilter = queryToFilter(Astro.url.searchParams, DEFAULT_PREFS.sort);
 ---
 
 <BaseLayout locale={locale}>
@@ -18,6 +22,7 @@ const stats = kpis(list);
     runs={list}
     locale={locale}
     base={base}
+    initialFilter={initialFilter}
     kpis={{
       runs: stats.runs,
       imageSlots: stats.imageSlots,

@@ -62,7 +62,14 @@ export function aboutHref(locale: Locale, base: string): string {
   return locale === 'en' ? `${b}/en/about/` : `${b}/about/`;
 }
 
-export function switchLocaleHref(pathname: string, base: string, target: Locale): string {
+/** Map a pathname to the other locale, preserving query/hash when provided. */
+export function switchLocaleHref(
+  pathname: string,
+  base: string,
+  target: Locale,
+  search = '',
+  hash = '',
+): string {
   const b = base.endsWith('/') ? base.slice(0, -1) : base;
   let path = pathname;
   if (path.startsWith(b)) path = path.slice(b.length) || '/';
@@ -73,12 +80,21 @@ export function switchLocaleHref(pathname: string, base: string, target: Locale)
   if (!rest.startsWith('/')) rest = `/${rest}`;
   if (rest === '') rest = '/';
 
+  const qs =
+    !search || search === '?'
+      ? ''
+      : search.startsWith('?')
+        ? search
+        : `?${search}`;
+  const frag = !hash || hash === '#' ? '' : hash.startsWith('#') ? hash : `#${hash}`;
+
+  let href: string;
   if (target === 'en') {
-    if (rest === '/') return `${b}/en/`;
-    return `${b}/en${rest.endsWith('/') ? rest : `${rest}/`}`;
+    href = rest === '/' ? `${b}/en/` : `${b}/en${rest.endsWith('/') ? rest : `${rest}/`}`;
+  } else {
+    href = rest === '/' ? `${b}/` : `${b}${rest.endsWith('/') ? rest : `${rest}/`}`;
   }
-  if (rest === '/') return `${b}/`;
-  return `${b}${rest.endsWith('/') ? rest : `${rest}/`}`;
+  return `${href}${qs}${frag}`;
 }
 
 export function kpis(list: Run[] = runs) {
@@ -97,4 +113,4 @@ export function kpis(list: Run[] = runs) {
   };
 }
 
-export const TIER_ORDER: QualityTier[] = ['fancy', 'mid', 'slop', 'failed_tools', 'unknown'];
+export const TIER_ORDER: QualityTier[] = ['fancy', 'mid', 'weak', 'failed_tools', 'unknown'];
