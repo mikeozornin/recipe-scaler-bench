@@ -1,5 +1,6 @@
 import type { Locale, QualityTier, Run } from './types';
 import type { SortKey } from './prefs';
+import { modelReleaseTimestamp } from './model-release';
 import { runHref, runs, TIER_ORDER } from './runs';
 import { matchesAllTokens, tokenizeQuery } from './search';
 
@@ -36,6 +37,8 @@ const VALID_SORTS: Record<SortKey, true> = {
   'cost-asc': true,
   'tier-good': true,
   'tier-bad': true,
+  'date-desc': true,
+  'date-asc': true,
   'alpha-asc': true,
   'alpha-desc': true,
 };
@@ -88,6 +91,22 @@ export function compareRuns(a: Run, b: Run, sort: SortKey, locale: Locale): numb
       return (
         tierRank(b.tier) - tierRank(a.tier) ||
         formatRunTitle(a).localeCompare(formatRunTitle(b), collator)
+      );
+    case 'date-desc':
+      return (
+        compareNullableNumber(
+          modelReleaseTimestamp(a.model),
+          modelReleaseTimestamp(b.model),
+          true,
+        ) || formatRunTitle(a).localeCompare(formatRunTitle(b), collator)
+      );
+    case 'date-asc':
+      return (
+        compareNullableNumber(
+          modelReleaseTimestamp(a.model),
+          modelReleaseTimestamp(b.model),
+          false,
+        ) || formatRunTitle(a).localeCompare(formatRunTitle(b), collator)
       );
     case 'alpha-asc':
       return formatRunTitle(a).localeCompare(formatRunTitle(b), collator);

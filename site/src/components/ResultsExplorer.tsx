@@ -222,6 +222,8 @@ export function ResultsExplorer({
     { value: 'cost-asc', label: m.sortCostAsc },
     { value: 'tier-good', label: m.sortTierGood },
     { value: 'tier-bad', label: m.sortTierBad },
+    { value: 'date-desc', label: m.sortDateDesc },
+    { value: 'date-asc', label: m.sortDateAsc },
     { value: 'alpha-asc', label: m.sortAlphaAsc },
     { value: 'alpha-desc', label: m.sortAlphaDesc },
   ];

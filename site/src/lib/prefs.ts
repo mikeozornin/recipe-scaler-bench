@@ -25,6 +25,8 @@ export type SortKey =
   | 'cost-asc'
   | 'tier-good'
   | 'tier-bad'
+  | 'date-desc'
+  | 'date-asc'
   | 'alpha-asc'
   | 'alpha-desc';
 
@@ -59,6 +61,8 @@ const VALID_SORT: Record<SortKey, true> = {
   'cost-asc': true,
   'tier-good': true,
   'tier-bad': true,
+  'date-desc': true,
+  'date-asc': true,
   'alpha-asc': true,
   'alpha-desc': true,
 };
