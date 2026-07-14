@@ -7,7 +7,7 @@
     "time": "15 min",
     "tokens": null,
     "cost": null,
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Очень плохо использует тулы, чудовищная интеграция в инструмент",
       "en": "Very bad at using tools, monstrous integration into the tool"
@@ -204,7 +204,7 @@
     "time": "15 min",
     "tokens": null,
     "cost": "26% квоты plus·5h",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Очень дешево по сравнению с опусом, результат соответствующий. Худший результат из СОТА-моделей",
       "en": "Very cheap compared to opus, the result is accordingly. The worst result among SOTA models"
@@ -324,7 +324,7 @@
     "time": "8 min",
     "tokens": "3.4M",
     "cost": "$2.01",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Результат сопоставимый с Гемини в Антигравити. Очень плохо для модели такого уровня",
       "en": "Result comparable to Gemini in Antigravity. Very bad for a model of this level"
@@ -344,7 +344,7 @@
     "time": "18 min",
     "tokens": "3M",
     "cost": "$1.65",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Впечатления смешанные. Мобилка в целом норм. Промо хуже",
       "en": "Mixed impressions. Mobile is generally fine. Promo is worse"
@@ -404,7 +404,7 @@
     "time": "5 min",
     "tokens": "1.3M",
     "cost": "$0.33",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Очень примитивно, но очень дешево. Не соответствует заявленному уровню",
       "en": "Very primitive, but also very cheap. Doesn't match the claimed level"
@@ -424,7 +424,7 @@
     "time": null,
     "tokens": "1.6M",
     "cost": "$0.21",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Сопоставим по стоимости с Composer 2, качество подросло, но всё ещё сильно не очень",
       "en": "Comparable in cost to Composer 2, quality has grown, but still very not great"
@@ -444,7 +444,7 @@
     "time": null,
     "tokens": "4.8M",
     "cost": "4.8M из 4.1B включённых",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Включённая модель Курсора; в подписке очень дёшево, в дизайне слабо",
       "en": "Included Cursor model; very cheap in subscription terms, weak on design"
@@ -464,7 +464,7 @@
     "time": "7 min",
     "tokens": null,
     "cost": "65 попугаев из 4500",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Вроде недорого, но пользоваться смысла нет, нейрослописный нейрослоп",
       "en": "Seems inexpensive, but no point in using it, neuro-slop"
@@ -484,7 +484,7 @@
     "time": "10 min",
     "tokens": null,
     "cost": "74 попугаев из 4500",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Default и Default Thinking — как будто разные модели; у reasoning даже хуже",
       "en": "Default and Default Thinking seem like different models; reasoning is even worse"
@@ -524,7 +524,7 @@
     "time": null,
     "tokens": "1.6M",
     "cost": "$0.06",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Самая модная опенсорс-модель на опенроутере. Очень так себе",
       "en": "The trendiest open-source model on Openrouter. Very so-so"
@@ -584,7 +584,7 @@
     "time": null,
     "tokens": null,
     "cost": "$0.83",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Тот же промпт со скиллом Google design; сравните с OpenCode Grok Build 0.1 без скилла",
       "en": "Same prompt with Google's design skill; compare with OpenCode Grok Build 0.1 without a skill"
@@ -594,6 +594,26 @@
       "desktop": "paper__kilo-code__grok-build-0.1-google-skill__desktop@2x.png",
       "mobile": "paper__kilo-code__grok-build-0.1-google-skill__mobile@2x.png",
       "promo": "paper__kilo-code__grok-build-0.1-google-skill__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-kilo-code-nemotron-3-ultra",
+    "tool": "paper",
+    "agent": "Kilo Code",
+    "model": "Nemotron 3 Ultra",
+    "time": null,
+    "tokens": null,
+    "cost": "$0.92",
+    "tier": "weak",
+    "comment": {
+      "ru": "Слабо, ничего выдающегося",
+      "en": "Weak, nothing outstanding"
+    },
+    "images": {
+      "all": "paper__kilo-code__nemotron-3-ultra__all@2x.png",
+      "desktop": "paper__kilo-code__nemotron-3-ultra__desktop@2x.png",
+      "mobile": "paper__kilo-code__nemotron-3-ultra__mobile@2x.png",
+      "promo": "paper__kilo-code__nemotron-3-ultra__promo@2x.png"
     }
   },
   {
@@ -621,7 +641,7 @@
     "time": "42 min",
     "tokens": "3.62M",
     "cost": "$1.78",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Мобилка лучше остального. Всё дублировалось, но сам стирал через скриншоты — 40+ минут",
       "en": "Mobile is better than the rest. Everything was duplicated, then erased via screenshots — 40+ minutes"
@@ -641,7 +661,7 @@
     "time": null,
     "tokens": "1.57M",
     "cost": "$1.09",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "В отличие от Курсора, OpenCode с моделью вообще не справился",
       "en": "Unlike Cursor, Opencode couldn't handle the model at all"
@@ -661,7 +681,7 @@
     "time": null,
     "tokens": "3.7M",
     "cost": "$1.24",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Быстро, слабо, дорого для такого качества",
       "en": "Fast, weak, expensive for this quality"
@@ -761,7 +781,7 @@
     "time": "3 min",
     "tokens": "242K",
     "cost": "$0.03",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Невероятно быстро, невероятно дешево, качество соответствующее",
       "en": "Incredibly fast, incredibly cheap, the quality is accordingly"
@@ -801,7 +821,7 @@
     "time": null,
     "tokens": "3.13M",
     "cost": "$7.95",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Дорого для своего результата, не улучшилось с 3.6 Max. Плохо работал с тулами",
       "en": "Expensive for its result, no improvement over 3.6 Max. Very bad at using tools"
@@ -841,7 +861,7 @@
     "time": "20 min",
     "tokens": null,
     "cost": "16% квоты plus·5h",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "В фигме чуть лучше, чем в пейпере. Верстает чудовищно просто",
       "en": "In Figma slightly better than in Paper. Lays things out monstrously simply"
@@ -861,7 +881,7 @@
     "time": "25 min",
     "tokens": null,
     "cost": "13% квоты lite·5h",
-    "tier": "failed_tools",
+    "tier": "weak",
     "comment": {
       "ru": "В целом похуже чем в пейпере. GLM не осилил корректный DOM",
       "en": "In general worse than in Paper. GLM didn't master a correct DOM"
@@ -881,7 +901,7 @@
     "time": "6 min",
     "tokens": "1.4M",
     "cost": "$0.43",
-    "tier": "slop",
+    "tier": "weak",
     "comment": {
       "ru": "Катастрофически плохо, хуже чем в пейпере",
       "en": "Catastrophically bad, worse than in Paper"
