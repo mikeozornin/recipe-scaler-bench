@@ -56,7 +56,6 @@ function RetinaImage({
       ref={ref}
       src={src}
       alt={alt}
-      loading="lazy"
       decoding="async"
       className={className}
       style={style}
