@@ -654,6 +654,26 @@
     }
   },
   {
+    "id": "paper-opencode-kimi-k3",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Kimi K3 (OpenRouter)",
+    "time": "20 min",
+    "tokens": null,
+    "cost": "$4.45",
+    "tier": "weak",
+    "comment": {
+      "ru": "—",
+      "en": "—"
+    },
+    "images": {
+      "all": "paper__opencode__kimi-k3__all@2x.png",
+      "desktop": "paper__opencode__kimi-k3__desktop@2x.png",
+      "mobile": "paper__opencode__kimi-k3__mobile@2x.png",
+      "promo": "paper__opencode__kimi-k3__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-opencode-grok-4-3",
     "tool": "paper",
     "agent": "OpenCode",

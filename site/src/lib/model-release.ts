@@ -47,6 +47,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // Moonshot
   'kimi 2.6': '2026-04-20',
   'kimi k2.6': '2026-04-20',
+  'kimi k3': '2026-07-16',
 
   // Xiaomi
   'mimo v2.5 pro': '2026-04-22',
