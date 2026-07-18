@@ -656,8 +656,8 @@
   {
     "id": "paper-opencode-kimi-k3",
     "tool": "paper",
-    "agent": "OpenCode",
-    "model": "Kimi K3 (OpenRouter)",
+    "agent": "OpenCode Go",
+    "model": "Kimi K3",
     "time": "20 min",
     "tokens": null,
     "cost": "$4.45",
