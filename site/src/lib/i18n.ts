@@ -3,6 +3,7 @@ import type { Locale, QualityTier } from './types';
 const ru = {
   siteTitle: 'Recipe Scaler Bench',
   siteTagline: 'AI-дизайн: агенты × модели на одной задаче',
+  navProduct: 'Перейти в Recipe Scaler',
   navResults: 'Результаты',
   navAbout: 'Об эксперименте',
   langRu: 'RU',
@@ -71,6 +72,7 @@ const ru = {
 const en: typeof ru = {
   siteTitle: 'Recipe Scaler Bench',
   siteTagline: 'AI design: agents × models on one task',
+  navProduct: 'Go to Recipe Scaler',
   navResults: 'Results',
   navAbout: 'About',
   langRu: 'RU',

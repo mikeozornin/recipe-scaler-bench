@@ -377,6 +377,26 @@
     }
   },
   {
+    "id": "paper-cursor-grok-4-6",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Grok 4.6, xhigh",
+    "time": "9 min",
+    "tokens": "4.9M",
+    "cost": "$1.48",
+    "tier": "mid",
+    "comment": {
+      "ru": "Быстро, в целом неплохо, очень самобытно. Плюсы: не превратил десктоп-интерфейс в промосайт. Минусы: всё же не совсем круто, мог бы картинки вставить куда",
+      "en": "Fast, overall decent, very distinctive. Pros: didn't turn the desktop UI into a promo site. Cons: still not quite great — could have put images somewhere"
+    },
+    "images": {
+      "all": "paper__cursor__grok-4.6__all@2x.png",
+      "desktop": "paper__cursor__grok-4.6__desktop@2x.png",
+      "mobile": "paper__cursor__grok-4.6__mobile@2x.png",
+      "promo": "paper__cursor__grok-4.6__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-glm-5-1",
     "tool": "paper",
     "agent": "Cursor",

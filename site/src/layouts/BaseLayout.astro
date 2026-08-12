@@ -187,6 +187,30 @@ const isAbout = pathname.includes('/about');
         </a>
         <nav class="flex items-center gap-1 font-medium">
           <a
+            href="https://recipe-scaler.ru"
+            class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 hover:bg-[oklch(var(--accent))]"
+            target="_blank"
+            rel="noopener noreferrer"
+            title={m.navProduct}
+          >
+            <span>{m.navProduct}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.25"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M7 17 17 7" />
+              <path d="M8 7h9v9" />
+            </svg>
+          </a>
+          <a
             href={home}
             class:list={[
               'rounded-md px-2.5 py-1.5 hover:bg-[oklch(var(--accent))]',
