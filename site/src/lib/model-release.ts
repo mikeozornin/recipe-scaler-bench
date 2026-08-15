@@ -30,6 +30,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'grok build': '2026-05-20',
 
   // Z.ai
+  'glm 5.3': '2026-08-14',
   'glm 5.1': '2026-04-07',
 
   // DeepSeek

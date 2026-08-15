@@ -417,6 +417,26 @@
     }
   },
   {
+    "id": "paper-cursor-glm-5-3-max",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "GLM 5.3 Max (z.ai coding plan)",
+    "time": "34 min",
+    "tokens": "9.7M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Ну это конечно сильно лучше, чем ГЛМ 5.2, который у меня не смог даже тулы нормально использовать (будет его перезапуск). Первые 10 минут через zai mcp изучал изображения, модель же не мультимодальная.",
+      "en": "Clearly much better than GLM 5.2, which couldn't even use tools properly for me (will rerun it). Spent the first 10 minutes studying images via zai MCP; the model isn't multimodal."
+    },
+    "images": {
+      "all": "paper__cursor__glm-5.3-max__all@2x.png",
+      "desktop": "paper__cursor__glm-5.3-max__desktop@2x.png",
+      "mobile": "paper__cursor__glm-5.3-max__mobile@2x.png",
+      "promo": "paper__cursor__glm-5.3-max__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-composer-2",
     "tool": "paper",
     "agent": "Cursor",
