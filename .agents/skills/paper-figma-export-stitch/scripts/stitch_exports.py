@@ -2,7 +2,10 @@
 """
 Horizontal PNG strip: desktop, mobile, promo — top-aligned, transparent canvas, fixed gap.
 
-Requires: Pillow (`pip install pillow`).
+The stitched output is optimized in place (pngquant if installed, else Pillow
+palette quantization). Disable with --no-optimize.
+
+Requires: Pillow (`pip install pillow`); pngquant is optional but preferred.
 """
 
 from __future__ import annotations
@@ -10,6 +13,12 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from optimize_png import DEFAULT_QUALITY, format_size, optimize_png  # noqa: E402
 
 
 def main() -> int:
@@ -27,6 +36,16 @@ def main() -> int:
         type=int,
         default=100,
         help="Horizontal spacing between images in pixels (default: 100)",
+    )
+    parser.add_argument(
+        "--quality",
+        default=DEFAULT_QUALITY,
+        help=f"pngquant lossy quality up to 90 (default: {DEFAULT_QUALITY})",
+    )
+    parser.add_argument(
+        "--no-optimize",
+        action="store_true",
+        help="Skip PNG optimization of the stitched output",
     )
     parser.add_argument(
         "images",
@@ -69,7 +88,18 @@ def main() -> int:
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     canvas.save(args.out, format="PNG")
-    print(args.out.resolve())
+
+    if args.no_optimize:
+        print(args.out.resolve())
+        return 0
+
+    before, after, method = optimize_png(args.out, args.quality)
+    saved = 100 - round(after / before * 100) if before else 0
+    print(f"{args.out.resolve()}")
+    print(
+        f"optimize: {method}, {format_size(before)} → {format_size(after)} "
+        f"({saved}% smaller)"
+    )
     return 0
 
 
