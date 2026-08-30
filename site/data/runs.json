@@ -437,6 +437,26 @@
     }
   },
   {
+    "id": "paper-cursor-glm-5-3-flash",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "GLM 5.3 Flash (z.ai coding plan)",
+    "time": "21 min",
+    "tokens": "9.7M",
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "Сильно слабее полного GLM 5.3 Max: vision есть, но ошибки вёрстки (servings, clipping) не исправил. ~9.7M токенов за 21 мин.",
+      "en": "Much weaker than full GLM 5.3 Max: vision is there, but layout bugs (servings overlap, clipping) were not fixed. ~9.7M tokens in 21 min."
+    },
+    "images": {
+      "all": "paper__cursor__glm-5.3-flash__all@2x.png",
+      "desktop": "paper__cursor__glm-5.3-flash__desktop@2x.png",
+      "mobile": "paper__cursor__glm-5.3-flash__mobile@2x.png",
+      "promo": "paper__cursor__glm-5.3-flash__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-composer-2",
     "tool": "paper",
     "agent": "Cursor",
