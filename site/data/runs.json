@@ -83,7 +83,7 @@
     "id": "paper-claude-code-fable-med",
     "tool": "paper",
     "agent": "Claude Code",
-    "model": "Fable, med",
+    "model": "Fable 5, med",
     "time": "23 min 19 s",
     "tokens": null,
     "cost": "37% квоты pro·5h",

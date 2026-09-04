@@ -11,7 +11,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'opus 4.6': '2026-02-05',
   'opus 4.7': '2026-04-16',
   'opus 4.8': '2026-05-28',
-  fable: '2026-06-09',
+  'fable 5': '2026-06-09',
 
   // OpenAI (OpenRouter listing ≈ public availability)
   'gpt 5.4': '2026-03-05',
