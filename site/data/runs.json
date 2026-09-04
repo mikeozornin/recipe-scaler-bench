@@ -914,6 +914,26 @@
     }
   },
   {
+    "id": "paper-opencode-muse-spark-1-3-free",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Muse Spark 1.3 Free*",
+    "time": "6 min 41 sec",
+    "tokens": null,
+    "cost": null,
+    "tier": "fancy",
+    "comment": {
+      "ru": "Симпатично, большой прогресс для модели. Очень быстро сделала. * Продукт компании Meta, которая признана в РФ экстремистской и запрещена.",
+      "en": "Nice, big progress for the model. Made very fast. * Product by Meta, recognized as extremist and banned in Russia."
+    },
+    "images": {
+      "all": "paper__opencode__muse-spark-1.3-free__all@2x.png",
+      "desktop": "paper__opencode__muse-spark-1.3-free__desktop@2x.png",
+      "mobile": "paper__opencode__muse-spark-1.3-free__mobile@2x.png",
+      "promo": "paper__opencode__muse-spark-1.3-free__promo@2x.png"
+    }
+  },
+  {
     "id": "figma-claude-code-opus-4-7",
     "tool": "figma",
     "agent": "Claude Code",
