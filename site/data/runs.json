@@ -257,6 +257,26 @@
     }
   },
   {
+    "id": "paper-codex-gpt-6-astra",
+    "tool": "paper",
+    "agent": "Codex",
+    "model": "GPT-6 Astra Extra High",
+    "time": null,
+    "tokens": null,
+    "cost": "40% квоты plus·5h",
+    "tier": "mid",
+    "comment": {
+      "ru": "Очень классный копирайтинг (раньше не обращал на него внимания). Дизайн средний, не-сота.",
+      "en": "Really strong copywriting (hadn't paid attention to it before). Design is average, not SOTA."
+    },
+    "images": {
+      "all": "paper__codex__6-astra-xhigh__all@2x.png",
+      "desktop": "paper__codex__6-astra-xhigh__desktop@2x.png",
+      "mobile": "paper__codex__6-astra-xhigh__mobile@2x.png",
+      "promo": "paper__codex__6-astra-xhigh__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-auto",
     "tool": "paper",
     "agent": "Cursor",
