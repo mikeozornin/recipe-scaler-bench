@@ -80,6 +80,26 @@
     }
   },
   {
+    "id": "paper-claude-code-opus-5",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 5, high",
+    "time": "20 min 21 s",
+    "tokens": null,
+    "cost": "27% квоты pro·5h",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Типичный Опус, очень похоже на предыдущие поколения",
+      "en": "Typical Opus, very similar to previous generations"
+    },
+    "images": {
+      "all": "paper__claude-code__opus-5__all@2x.png",
+      "desktop": "paper__claude-code__opus-5__desktop@2x.png",
+      "mobile": "paper__claude-code__opus-5__mobile@2x.png",
+      "promo": "paper__claude-code__opus-5__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-claude-code-fable-med",
     "tool": "paper",
     "agent": "Claude Code",
@@ -971,6 +991,26 @@
       "desktop": "figma__claude-code__opus-4.7__desktop@2x.png",
       "mobile": "figma__claude-code__opus-4.7__mobile@2x.png",
       "promo": "figma__claude-code__opus-4.7__promo@2x.png"
+    }
+  },
+  {
+    "id": "figma-claude-code-opus-5",
+    "tool": "figma",
+    "agent": "Claude Code",
+    "model": "Opus 5, high",
+    "time": "36 min 24 s",
+    "tokens": null,
+    "cost": "42% квоты pro·5h",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Типичный антропик и опус",
+      "en": "Typical Anthropic and Opus"
+    },
+    "images": {
+      "all": "figma__claude-code__opus-5__all@2x.png",
+      "desktop": "figma__claude-code__opus-5__desktop@2x.png",
+      "mobile": "figma__claude-code__opus-5__mobile@2x.png",
+      "promo": "figma__claude-code__opus-5__promo@2x.png"
     }
   },
   {
