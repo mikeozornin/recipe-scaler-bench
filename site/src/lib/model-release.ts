@@ -39,6 +39,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'glm 5.1': '2026-04-07',
 
   // DeepSeek
+  'deepseek v4.1 flash': '2026-09-10', // deepseek.com/news/deepseek-v4-1-flash
+  'deepseek 4.1 flash': '2026-09-10', // same model, label without the V
   'deepseek v4 pro': '2026-04-24',
   'deepseek v4': '2026-04-24',
 
