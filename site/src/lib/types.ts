@@ -14,6 +14,8 @@ export type Run = {
   tool: Tool;
   agent: string;
   model: string;
+  /** Experiment day (YYYY-MM-DD, Europe/Moscow), from Paper file createdAt */
+  runDate?: string;
   time: string | null;
   tokens: string | null;
   cost: string | null;

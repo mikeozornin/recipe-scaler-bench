@@ -38,7 +38,7 @@ ansible-playbook deploy-files.yml   # npm run build + rsync dist/
 
 ## Edit results
 
-1. Update `data/runs.json` (tiers, comments, image basenames)
+1. Update `data/runs.json` (tiers, comments, image basenames, `runDate`)
 2. `npm run prepare-images` — reads source PNGs from `data/source-png/`
    (committed to the repo). If a new run's PNG is missing locally, it is
    fetched once from the blog post (`https://mikeozornin.ru/blog/pictures/`)

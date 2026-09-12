@@ -2,6 +2,27 @@ import runsData from '../../data/runs.json';
 import imageManifest from '../../data/images-manifest.json';
 import type { Locale, QualityTier, Run } from './types';
 
+/** Format `runDate` (YYYY-MM-DD) for display. Empty if missing. */
+export function formatRunDate(iso: string | undefined, locale: Locale): string {
+  if (!iso) return '';
+  const [y, m, d] = iso.split('-').map(Number);
+  if (!y || !m || !d) return iso;
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return dt.toLocaleDateString(locale === 'en' ? 'en-GB' : 'ru-RU', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
+/** Epoch ms for sorting by experiment day; missing `runDate` → last. */
+export function runDateTimestamp(iso: string | undefined): number | null {
+  if (!iso) return null;
+  const t = Date.parse(`${iso}T00:00:00Z`);
+  return Number.isFinite(t) ? t : null;
+}
+
 export const runs = runsData as Run[];
 
 type ManifestEntry = { hashed?: string; width?: number; height?: number; bytes?: number };

@@ -12,7 +12,7 @@ import {
   runHrefWithFilter,
   type RunFilter,
 } from '../lib/filter';
-import { primaryThumbFile, TIER_ORDER, thumbImagePath } from '../lib/runs';
+import { formatRunDate, primaryThumbFile, TIER_ORDER, thumbImagePath } from '../lib/runs';
 import { highlightText, tokenizeQuery } from '../lib/search';
 import { cn } from '../lib/utils';
 import { Select } from './ui/Select';
@@ -53,9 +53,13 @@ function formatTime(time: string | null | undefined): string {
   return v ? v.replace(/^~\s*/, '').trim() : '';
 }
 
-/** Cost · tokens · time — omit missing parts (no leading "— ·"). */
-function formatRunMeta(run: Run): string {
-  const parts = [formatCostTokens(run), formatTime(run.time)].filter(Boolean);
+/** Date · cost · tokens · time — omit missing parts (no leading "— ·"). */
+function formatRunMeta(run: Run, locale: Locale): string {
+  const parts = [
+    formatRunDate(run.runDate, locale),
+    formatCostTokens(run),
+    formatTime(run.time),
+  ].filter(Boolean);
   return parts.length > 0 ? parts.join(' · ') : '—';
 }
 
@@ -264,7 +268,7 @@ export function ResultsExplorer({
             )}
           </div>
           <div className="text-caption text-[oklch(var(--foreground))]">
-            {formatRunMeta(run)}
+            {formatRunMeta(run, locale)}
           </div>
         </div>
       </a>
@@ -455,7 +459,7 @@ export function ResultsExplorer({
                     </a>
                     <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-1">
                       <div className="whitespace-nowrap leading-snug">
-                        {formatRunMeta(run)}
+                        {formatRunMeta(run, locale)}
                       </div>
                       {run.tier !== 'unknown' && (
                         <span className={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
