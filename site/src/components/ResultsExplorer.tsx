@@ -12,7 +12,7 @@ import {
   runHrefWithFilter,
   type RunFilter,
 } from '../lib/filter';
-import { formatRunDate, primaryThumbFile, TIER_ORDER, thumbImagePath } from '../lib/runs';
+import { formatModelReleaseDate, primaryThumbFile, TIER_ORDER, thumbImagePath } from '../lib/runs';
 import { highlightText, tokenizeQuery } from '../lib/search';
 import { cn } from '../lib/utils';
 import { Select } from './ui/Select';
@@ -56,7 +56,7 @@ function formatTime(time: string | null | undefined): string {
 /** Date · cost · tokens · time — omit missing parts (no leading "— ·"). */
 function formatRunMeta(run: Run, locale: Locale): string {
   const parts = [
-    formatRunDate(run.runDate, locale),
+    formatModelReleaseDate(run.model, locale),
     formatCostTokens(run),
     formatTime(run.time),
   ].filter(Boolean);

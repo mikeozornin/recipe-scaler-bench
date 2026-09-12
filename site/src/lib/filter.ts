@@ -1,6 +1,7 @@
 import type { Locale, QualityTier, Run } from './types';
 import type { SortKey } from './prefs';
-import { runDateTimestamp, runHref, runs, TIER_ORDER } from './runs';
+import { modelReleaseTimestamp } from './model-release';
+import { runHref, runs, TIER_ORDER } from './runs';
 import { matchesAllTokens, tokenizeQuery } from './search';
 
 export type NavLink = { href: string; label: string } | null;
@@ -93,13 +94,19 @@ export function compareRuns(a: Run, b: Run, sort: SortKey, locale: Locale): numb
       );
     case 'date-desc':
       return (
-        compareNullableNumber(runDateTimestamp(a.runDate), runDateTimestamp(b.runDate), true) ||
-        formatRunTitle(a).localeCompare(formatRunTitle(b), collator)
+        compareNullableNumber(
+          modelReleaseTimestamp(a.model),
+          modelReleaseTimestamp(b.model),
+          true,
+        ) || formatRunTitle(a).localeCompare(formatRunTitle(b), collator)
       );
     case 'date-asc':
       return (
-        compareNullableNumber(runDateTimestamp(a.runDate), runDateTimestamp(b.runDate), false) ||
-        formatRunTitle(a).localeCompare(formatRunTitle(b), collator)
+        compareNullableNumber(
+          modelReleaseTimestamp(a.model),
+          modelReleaseTimestamp(b.model),
+          false,
+        ) || formatRunTitle(a).localeCompare(formatRunTitle(b), collator)
       );
     case 'alpha-asc':
       return formatRunTitle(a).localeCompare(formatRunTitle(b), collator);

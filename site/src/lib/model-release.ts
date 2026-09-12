@@ -14,7 +14,9 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'fable 5': '2026-06-09',
   'opus 5': '2026-07-24',
 
-  // OpenAI (OpenRouter listing ≈ public availability)
+  // OpenAI (announce / Wikipedia)
+  'gpt-6 astra': '2026-09-03', // openai.com/index/gpt-6-astra — limited 3 Sep, GA 4 Sep
+  'gpt 6 astra': '2026-09-03',
   'gpt 5.4': '2026-03-05',
   'gpt 5.5': '2026-04-24',
   'gpt 5.6 sol': '2026-07-09',
@@ -24,14 +26,16 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'gemini 3.1 pro': '2026-02-19',
   'gemini 3.5 flash': '2026-05-19',
 
-  // xAI
+  // xAI (x.ai/news)
+  'grok 4.6': '2026-08-12', // x.ai/news/grok-4-6
   'grok 4.3': '2026-04-30',
   'grok 4.5': '2026-07-08',
   'grok build 0.1': '2026-05-20',
   'grok build': '2026-05-20',
 
-  // Z.ai
-  'glm 5.3': '2026-08-14',
+  // Z.ai (z.ai/blog)
+  'glm 5.3 flash': '2026-08-26', // z.ai/blog/glm-5.3-flash
+  'glm 5.3': '2026-08-14', // z.ai/blog/glm-5.3 (Max same family)
   'glm 5.1': '2026-04-07',
 
   // DeepSeek
@@ -71,6 +75,10 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // Cursor (Composer blog)
   'composer 2.5': '2026-05-18',
   'composer 2': '2026-03-19',
+
+  // Meta
+  'muse spark 1.3': '2026-09-02', // research.meta.ai/blog/introducing-muse-spark-1-3
+  'muse spark': '2026-09-02',
 };
 
 /** Keys sorted longest-first so more specific families win. */

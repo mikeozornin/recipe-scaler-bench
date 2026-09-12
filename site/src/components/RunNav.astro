@@ -7,6 +7,7 @@ import {
   filterToQuery,
   queryToFilter,
 } from '../lib/filter';
+import { getModelReleaseDate } from '../lib/model-release';
 import { runHref, runs } from '../lib/runs';
 
 type Link = { href: string; label: string } | null;
@@ -44,7 +45,7 @@ const runData = runs.map((r) => ({
   id: r.id,
   agent: r.agent,
   model: r.model,
-  runDate: r.runDate ?? null,
+  modelReleaseDate: getModelReleaseDate(r.model),
   tier: r.tier,
   cost: r.cost,
   tool: r.tool,
@@ -91,7 +92,7 @@ const baseJson = JSON.stringify(base);
     const TIER_ORDER = ['fancy', 'mid', 'weak', 'failed_tools', 'unknown'];
     const VALID_SORTS = { 'cost-desc': 1, 'cost-asc': 1, 'tier-good': 1, 'tier-bad': 1, 'date-desc': 1, 'date-asc': 1, 'alpha-asc': 1, 'alpha-desc': 1 };
 
-    function runDateTimestamp(iso) {
+    function modelReleaseTimestamp(iso) {
       if (!iso) return null;
       var t = Date.parse(iso + 'T00:00:00Z');
       return Number.isFinite(t) ? t : null;
@@ -165,8 +166,8 @@ const baseJson = JSON.stringify(base);
         case 'cost-asc': return cmpN(parseCostUsd(a.cost), parseCostUsd(b.cost), false) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
         case 'tier-good': return (tierRank(a.tier) - tierRank(b.tier)) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
         case 'tier-bad': return (tierRank(b.tier) - tierRank(a.tier)) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
-        case 'date-desc': return cmpN(runDateTimestamp(a.runDate), runDateTimestamp(b.runDate), true) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
-        case 'date-asc': return cmpN(runDateTimestamp(a.runDate), runDateTimestamp(b.runDate), false) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
+        case 'date-desc': return cmpN(modelReleaseTimestamp(a.modelReleaseDate), modelReleaseTimestamp(b.modelReleaseDate), true) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
+        case 'date-asc': return cmpN(modelReleaseTimestamp(a.modelReleaseDate), modelReleaseTimestamp(b.modelReleaseDate), false) || formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
         case 'alpha-asc': return formatRunTitle(a).localeCompare(formatRunTitle(b), coll);
         case 'alpha-desc': return formatRunTitle(b).localeCompare(formatRunTitle(a), coll);
         default: return 0;

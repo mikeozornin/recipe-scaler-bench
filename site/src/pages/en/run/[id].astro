@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { ImageLightbox } from '../../../components/ImageLightbox';
 import RunNav from '../../../components/RunNav.astro';
 import {
-  formatRunDate,
+  formatModelReleaseDate,
   fullImagePath,
   getRunById,
   runs,
@@ -48,7 +48,7 @@ const costRaw = run.cost?.trim() || '';
 const time = timeRaw && timeRaw !== '—' ? timeRaw : '';
 const tokens = tokensRaw && tokensRaw !== '—' ? tokensRaw : '';
 const cost = costRaw && costRaw !== '—' ? costRaw : '';
-const runDate = formatRunDate(run.runDate, locale);
+const runDate = formatModelReleaseDate(run.model, locale);
 ---
 
 <BaseLayout locale={locale} title={`${run.model} (${run.agent})`} description={comment}>
