@@ -53,6 +53,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'qwen 3.7': '2026-05-21',
 
   // Moonshot
+  'kimi 2.8': '2026-09-11', // kimi.com/code/docs — K2.8 Preview in Kimi Code
+  'kimi k2.8': '2026-09-11',
   'kimi 2.6': '2026-04-20',
   'kimi k2.6': '2026-04-20',
   'kimi k3': '2026-07-16',
