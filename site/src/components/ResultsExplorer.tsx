@@ -43,24 +43,43 @@ function nonempty(value: string | null | undefined): string {
   return !v || v === '—' ? '' : v;
 }
 
-function formatCostTokens(run: Run): string {
-  return [nonempty(run.cost), nonempty(run.tokens)].filter(Boolean).join(' · ');
-}
-
 /** Drop estimate tildes: "~19 min" → "19 min" */
 function formatTime(time: string | null | undefined): string {
   const v = nonempty(time);
   return v ? v.replace(/^~\s*/, '').trim() : '';
 }
 
-/** Date · cost · tokens · time — omit missing parts (no leading "— ·"). */
-function formatRunMeta(run: Run, locale: Locale): string {
-  const parts = [
+function runMetaParts(run: Run, locale: Locale): string[] {
+  return [
     formatModelReleaseDate(run.model, locale),
-    formatCostTokens(run),
+    nonempty(run.cost),
+    nonempty(run.tokens),
     formatTime(run.time),
   ].filter(Boolean);
-  return parts.length > 0 ? parts.join(' · ') : '—';
+}
+
+function RunMeta({
+  run,
+  locale,
+  className,
+}: {
+  run: Run;
+  locale: Locale;
+  className?: string;
+}) {
+  const parts = runMetaParts(run, locale);
+  if (parts.length === 0) {
+    return <div className={className}>—</div>;
+  }
+  return (
+    <div className={cn('flex min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5', className)}>
+      {parts.map((part, i) => (
+        <span key={`${i}-${part}`}>
+          {i > 0 ? `· ${part}` : part}
+        </span>
+      ))}
+    </div>
+  );
 }
 
 /** «Opus 4.7, xhigh (Claude Code), paper» */
@@ -71,7 +90,7 @@ function formatRunTitle(run: Run): string {
 const runLinkClass = 'run-link font-medium leading-snug';
 
 const galleryGridClass =
-  'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+  'grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
 
 /** Consecutive runs sharing a tier → one row group (for tier sorts in gallery). */
 function groupRunsByTier(list: Run[]): Run[][] {
@@ -203,7 +222,7 @@ export function ResultsExplorer({
   );
 
   const inputClass =
-    'h-9 w-full min-w-[12rem] flex-1 rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] px-3 text-sm text-[oklch(var(--foreground))] placeholder:text-[oklch(var(--muted-foreground))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]';
+    'h-9 min-w-0 w-full flex-[1_1_12rem] rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] px-3 text-sm text-[oklch(var(--foreground))] placeholder:text-[oklch(var(--muted-foreground))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]';
   const toolbarIconBtnClass =
     'inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] text-[oklch(var(--foreground))] transition hover:bg-[oklch(var(--accent))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]';
   const viewBtnClass =
@@ -241,7 +260,7 @@ export function ResultsExplorer({
       <a
         key={run.id}
         href={href}
-        className="group overflow-hidden rounded-xl bg-[oklch(var(--muted))] transition"
+        className="group min-w-0 overflow-hidden rounded-xl bg-[oklch(var(--muted))] transition"
       >
         <div className="aspect-[16/10] bg-[oklch(var(--muted))]">
           {thumb ? (
@@ -250,7 +269,7 @@ export function ResultsExplorer({
               alt=""
               className="h-full w-full object-cover object-top transition group-hover:scale-[1.02]"
               decoding="async"
-              fetchpriority={index === 0 ? 'high' : 'auto'}
+              fetchPriority={index === 0 ? 'high' : 'auto'}
             />
           ) : (
             <div className="flex h-full items-center justify-center text-sm text-[oklch(var(--foreground))]">
@@ -260,23 +279,25 @@ export function ResultsExplorer({
         </div>
         <div className="space-y-1 p-3">
           <div className="flex items-start justify-between gap-2">
-            <div className={`${runLinkClass} text-sm`}>
+            <div className={`${runLinkClass} min-w-0 text-sm`}>
               {highlightText(formatRunTitle(run), searchTokens)}
             </div>
             {run.tier !== 'unknown' && (
               <span className={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
             )}
           </div>
-          <div className="text-caption text-[oklch(var(--foreground))]">
-            {formatRunMeta(run, locale)}
-          </div>
+          <RunMeta
+            run={run}
+            locale={locale}
+            className="text-caption text-[oklch(var(--foreground))]"
+          />
         </div>
       </a>
     );
   };
 
   return (
-    <div className="results-explorer space-y-4">
+    <div className="results-explorer min-w-0 max-w-full space-y-4">
       <div className="flex flex-wrap gap-x-10 gap-y-4">
         <div>
           <div className="text-[2.25rem] font-bold leading-none tracking-tight">{kpis.runs}</div>
@@ -301,7 +322,7 @@ export function ResultsExplorer({
 
       <div
         className={cn(
-          'sticky top-[3.25rem] z-30 -mx-1 flex flex-wrap gap-2 bg-[oklch(var(--background)/0.92)] px-1 py-2.5 backdrop-blur-md supports-[backdrop-filter]:bg-[oklch(var(--background)/0.85)]',
+          'sticky top-[3.25rem] z-30 -mx-1 flex min-w-0 max-w-full flex-wrap gap-2 bg-[oklch(var(--background)/0.92)] px-1 py-2.5 backdrop-blur-md supports-[backdrop-filter]:bg-[oklch(var(--background)/0.85)]',
           // Stuck: more top breathing room under header, tighter bottom to panel edge
           filtersStuck && 'pt-[14px] pb-1',
         )}
@@ -323,14 +344,14 @@ export function ResultsExplorer({
           options={agentOptions}
           onChange={setAgent}
           aria-label={m.filterAgent}
-          className="min-w-[11rem]"
+          className="min-w-0 w-full sm:w-auto sm:min-w-[11rem]"
         />
         <Select
           value={tier}
           options={tierOptions}
           onChange={(v) => setTier(v as typeof tier)}
           aria-label={m.filterTier}
-          className="min-w-[11rem]"
+          className="min-w-0 w-full sm:w-auto sm:min-w-[11rem]"
         />
         <div ref={sortRef} className="relative shrink-0">
           <button
@@ -349,7 +370,7 @@ export function ResultsExplorer({
             <ul
               id={sortMenuId}
               role="listbox"
-              className="absolute right-0 top-[calc(100%+0.35rem)] z-40 max-h-72 w-max min-w-[16rem] overflow-auto rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] p-1 shadow-lg"
+              className="absolute right-0 top-[calc(100%+0.35rem)] z-40 max-h-72 w-max min-w-[16rem] max-w-[calc(100vw-3rem)] overflow-auto rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] p-1 shadow-lg"
             >
               {sortOptions.map((opt) => {
                 const isActive = opt.value === sort;
@@ -410,25 +431,22 @@ export function ResultsExplorer({
       {filtered.length === 0 ? (
         <p className="text-[oklch(var(--foreground))]">{m.empty}</p>
       ) : view === 'table' ? (
-        <div className="flex w-full flex-col">
+        <div className="flex min-w-0 w-full max-w-full flex-col">
           {filtered.map((run, index) => {
             const thumb = primaryThumbFile(run);
             const href = runHrefWithFilter(run.id, locale, base, filter);
             return (
               <article
                 key={run.id}
-                className={`flex items-start gap-4 py-3 ${
-                  index > 0 ? 'border-t border-[oklch(var(--border))]' : ''
-                }`}
+                className={cn(
+                  'flex min-w-0 max-w-full flex-col gap-3 py-3',
+                  'sm:flex-row sm:items-start sm:gap-4',
+                  index > 0 && 'border-t border-[oklch(var(--border))]',
+                )}
               >
-                {/* ~50% of row, keep prev ratio 12/7; cap height at 400px */}
                 <a
                   href={href}
-                  className="block shrink-0 overflow-hidden rounded-md bg-[oklch(var(--muted))] aspect-[12/7]"
-                  style={{
-                    width: 'min(50%, calc(400px * 12 / 7))',
-                    maxHeight: 400,
-                  }}
+                  className="block aspect-[12/7] w-full min-w-0 max-w-full overflow-hidden rounded-md bg-[oklch(var(--muted))] sm:max-h-[400px] sm:w-[min(50%,calc(400px*12/7))] sm:shrink-0"
                 >
                   {thumb ? (
                     <img
@@ -436,7 +454,7 @@ export function ResultsExplorer({
                       alt=""
                       className="h-full w-full object-cover object-top"
                       decoding="async"
-                      fetchpriority={index === 0 ? 'high' : 'auto'}
+                      fetchPriority={index === 0 ? 'high' : 'auto'}
                     />
                   ) : (
                     <span className="text-caption flex h-full items-center justify-center text-[oklch(var(--foreground))]">
@@ -446,25 +464,14 @@ export function ResultsExplorer({
                 </a>
 
                 <div className="min-w-0 flex-1 space-y-1.5">
-                  {/*
-                    Flex-wrap by cell width (not page breakpoint): when title +
-                    meta don't fit one line, cost/tier drop to the next row.
-                  */}
-                  <div className="flex flex-wrap items-start gap-x-4 gap-y-1">
-                    <a
-                      href={href}
-                      className={`${runLinkClass} min-w-0 flex-[1_1_12rem]`}
-                    >
-                      {highlightText(formatRunTitle(run), searchTokens)}
-                    </a>
-                    <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-1">
-                      <div className="whitespace-nowrap leading-snug">
-                        {formatRunMeta(run, locale)}
-                      </div>
-                      {run.tier !== 'unknown' && (
-                        <span className={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
-                      )}
-                    </div>
+                  <a href={href} className={`${runLinkClass} block min-w-0`}>
+                    {highlightText(formatRunTitle(run), searchTokens)}
+                  </a>
+                  <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
+                    <RunMeta run={run} locale={locale} className="leading-snug" />
+                    {run.tier !== 'unknown' && (
+                      <span className={`tier-badge tier-${run.tier}`}>{m.tiers[run.tier]}</span>
+                    )}
                   </div>
                   <p className="leading-snug">
                     {highlightText(run.comment[locale], searchTokens)}

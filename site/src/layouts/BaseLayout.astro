@@ -35,7 +35,7 @@ const isAbout = pathname.includes('/about');
 <html lang={locale} transition:animate="none">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={desc} />
     <link rel="icon" href={`${base}favicon.ico`} sizes="32x32" />
     <link rel="icon" href={`${base}icon.svg`} type="image/svg+xml" />
@@ -170,34 +170,43 @@ const isAbout = pathname.includes('/about');
   </head>
   <body>
     <header class="site-header">
-      <div class="site-shell flex items-center gap-3 py-3">
-        <a href={home} class="flex shrink-0 items-center" title={m.navResults} aria-label={m.siteTitle}>
+      <div class="site-shell site-header-inner">
+        <a href={home} class="site-brand" title={m.siteTitle} aria-label={m.siteTitle}>
           <img
             src={`${base}icon-192.png`}
             alt=""
             width="32"
             height="32"
-            class="h-8 w-8 rounded-[6px]"
+            class="site-brand-icon"
             loading="eager"
             decoding="async"
           />
+          <span class="site-brand-title">{m.siteTitle}</span>
         </a>
-        <a href={home} class="min-w-0 flex-1" title={m.navResults}>
-          <div class="truncate text-[28px] font-bold leading-none tracking-tight">{m.siteTitle}</div>
-        </a>
-        <nav class="flex items-center gap-1 font-medium">
+        <nav class="site-nav" aria-label={m.navAria}>
+          <a
+            href={home}
+            class:list={['site-nav-link', !isAbout && 'is-active']}
+          >{m.navResults}</a>
+          <a
+            href={about}
+            class:list={['site-nav-link', isAbout && 'is-active']}
+          >{m.navAbout}</a>
+        </nav>
+        <div class="site-tools">
           <a
             href="https://recipe-scaler.ru"
-            class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 hover:bg-[oklch(var(--accent))]"
+            class="site-nav-product"
             target="_blank"
             rel="noopener noreferrer"
             title={m.navProduct}
+            aria-label={m.navProduct}
           >
-            <span>{m.navProduct}</span>
+            <span class="site-nav-product-label">{m.navProduct}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -211,22 +220,8 @@ const isAbout = pathname.includes('/about');
             </svg>
           </a>
           <a
-            href={home}
-            class:list={[
-              'rounded-md px-2.5 py-1.5 hover:bg-[oklch(var(--accent))]',
-              !isAbout && 'bg-[oklch(var(--accent))]',
-            ]}>{m.navResults}</a
-          >
-          <a
-            href={about}
-            class:list={[
-              'rounded-md px-2.5 py-1.5 hover:bg-[oklch(var(--accent))]',
-              isAbout && 'bg-[oklch(var(--accent))]',
-            ]}>{m.navAbout}</a
-          >
-          <a
             href={otherHref}
-            class="rounded-md px-2.5 py-1.5 text-[oklch(var(--foreground))] hover:bg-[oklch(var(--accent))] hover:text-[oklch(var(--foreground))]"
+            class="site-nav-link"
             hreflang={otherLocale}
             data-locale-switch={otherLocale}
           >
@@ -278,7 +273,7 @@ const isAbout = pathname.includes('/about');
             })();
           </script>
           <ThemeSwitcher client:load locale={locale} />
-        </nav>
+        </div>
       </div>
     </header>
 

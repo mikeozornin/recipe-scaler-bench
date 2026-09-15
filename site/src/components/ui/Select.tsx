@@ -38,7 +38,7 @@ export function Select({ value, options, onChange, className, 'aria-label': aria
   }, [open]);
 
   return (
-    <div ref={rootRef} className={cn('relative min-w-[9.5rem]', className)}>
+    <div ref={rootRef} className={cn('relative min-w-0', className)}>
       <button
         type="button"
         className="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] px-3 text-left text-sm text-[oklch(var(--foreground))] transition hover:bg-[oklch(var(--accent))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]"
@@ -56,7 +56,7 @@ export function Select({ value, options, onChange, className, 'aria-label': aria
         <ul
           id={listId}
           role="listbox"
-          className="absolute left-0 top-[calc(100%+0.35rem)] z-40 max-h-64 w-full min-w-[12rem] overflow-auto rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] p-1 shadow-lg"
+          className="absolute left-0 top-[calc(100%+0.35rem)] z-40 max-h-64 w-full overflow-auto rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] p-1 shadow-lg"
         >
           {options.map((opt) => {
             const isActive = opt.value === value;
