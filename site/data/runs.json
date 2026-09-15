@@ -606,6 +606,27 @@
     }
   },
   {
+    "id": "paper-cursor-kimi-2-8",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Kimi 2.8",
+    "runDate": "2026-09-14",
+    "time": "15 min 16 s",
+    "tokens": null,
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "По верхней границе слабо. Плюсы: сопоставимо с K3.",
+      "en": "Weak at the high end. Upside: comparable to K3."
+    },
+    "images": {
+      "all": "paper__cursor__kimi-2.8__all@2x.png",
+      "desktop": "paper__cursor__kimi-2.8__desktop@2x.png",
+      "mobile": "paper__cursor__kimi-2.8__mobile@2x.png",
+      "promo": "paper__cursor__kimi-2.8__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-sourcecraft-default",
     "tool": "paper",
     "agent": "Source Craft",
