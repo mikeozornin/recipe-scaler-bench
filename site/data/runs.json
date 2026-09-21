@@ -627,6 +627,27 @@
     }
   },
   {
+    "id": "paper-cursor-mimo-v2-6-pro",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "MiMo 2.6 Pro",
+    "runDate": "2026-09-22",
+    "time": "16 min 12 s",
+    "tokens": "5.87M",
+    "cost": "$0.21",
+    "tier": "mid",
+    "comment": {
+      "ru": "Обычно, ничего особенного, не за что зацепиться. low-mid тир.",
+      "en": "Ordinary, nothing special to grab onto. Low-mid tier."
+    },
+    "images": {
+      "all": "paper__cursor__mimo-v2.6-pro__all@2x.png",
+      "desktop": "paper__cursor__mimo-v2.6-pro__desktop@2x.png",
+      "mobile": "paper__cursor__mimo-v2.6-pro__mobile@2x.png",
+      "promo": "paper__cursor__mimo-v2.6-pro__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-deepseek-4-1-flash",
     "tool": "paper",
     "agent": "Cursor",

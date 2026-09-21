@@ -61,6 +61,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'kimi k3': '2026-07-16',
 
   // Xiaomi
+  'mimo v2.6 pro': '2026-09-21', // runtimewire / Xiaomi MiMo-V2.6 open-source
+  'mimo 2.6 pro': '2026-09-21',
   'mimo v2.5 pro': '2026-04-22',
   'mimo v2.5': '2026-04-22',
 
