@@ -459,6 +459,27 @@
     }
   },
   {
+    "id": "paper-cursor-grok-4-7",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Grok 4.7, xhigh",
+    "runDate": "2026-09-20",
+    "time": "11 min 40 sec",
+    "tokens": null,
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Пока еще слабовато от модели такого уровня. По цветам и стилю почему-то как GPT 5.4. Токены мне курсор не посчитал почему-то.",
+      "en": "Still a bit weak for a model of this level. Colors and style somehow like GPT 5.4. Cursor didn't count tokens for some reason."
+    },
+    "images": {
+      "all": "paper__cursor__grok-4.7__all@2x.png",
+      "desktop": "paper__cursor__grok-4.7__desktop@2x.png",
+      "mobile": "paper__cursor__grok-4.7__mobile@2x.png",
+      "promo": "paper__cursor__grok-4.7__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-glm-5-1",
     "tool": "paper",
     "agent": "Cursor",
