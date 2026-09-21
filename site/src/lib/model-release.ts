@@ -27,6 +27,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'gemini 3.5 flash': '2026-05-19',
 
   // xAI (x.ai/news)
+  'grok 4.7': '2026-09-21',
   'grok 4.6': '2026-08-12', // x.ai/news/grok-4-6
   'grok 4.3': '2026-04-30',
   'grok 4.5': '2026-07-08',

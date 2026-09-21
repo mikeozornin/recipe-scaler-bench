@@ -480,6 +480,27 @@
     }
   },
   {
+    "id": "paper-cursor-grok-4-7",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Grok 4.7",
+    "runDate": "2026-09-21",
+    "time": "10 min 58 sec",
+    "tokens": "3.7M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Результат слабый для модели такого уровня и даты выхода. Очень эффективна по токенам.",
+      "en": "The result is weak for a model of this level and its release date. Very efficient on tokens."
+    },
+    "images": {
+      "all": "paper__cursor__grok-4.7__all@2x.png",
+      "desktop": "paper__cursor__grok-4.7__desktop@2x.png",
+      "mobile": "paper__cursor__grok-4.7__mobile@2x.png",
+      "promo": "paper__cursor__grok-4.7__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-glm-5-1",
     "tool": "paper",
     "agent": "Cursor",
