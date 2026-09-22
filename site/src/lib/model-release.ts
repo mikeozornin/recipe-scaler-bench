@@ -76,6 +76,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'nemotron 3 ultra': '2026-06-04',
 
   // Tencent
+  'hy4 preview': '2026-08-28',
+  hy4: '2026-08-28',
   'hy3 preview': '2026-04-22',
   hy3: '2026-04-22',
 
