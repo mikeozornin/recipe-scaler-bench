@@ -690,6 +690,27 @@
     }
   },
   {
+    "id": "paper-cursor-hy4-preview",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "hy4 preview",
+    "runDate": "2026-09-22",
+    "time": "23 min 33 s",
+    "tokens": "15M",
+    "cost": "$1.24",
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "оч плохо, не справился с тулами так, что кончился лимит 100 вызовов на бесплатном тарифе. Обычно моделям хватает половины.",
+      "en": "Very bad — failed the tools so hard it burned through the 100-call free-tier MCP limit. Models usually get by on half of that."
+    },
+    "images": {
+      "all": "paper__cursor__hy4-preview__all@2x.png",
+      "desktop": "paper__cursor__hy4-preview__desktop@2x.png",
+      "mobile": "paper__cursor__hy4-preview__mobile@2x.png",
+      "promo": "paper__cursor__hy4-preview__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-sourcecraft-default",
     "tool": "paper",
     "agent": "Source Craft",
