@@ -21,11 +21,13 @@ export type ExplorerKpis = {
   runs: number;
   imageSlots: number;
   agents: number;
+  models: number;
   costSpreadValue: string;
   costSpreadLabel: string;
   runsLabel: string;
   imagesLabel: string;
   agentsLabel: string;
+  modelsLabel: string;
 };
 
 type Props = {
@@ -310,6 +312,10 @@ export function ResultsExplorer({
         <div>
           <div className="text-[2.25rem] font-bold leading-none tracking-tight">{kpis.agents}</div>
           <div className="text-caption mt-1 text-[oklch(var(--foreground))]">{kpis.agentsLabel}</div>
+        </div>
+        <div>
+          <div className="text-[2.25rem] font-bold leading-none tracking-tight">{kpis.models}</div>
+          <div className="text-caption mt-1 text-[oklch(var(--foreground))]">{kpis.modelsLabel}</div>
         </div>
         <div>
           <div className="text-[2.25rem] font-bold leading-none tracking-tight">{kpis.costSpreadValue}</div>

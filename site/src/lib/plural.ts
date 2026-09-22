@@ -28,3 +28,8 @@ export function kpiAgentsLabel(n: number, locale: Locale): string {
   if (locale === 'en') return pluralEn(n, 'agent', 'agents');
   return pluralRu(n, 'агент', 'агента', 'агентов');
 }
+
+export function kpiModelsLabel(n: number, locale: Locale): string {
+  if (locale === 'en') return pluralEn(n, 'model', 'models');
+  return pluralRu(n, 'модель', 'модели', 'моделей');
+}

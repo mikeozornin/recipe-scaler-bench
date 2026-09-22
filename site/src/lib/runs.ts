@@ -128,6 +128,22 @@ export function switchLocaleHref(
   return `${href}${qs}${frag}`;
 }
 
+/**
+ * Normalize a model display name to its base identity: drop reasoning/effort
+ * qualifiers ("xhigh", "high", "med", "Max Reasoning", "Thinking"), provider and
+ * cloud annotations ("(OpenRouter)", "(z.ai coding plan)", "(Kilo cloud)"),
+ * duplicate markers "(1)"/"(2)" and skill suffixes ("+ Frontend Design").
+ * Different model versions ("4.5" vs "4.6") stay distinct.
+ */
+function normalizeModelName(model: string): string {
+  let s = model;
+  s = s.replace(/\s*\((?:openrouter|z\.ai coding plan|kilo cloud)\)/gi, ' ');
+  s = s.replace(/\s*\(\d+\)/g, ' ');
+  s = s.replace(/\s*\+.*$/, ' ');
+  s = s.replace(/[,\s]+(?:max reasoning|extra high|xhigh|high|medium|med|low|thinking)\s*$/gi, ' ');
+  return s.replace(/\s+/g, ' ').trim().toLowerCase();
+}
+
 export function kpis(list: Run[] = runs) {
   const withImages = list.filter(runHasImages).length;
   let imageCount = 0;
@@ -139,6 +155,7 @@ export function kpis(list: Run[] = runs) {
     withImages,
     imageSlots: imageCount,
     agents: new Set(list.map((r) => r.agent)).size,
+    models: new Set(list.map((r) => normalizeModelName(r.model))).size,
     paper: list.filter((r) => r.tool === 'paper').length,
     figma: list.filter((r) => r.tool === 'figma').length,
   };

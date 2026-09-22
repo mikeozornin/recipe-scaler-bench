@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { ResultsExplorer } from '../../components/ResultsExplorer';
 import { kpis, sortedRuns } from '../../lib/runs';
 import { t } from '../../lib/i18n';
-import { kpiAgentsLabel, kpiImagesLabel, kpiRunsLabel } from '../../lib/plural';
+import { kpiAgentsLabel, kpiImagesLabel, kpiModelsLabel, kpiRunsLabel } from '../../lib/plural';
 import { queryToFilter } from '../../lib/filter';
 import { DEFAULT_PREFS } from '../../lib/prefs';
 
@@ -27,11 +27,13 @@ const initialFilter = queryToFilter(Astro.url.searchParams, DEFAULT_PREFS.sort);
       runs: stats.runs,
       imageSlots: stats.imageSlots,
       agents: stats.agents,
+      models: stats.models,
       costSpreadValue: m.costSpreadValue,
       costSpreadLabel: m.kpiCostSpread,
       runsLabel: kpiRunsLabel(stats.runs, locale),
       imagesLabel: kpiImagesLabel(stats.imageSlots, locale),
       agentsLabel: kpiAgentsLabel(stats.agents, locale),
+      modelsLabel: kpiModelsLabel(stats.models, locale),
     }}
   />
 </BaseLayout>
