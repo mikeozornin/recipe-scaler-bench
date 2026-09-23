@@ -228,6 +228,30 @@ const isAbout = pathname.includes('/about');
             </svg>
           </a>
           <a
+            href={rss}
+            class="site-nav-rss"
+            type="application/rss+xml"
+            title={m.rssFeed}
+            aria-label={m.rssFeed}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.25"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M4 11a9 9 0 0 1 9 9" />
+              <path d="M4 4a16 16 0 0 1 16 16" />
+              <circle cx="5" cy="19" r="1" fill="currentColor" stroke="none" />
+            </svg>
+          </a>
+          <a
             href={otherHref}
             class="site-nav-link"
             hreflang={otherLocale}

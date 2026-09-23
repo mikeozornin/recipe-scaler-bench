@@ -318,7 +318,8 @@ html[data-theme-mode="flashlight"] body::before {
 }
 
 .site-nav-link,
-.site-nav-product {
+.site-nav-product,
+.site-nav-rss {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
@@ -330,7 +331,8 @@ html[data-theme-mode="flashlight"] body::before {
 }
 
 .site-nav-link:hover,
-.site-nav-product:hover {
+.site-nav-product:hover,
+.site-nav-rss:hover {
   background: oklch(var(--accent));
 }
 
@@ -338,7 +340,8 @@ html[data-theme-mode="flashlight"] body::before {
   background: oklch(var(--accent));
 }
 
-.site-nav-product {
+.site-nav-product,
+.site-nav-rss {
   min-width: 2.5rem;
   min-height: 2.5rem;
   justify-content: center;
