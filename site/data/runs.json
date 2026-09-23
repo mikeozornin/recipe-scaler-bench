@@ -799,14 +799,14 @@
     "tool": "paper",
     "agent": "Cursor",
     "model": "Gemini 3.8 Flash",
-    "runDate": "2026-09-23",
-    "time": "5 min 19 s",
-    "tokens": "2.84M",
-    "cost": "$0.59",
+    "runDate": "2026-09-24",
+    "time": "5 min 51 s",
+    "tokens": "3.74M",
+    "cost": "$0.76",
     "tier": "weak",
     "comment": {
-      "ru": "На уровне китайских моделей полугодовой давности. Слабо всё: визуалка, логика, текст.",
-      "en": "On par with Chinese models from six months ago. Weak across the board: visuals, logic, copy."
+      "ru": "На уровне китайских моделей полугодовой давности. Слабо всё: визуалка, логика, текст. Запуск через OpenRouter-прокси, thinking выключен (0 reasoning-токенов), снапшот gemini-3.8-flash-20260902.",
+      "en": "On par with Chinese models from six months ago. Weak across the board: visuals, logic, copy. Ran via OpenRouter proxy with thinking disabled (0 reasoning tokens), gemini-3.8-flash-20260902 snapshot."
     },
     "images": {
       "all": "paper__cursor__gemini-3.8-flash__all@2x.png",
