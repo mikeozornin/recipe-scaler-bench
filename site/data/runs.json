@@ -312,6 +312,27 @@
     }
   },
   {
+    "id": "paper-codex-gpt-6-sol",
+    "tool": "paper",
+    "agent": "Codex",
+    "model": "GPT 6 Sol, xhigh",
+    "runDate": "2026-09-23",
+    "time": "10 min 20 s",
+    "tokens": "5M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Хорошо понял логику десктопа, не стал делать сайт-каталог, а сделал именно приложение. Все, что нужно, на месте. Визуально слабо, промостраница слаба. Быстро, эффективно по токенам (а значит и дешево).",
+      "en": "Got the desktop logic right: made an actual app, not a catalog site. Everything needed is there. Visually weak, promo page is weak. Fast and token-efficient, so cheap."
+    },
+    "images": {
+      "all": "paper__codex__gpt-6-sol-xhigh__all@2x.png",
+      "desktop": "paper__codex__gpt-6-sol-xhigh__desktop@2x.png",
+      "mobile": "paper__codex__gpt-6-sol-xhigh__mobile@2x.png",
+      "promo": "paper__codex__gpt-6-sol-xhigh__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-auto",
     "tool": "paper",
     "agent": "Cursor",
