@@ -5,6 +5,7 @@ import { ThemeSwitcher } from '../components/ThemeSwitcher';
 import type { Locale } from '../lib/types';
 import { t } from '../lib/i18n';
 import { aboutHref, homeHref, switchLocaleHref } from '../lib/runs';
+import { rssHref } from '../lib/rss';
 
 interface Props {
   locale: Locale;
@@ -28,6 +29,7 @@ const otherHref = switchLocaleHref(
 );
 const home = homeHref(locale, base);
 const about = aboutHref(locale, base);
+const rss = rssHref(locale, base);
 const isAbout = pathname.includes('/about');
 ---
 
@@ -41,6 +43,12 @@ const isAbout = pathname.includes('/about');
     <link rel="icon" href={`${base}icon.svg`} type="image/svg+xml" />
     <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
     <link rel="manifest" href={`${base}manifest.webmanifest`} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${m.siteTitle} — ${m.rssFeed}`}
+      href={rss}
+    />
     <title>{pageTitle}</title>
     <ClientRouter fallback="swap" />
     <script
@@ -296,6 +304,7 @@ const isAbout = pathname.includes('/about');
             {m.blogPost}
           </a>
           <a class="hover:underline" href="https://recipe-scaler.ru/#/about">{m.product}</a>
+          <a class="hover:underline" href={rss}>{m.rssFeed}</a>
         </div>
       </div>
     </footer>

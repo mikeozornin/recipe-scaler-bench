@@ -6,6 +6,7 @@ SSG site (Astro + React islands) for the AI design experiment.
 - **Stack:** Astro (static), React islands, Tailwind, Lucide
 - **Data:** `data/runs.json`
 - **Images:** prepared into `public/images/` at build time
+- **RSS:** RU/EN feeds are generated at build as `rss.xml` and `en/rss.xml`, linked from the layout, and deployed with the rest of `dist/` by `ansible/deploy-files.yml`
 
 ## Develop
 
