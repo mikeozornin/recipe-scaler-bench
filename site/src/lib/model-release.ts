@@ -89,6 +89,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // Cursor (Composer blog)
   'composer 2.5': '2026-05-18',
   'composer 2': '2026-03-19',
+  'space bunny alpha': '2026-09-23', // user-confirmed release date (2026-09-23)
+  'space bunny': '2026-09-23',
 
   // Meta
   'muse spark 1.3': '2026-09-02', // research.meta.ai/blog/introducing-muse-spark-1-3

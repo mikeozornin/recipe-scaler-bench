@@ -669,6 +669,27 @@
     }
   },
   {
+    "id": "paper-cursor-space-bunny-alpha",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Space Bunny Alpha",
+    "runDate": "2026-09-23",
+    "time": "8 min",
+    "tokens": "5.39M",
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "Давно я не видел таких плохих результатов, совершенно неактуальны даже для флеш-моделей. Разве что это какая-то 27B модель.",
+      "en": "Haven't seen results this bad in a long time; completely off par even for flash-class models. Unless this is some 27B model."
+    },
+    "images": {
+      "all": "paper__cursor__space-bunny-alpha__all@2x.png",
+      "desktop": "paper__cursor__space-bunny-alpha__desktop@2x.png",
+      "mobile": "paper__cursor__space-bunny-alpha__mobile@2x.png",
+      "promo": "paper__cursor__space-bunny-alpha__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-mimo-v2-5-pro",
     "tool": "paper",
     "agent": "Cursor",
