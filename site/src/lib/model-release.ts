@@ -20,6 +20,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'gpt 6 astra': '2026-09-03',
   'gpt 6 sol': '2026-09-22', // openai.com GPT-6 family update; system card appendix
   'gpt-6 sol': '2026-09-22',
+  'gpt 6 luna': '2026-09-22', // openai.com/index/introducing-gpt-6-sol-and-luna
+  'gpt-6 luna': '2026-09-22',
   'gpt 5.4': '2026-03-05',
   'gpt 5.5': '2026-04-24',
   'gpt 5.6 sol': '2026-07-09',
