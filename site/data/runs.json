@@ -669,27 +669,6 @@
     }
   },
   {
-    "id": "paper-cursor-space-bunny-alpha",
-    "tool": "paper",
-    "agent": "Cursor",
-    "model": "Space Bunny Alpha",
-    "runDate": "2026-09-23",
-    "time": "8 min",
-    "tokens": "5.39M",
-    "cost": null,
-    "tier": "weak",
-    "comment": {
-      "ru": "Давно я не видел таких плохих результатов, совершенно неактуальны даже для флеш-моделей. Разве что это какая-то 27B модель.",
-      "en": "Haven't seen results this bad in a long time; completely off par even for flash-class models. Unless this is some 27B model."
-    },
-    "images": {
-      "all": "paper__cursor__space-bunny-alpha__all@2x.png",
-      "desktop": "paper__cursor__space-bunny-alpha__desktop@2x.png",
-      "mobile": "paper__cursor__space-bunny-alpha__mobile@2x.png",
-      "promo": "paper__cursor__space-bunny-alpha__promo@2x.png"
-    }
-  },
-  {
     "id": "paper-cursor-mimo-v2-5-pro",
     "tool": "paper",
     "agent": "Cursor",
@@ -1251,6 +1230,27 @@
       "desktop": "paper__opencode__muse-spark-1.3-free__desktop@2x.png",
       "mobile": "paper__opencode__muse-spark-1.3-free__mobile@2x.png",
       "promo": "paper__opencode__muse-spark-1.3-free__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-opencode-space-bunny-alpha",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Space Bunny Alpha",
+    "runDate": "2026-09-24",
+    "time": "19 min",
+    "tokens": "9.89M",
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "Слабо все: верстка, идея «приложения», текст.",
+      "en": "Weak across the board: layout, the \"app\" idea, the copy."
+    },
+    "images": {
+      "all": "paper__opencode__space-bunny-alpha__all@2x.png",
+      "desktop": "paper__opencode__space-bunny-alpha__desktop@2x.png",
+      "mobile": "paper__opencode__space-bunny-alpha__mobile@2x.png",
+      "promo": "paper__opencode__space-bunny-alpha__promo@2x.png"
     }
   },
   {
