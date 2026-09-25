@@ -87,6 +87,11 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'hy3 preview': '2026-04-22',
   hy3: '2026-04-22',
 
+  // Meituan
+  'longcat 2.0': '2026-06-30', // tech.meituan.com/2026/06/30/LongCat2.0 + longcat.ai blog
+  'longcat-2.0': '2026-06-30',
+  longcat: '2026-06-30',
+
   // Cursor (Composer blog)
   'composer 2.5': '2026-05-18',
   'composer 2': '2026-03-19',

@@ -795,6 +795,27 @@
     }
   },
   {
+    "id": "paper-cursor-longcat-2-0",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "LongCat 2.0",
+    "runDate": "2026-09-25",
+    "time": "14 min",
+    "tokens": "310.77K",
+    "cost": null,
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Всё плохо, не справилась с тулами. Токены, возможно, учтены без кеша — непонятно.",
+      "en": "All bad, failed with the tools. Tokens may be counted without cache — unclear."
+    },
+    "images": {
+      "all": "paper__cursor__longcat-2.0__all@2x.png",
+      "desktop": "paper__cursor__longcat-2.0__desktop@2x.png",
+      "mobile": "paper__cursor__longcat-2.0__mobile@2x.png",
+      "promo": "paper__cursor__longcat-2.0__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-sourcecraft-default",
     "tool": "paper",
     "agent": "Source Craft",
