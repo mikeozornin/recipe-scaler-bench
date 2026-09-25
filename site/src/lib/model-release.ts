@@ -88,6 +88,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   hy3: '2026-04-22',
 
   // Meituan
+  'longcat 2.5': '2026-09-25', // longcat.chat/platform/docs ChangeLog — Version 2026-09-25
+  'longcat-2.5': '2026-09-25',
   'longcat 2.0': '2026-06-30', // tech.meituan.com/2026/06/30/LongCat2.0 + longcat.ai blog
   'longcat-2.0': '2026-06-30',
   longcat: '2026-06-30',

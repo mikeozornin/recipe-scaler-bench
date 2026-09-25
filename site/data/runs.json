@@ -816,6 +816,26 @@
     }
   },
   {
+    "id": "paper-codex-longcat-2-5-preview",
+    "tool": "paper",
+    "agent": "Codex",
+    "model": "LongCat 2.5 Preview",
+    "runDate": "2026-09-25",
+    "time": "7 min 51 s",
+    "tokens": "140K",
+    "cost": null,
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Плохо, не справилась вообще ни с чем. Токены скорее всего отдаются без учёта кеша — не может быть так мало.",
+      "en": "Bad, failed at everything. Tokens are likely reported without cache — can't be that low."
+    },
+    "images": {
+      "all": "paper__codex__longcat-2.5-preview__all@2x.png",
+      "desktop": "paper__codex__longcat-2.5-preview__desktop@2x.png",
+      "promo": "paper__codex__longcat-2.5-preview__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-sourcecraft-default",
     "tool": "paper",
     "agent": "Source Craft",
