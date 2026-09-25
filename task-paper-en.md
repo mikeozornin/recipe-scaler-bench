@@ -7,7 +7,7 @@ Create new pages:
 3. A recipe screen interface for mobile. You need to design a recipe screen. Screen width: 375px.
 
 # Where to create it and expected result
-Where to create: https://app.paper.design/file/01M384RPC404T8TTT2FRK0REYB/p-1-0
+Where to create: https://app.paper.design/file/01M3CMRWRPFD7KF528VQSZGBX3/p-1-0
 
 If the mockups are long, you can make a tall frame/artboard/layout. You do not have to fit standard screen proportions.
 
