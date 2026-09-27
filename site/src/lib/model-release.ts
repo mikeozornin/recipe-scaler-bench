@@ -103,6 +103,10 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // Meta
   'muse spark 1.3': '2026-09-02', // research.meta.ai/blog/introducing-muse-spark-1-3
   'muse spark': '2026-09-02',
+
+  // Vercel (vercel.com/changelog)
+  'pixel-canary': '2026-09-25', // vercel.com/changelog/pixel-canary-is-now-available-in-stealth-for-free-on-ai-gateway
+  'pixel canary': '2026-09-25',
 };
 
 /** Keys sorted longest-first so more specific families win. */

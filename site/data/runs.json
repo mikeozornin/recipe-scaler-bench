@@ -228,6 +228,24 @@
     }
   },
   {
+    "id": "paper-cline-pixel-canary",
+    "tool": "paper",
+    "agent": "Cline",
+    "model": "Pixel Canary",
+    "runDate": "2026-09-27",
+    "time": "1 h 11 min",
+    "tokens": null,
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "Не смог дождаться окончания, показываю результат за 1 час 11 минут. Из трёх экранов успел только промо.",
+      "en": "Couldn't wait for it to finish — showing the result after 1 h 11 min. Only the promo page of the three screens was done."
+    },
+    "images": {
+      "promo": "paper__cline__pixel-canary__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-codex-gpt-5-5",
     "tool": "paper",
     "agent": "Codex",
