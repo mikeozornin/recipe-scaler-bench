@@ -1416,5 +1416,26 @@
       "mobile": "figma__cursor__composer-2__mobile@2x.png",
       "promo": "figma__cursor__composer-2__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-kilo-ling-3-1-flash",
+    "tool": "paper",
+    "agent": "Kilo Code",
+    "model": "Ling 3.1 Flash",
+    "runDate": "2026-10-02",
+    "time": "13:10",
+    "tokens": "208k + 3.7M + 59k",
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "Ничего интересного в целом, было бы mid, если бы справился с автолейаутом. Мобилка хорошо структурирована, остальное хуже.",
+      "en": "Nothing interesting overall; it would be mid if it had handled autolayout. Mobile is well structured, the rest is worse."
+    },
+    "images": {
+      "all": "paper__kilo__ling-3.1-flash__all@2x.png",
+      "desktop": "paper__kilo__ling-3.1-flash__desktop@2x.png",
+      "mobile": "paper__kilo__ling-3.1-flash__mobile@2x.png",
+      "promo": "paper__kilo__ling-3.1-flash__promo@2x.png"
+    }
   }
 ]
