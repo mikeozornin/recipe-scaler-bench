@@ -27,15 +27,13 @@ Output: `dist/` with base path `/recipe-scaler-bench/`.
 
 ## Deploy (Ansible)
 
-Два плейбука в `ansible/` — конфиг и файлы раздельно:
+Плейбуки в [`../ansible/`](../ansible/README.md). Файлы заливаются в `/usr/share/nginx/html/recipe-scaler-bench/` (сниппет в server-блоке `mikeozornin.ru`). Каталог `/var/www/recipe-scaler-bench/` — другой vhost, `bench.mikeozornin.ru`.
 
 ```bash
-cd ansible
-ansible-playbook update-nginx.yml   # location + include в default, reload
-ansible-playbook deploy-files.yml   # npm run build + rsync dist/
+cd ../ansible
+ansible-playbook deploy-files.yml   # npm ci, npm run build, rsync dist/
+ansible-playbook update-nginx.yml   # сниппет + include в default, reload
 ```
-
-Подробнее: [ansible/README.md](ansible/README.md).
 
 ## Edit results
 

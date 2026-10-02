@@ -1,0 +1,33 @@
+# Managed by ansible — recipe-scaler-bench
+# Included from /etc/nginx/sites-available/default
+# Site: https://mikeozornin.ru/recipe-scaler-bench/
+# Files: /usr/share/nginx/html/recipe-scaler-bench/
+
+location = /recipe-scaler-bench {
+    return 301 /recipe-scaler-bench/;
+}
+
+# Hashed assets — served immutable forever (filename changes on content change).
+# `expires off` cancels the inherited `expires -1` from the parent server block
+# (which would otherwise emit Cache-Control: no-cache). Only our add_header below
+# emits a Cache-Control header.
+location ^~ /recipe-scaler-bench/_astro/ {
+    root /usr/share/nginx/html;
+    expires off;
+    add_header Cache-Control "public, max-age=31536000, immutable";
+    try_files $uri =404;
+}
+
+location ^~ /recipe-scaler-bench/images/ {
+    root /usr/share/nginx/html;
+    expires off;
+    add_header Cache-Control "public, max-age=31536000, immutable";
+    try_files $uri =404;
+}
+
+# HTML and everything else — default caching (revalidate each request).
+location ^~ /recipe-scaler-bench/ {
+    root /usr/share/nginx/html;
+    index index.html;
+    try_files $uri $uri/ =404;
+}
