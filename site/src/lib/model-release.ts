@@ -29,6 +29,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'gpt 5.5': '2026-04-24',
   'gpt 5.6 sol': '2026-07-09',
   'gpt 5.6': '2026-07-09',
+  'gpt 6.1 sol': '2026-09-29', // techcrunch.com/2026/09/29/openai-launches-gpt-6-1-sol — DevDay 29 Sep; openrouter.ai listing
+  'gpt-6.1 sol': '2026-09-29',
 
   // Google
   'gemini 3.8 flash': '2026-09-02', // blog.google — Introducing Gemini 3.8 Flash and 3.8 Flash Cyber

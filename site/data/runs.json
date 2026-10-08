@@ -1521,5 +1521,26 @@
       "mobile": "paper__opencode__step-5-preview-free__mobile@2x.png",
       "promo": "paper__opencode__step-5-preview-free__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-codex-gpt-6-1-sol-xhigh",
+    "tool": "paper",
+    "agent": "Codex",
+    "model": "GPT 6.1 Sol, xhigh",
+    "runDate": "2026-10-08",
+    "time": "21 min 32 s",
+    "tokens": "3.97M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Хороший текст, на уровне одноклассников. Дизайн никакой для модели такого класса, десктоп плохой, промостраница не интересная.",
+      "en": "Good copy, on a schoolmate level. No real design for a model of this class: the desktop is bad, the promo page is uninteresting."
+    },
+    "images": {
+      "all": "paper__codex__gpt-6.1-sol-xhigh__all@2x.png",
+      "desktop": "paper__codex__gpt-6.1-sol-xhigh__desktop@2x.png",
+      "mobile": "paper__codex__gpt-6.1-sol-xhigh__mobile@2x.png",
+      "promo": "paper__codex__gpt-6.1-sol-xhigh__promo@2x.png"
+    }
   }
 ]
