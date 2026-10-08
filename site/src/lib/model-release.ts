@@ -13,6 +13,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'opus 4.6': '2026-02-05',
   'opus 4.7': '2026-04-16',
   'opus 4.8': '2026-05-28',
+  'fable 5.1': '2026-09-01', // anthropic.com — Fable 5.1 / Mythos 5.1 launch
   'fable 5': '2026-06-09',
   'opus 5.5': '2026-09-22', // anthropic.com/claude-opus-5-5
   'opus 5': '2026-07-24',

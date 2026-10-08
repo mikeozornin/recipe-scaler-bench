@@ -1479,5 +1479,26 @@
       "mobile": "paper__claude-code__haiku-5.5-max__mobile@2x.png",
       "promo": "paper__claude-code__haiku-5.5-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-claude-code-fable-5-1-xhigh",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Fable 5.1 xhigh",
+    "runDate": "2026-10-08",
+    "time": "28 min 48 s",
+    "tokens": "2.6M",
+    "cost": "$11.46",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Промостраница слабая, зато мобилка и десктоп очень структурные и хорошие (особенно десктоп). По цене не вау-много, если честно (но и на промостранице схалтурил).",
+      "en": "The promo page is weak, but mobile and desktop are very well structured and good (desktop especially). Honestly, not shockingly expensive (but it did cut corners on the promo page)."
+    },
+    "images": {
+      "all": "paper__claude-code__fable-5.1-xhigh__all@2x.png",
+      "desktop": "paper__claude-code__fable-5.1-xhigh__desktop@2x.png",
+      "mobile": "paper__claude-code__fable-5.1-xhigh__mobile@2x.png",
+      "promo": "paper__claude-code__fable-5.1-xhigh__promo@2x.png"
+    }
   }
 ]
