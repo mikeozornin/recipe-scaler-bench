@@ -1437,5 +1437,26 @@
       "mobile": "paper__kilo__ling-3.1-flash__mobile@2x.png",
       "promo": "paper__kilo__ling-3.1-flash__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-claude-code-sonnet-5-5-max",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Sonnet 5.5 Max",
+    "runDate": "2026-10-08",
+    "time": "1 h 18 min",
+    "tokens": "27.4M",
+    "cost": "$11.74",
+    "tier": "fancy",
+    "comment": {
+      "ru": "Невероятно долго, но это макс. Очень хорошо. Приятно смотреть, интересно наблюдать.",
+      "en": "Incredibly slow, but it's max. Very good. Pleasant to look at, interesting to watch."
+    },
+    "images": {
+      "all": "paper__claude-code__sonnet-5.5-max__all@2x.png",
+      "desktop": "paper__claude-code__sonnet-5.5-max__desktop@2x.png",
+      "mobile": "paper__claude-code__sonnet-5.5-max__mobile@2x.png",
+      "promo": "paper__claude-code__sonnet-5.5-max__promo@2x.png"
+    }
   }
 ]
