@@ -114,6 +114,11 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // inclusionAI (OpenRouter listing; no vendor announce found)
   'ling 3.1 flash': '2026-10-02',
   'ling 3.1': '2026-10-02',
+
+  // StepFun (user-confirmed release date 2026-09-16)
+  'step 5 preview free': '2026-09-16',
+  'step 5 preview': '2026-09-16',
+  'step 5': '2026-09-16',
 };
 
 /** Keys sorted longest-first so more specific families win. */

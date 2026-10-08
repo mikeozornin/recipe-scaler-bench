@@ -1500,5 +1500,26 @@
       "mobile": "paper__claude-code__fable-5.1-xhigh__mobile@2x.png",
       "promo": "paper__claude-code__fable-5.1-xhigh__promo@2x.png"
     }
+  },
+{
+    "id": "paper-opencode-step-5-preview-free",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Step 5 Preview Free*",
+    "runDate": "2026-10-08",
+    "time": "46 min 50 s",
+    "tokens": "6.28M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Ну типичный середнячок (середнячок минус), формально все выполнено, но зацепиться не за что: верстка обычная, десктоп не очень, текст слабый",
+      "en": "A typical middling run (middling, minus): formally everything is done, but there is nothing to hold on to — plain layout, the desktop is not great, the copy is weak."
+    },
+    "images": {
+      "all": "paper__opencode__step-5-preview-free__all@2x.png",
+      "desktop": "paper__opencode__step-5-preview-free__desktop@2x.png",
+      "mobile": "paper__opencode__step-5-preview-free__mobile@2x.png",
+      "promo": "paper__opencode__step-5-preview-free__promo@2x.png"
+    }
   }
 ]
