@@ -6,7 +6,7 @@ SSG site (Astro + React islands) for the AI design experiment.
 - **Stack:** Astro (static), React islands, Tailwind, Lucide
 - **Data:** `data/runs.json`
 - **Images:** prepared into `public/images/` at build time
-- **RSS:** RU/EN feeds are generated at build as `rss.xml` and `en/rss.xml`, linked from the layout, and deployed with the rest of `dist/` by `ansible/deploy-files.yml`
+- **RSS:** RU/EN feeds are generated at build as `rss.xml` and `en/rss.xml`, linked from the layout, and deployed with the rest of `dist/`
 
 ## Develop
 
@@ -25,14 +25,13 @@ npm run preview
 
 Output: `dist/` with base path `/recipe-scaler-bench/`.
 
-## Deploy (Ansible)
+## Deploy
 
-Плейбуки в [`../ansible/`](../ansible/README.md). Файлы заливаются в `/usr/share/nginx/html/recipe-scaler-bench/` (сниппет в server-блоке `mikeozornin.ru`). Каталог `/var/www/recipe-scaler-bench/` — другой vhost, `bench.mikeozornin.ru`.
+Плейбуки лежат в `ansible/` — локально, не в git (см. `.gitignore`), там же README.
 
 ```bash
-cd ../ansible
-ansible-playbook deploy-files.yml   # npm ci, npm run build, rsync dist/
-ansible-playbook update-nginx.yml   # сниппет + include в default, reload
+cd ansible
+ansible-playbook deploy-files.yml   # npm run build, rsync dist/, проверка, что сайт отдаёт эту сборку
 ```
 
 ## Edit results
