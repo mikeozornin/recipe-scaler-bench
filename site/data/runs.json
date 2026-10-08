@@ -1458,5 +1458,26 @@
       "mobile": "paper__claude-code__sonnet-5.5-max__mobile@2x.png",
       "promo": "paper__claude-code__sonnet-5.5-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-claude-code-haiku-5-5-max",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Haiku 5.5 Max",
+    "runDate": "2026-10-08",
+    "time": "42 min",
+    "tokens": "4.08M",
+    "cost": "$0.34",
+    "tier": "mid",
+    "comment": {
+      "ru": "Очень долго, но дешево. Хорошо поняло концепцию десктопного приложения, это именно приложение. Десктоп и мобильный в целом юзабельные. Визуально везде недостаточно хорошо. Текст сильно слабее старших моделей.",
+      "en": "Very slow, but cheap. Understood the desktop app concept well: it really is an app. Desktop and mobile are usable overall. Visually not good enough anywhere. The copy is much weaker than the bigger models'."
+    },
+    "images": {
+      "all": "paper__claude-code__haiku-5.5-max__all@2x.png",
+      "desktop": "paper__claude-code__haiku-5.5-max__desktop@2x.png",
+      "mobile": "paper__claude-code__haiku-5.5-max__mobile@2x.png",
+      "promo": "paper__claude-code__haiku-5.5-max__promo@2x.png"
+    }
   }
 ]

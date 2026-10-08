@@ -9,6 +9,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'sonnet 4.5': '2025-09-29',
   'sonnet 5.5': '2026-09-28', // anthropic.com/claude-sonnet-5-5
   'haiku 4.5': '2025-10-15',
+  'haiku 5.5': '2026-10-07', // anthropic.com/claude-haiku-5-5
   'opus 4.6': '2026-02-05',
   'opus 4.7': '2026-04-16',
   'opus 4.8': '2026-05-28',
