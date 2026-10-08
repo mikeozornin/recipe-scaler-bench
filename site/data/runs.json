@@ -1542,5 +1542,26 @@
       "mobile": "paper__codex__gpt-6.1-sol-xhigh__mobile@2x.png",
       "promo": "paper__codex__gpt-6.1-sol-xhigh__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-opencode-mistral-large-4-high",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Mistral Large 4 High",
+    "runDate": "2026-10-09",
+    "time": "11 min 02 s",
+    "tokens": "3.43M",
+    "cost": "$1.69",
+    "tier": "weak",
+    "comment": {
+      "ru": "Лучшая модель из топ-3 страны, но не очень может догнать модели топ-2 и топ-1. Слабо всё.",
+      "en": "The best of the country's top-3 models, but it can't really catch the top-2 and top-1 models. Weak all around."
+    },
+    "images": {
+      "all": "paper__opencode__mistral-large-4-high__all@2x.png",
+      "desktop": "paper__opencode__mistral-large-4-high__desktop@2x.png",
+      "mobile": "paper__opencode__mistral-large-4-high__mobile@2x.png",
+      "promo": "paper__opencode__mistral-large-4-high__promo@2x.png"
+    }
   }
 ]

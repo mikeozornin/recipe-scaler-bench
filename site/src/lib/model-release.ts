@@ -121,6 +121,10 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'step 5 preview free': '2026-09-16',
   'step 5 preview': '2026-09-16',
   'step 5': '2026-09-16',
+
+  // Mistral (mistral.ai announce; marktechpost.com/2026/10/06 — public preview)
+  'mistral large 4': '2026-10-06',
+  'mistral-large-4': '2026-10-06',
 };
 
 /** Keys sorted longest-first so more specific families win. */
