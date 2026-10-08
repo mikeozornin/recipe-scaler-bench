@@ -46,9 +46,10 @@
   --flashlight-glow-offset-y: 14px;
 }
 
-/* Avoid flash of unfiltered list when URL has filter params (static HTML is query-agnostic). */
-html.defer-explorer .results-explorer {
-  visibility: hidden;
+/* Both explorer views are in the DOM; data-view (set before paint) shows one. */
+html[data-view='gallery'] .results-explorer .rsb-table,
+html:not([data-view='gallery']) .results-explorer .rsb-gallery {
+  display: none;
 }
 
 /* View toggle active state from prefs (set before React hydrates as table by default). */
@@ -207,6 +208,16 @@ html[data-theme-mode="flashlight"] body::before {
   font-size: var(--font-size-caption);
   font-weight: 600;
   line-height: 1;
+}
+.theme-icon {
+  display: none;
+}
+html:not([data-theme-mode]) .theme-icon-system,
+html[data-theme-mode='system'] .theme-icon-system,
+html[data-theme-mode='light'] .theme-icon-light,
+html[data-theme-mode='dark'] .theme-icon-dark,
+html[data-theme-mode='flashlight'] .theme-icon-flashlight {
+  display: block;
 }
 .theme-toggle-btn:hover {
   background: oklch(var(--accent));

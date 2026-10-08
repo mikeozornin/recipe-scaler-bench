@@ -1,0 +1,52 @@
+---
+import { ResultsExplorer } from './ResultsExplorer';
+import { kpis, sortedRuns, TIER_ORDER } from '../lib/runs';
+import { t } from '../lib/i18n';
+import { kpiAgentsLabel, kpiImagesLabel, kpiModelsLabel, kpiRunsLabel } from '../lib/plural';
+import { DEFAULT_FILTER } from '../lib/filter';
+import { explorerPrepaintScript } from '../lib/prepaint';
+import type { Locale } from '../lib/types';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const m = t(locale);
+const base = import.meta.env.BASE_URL;
+const list = sortedRuns();
+const stats = kpis(list);
+
+// Same option lists as ResultsExplorer builds for its selects.
+const agentOptions = ['all', ...[...new Set(list.map((r) => r.agent))].sort((a, b) => a.localeCompare(b))];
+const hasUnrated = list.some((r) => r.tier === 'unknown');
+const tierOptions = ['all', ...TIER_ORDER.filter((ti) => ti !== 'unknown' || hasUnrated)];
+const prepaint = explorerPrepaintScript(list, locale, agentOptions, tierOptions);
+---
+
+<script is:inline set:html={prepaint} />
+<ResultsExplorer
+  client:visible
+  runs={list}
+  locale={locale}
+  base={base}
+  initialFilter={DEFAULT_FILTER}
+  kpis={{
+    runs: stats.runs,
+    imageSlots: stats.imageSlots,
+    agents: stats.agents,
+    models: stats.models,
+    costSpreadValue: m.costSpreadValue,
+    costSpreadLabel: m.kpiCostSpread,
+    runsLabel: kpiRunsLabel(stats.runs, locale),
+    imagesLabel: kpiImagesLabel(stats.imageSlots, locale),
+    agentsLabel: kpiAgentsLabel(stats.agents, locale),
+    modelsLabel: kpiModelsLabel(stats.models, locale),
+  }}
+/>
+<script is:inline>
+  (function () {
+    var input = document.querySelector('.results-explorer input[type="search"]');
+    if (input) input.value = new URLSearchParams(location.search).get('q') || '';
+  })();
+</script>

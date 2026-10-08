@@ -71,6 +71,12 @@ export function fullImagePath(file: string, base: string): string {
   return `${b}/images/${resolveHashedPath('full', file)}`;
 }
 
+/** Pixel size of a full @2x PNG from the image manifest (0×0 if unknown). */
+export function fullImageSize(file: string): { width: number; height: number } {
+  const entry = manifest[`full/${file}`];
+  return { width: entry?.width ?? 0, height: entry?.height ?? 0 };
+}
+
 export function thumbImagePath(file: string, base: string): string {
   const b = base.endsWith('/') ? base.slice(0, -1) : base;
   const webp = file.endsWith('.webp') ? file : file.replace(/@2x\.png$/, '.webp');

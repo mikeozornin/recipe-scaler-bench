@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import { ThemeSwitcher } from '../components/ThemeSwitcher';
 import type { Locale } from '../lib/types';
@@ -34,7 +33,7 @@ const isAbout = pathname.includes('/about');
 ---
 
 <!doctype html>
-<html lang={locale} transition:animate="none">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -50,7 +49,6 @@ const isAbout = pathname.includes('/about');
       href={rss}
     />
     <title>{pageTitle}</title>
-    <ClientRouter fallback="swap" />
     <script
       is:inline
       set:html={`
@@ -117,8 +115,7 @@ const isAbout = pathname.includes('/about');
           return href + qs + frag;
         }
 
-        function applyShellPrefs(opts) {
-          opts = opts || {};
+        function applyShellPrefs() {
           var prefs = readPrefs();
           var mode = VALID_THEME[prefs.theme] ? prefs.theme : 'system';
           var root = document.documentElement;
@@ -129,49 +126,28 @@ const isAbout = pathname.includes('/about');
           root.setAttribute('data-view', view);
           syncViewCookie(view);
 
-          if (opts.deferExplorer) {
-            var hasExplorer = !!document.querySelector('.results-explorer');
-            if (
-              hasExplorer &&
-              ((location.search && location.search.length > 1) || view === 'gallery')
-            ) {
-              root.classList.add('defer-explorer');
-            } else {
-              root.classList.remove('defer-explorer');
-            }
-          }
-
-          if (opts.redirectLocale !== false) {
-            var pageLocale = root.getAttribute('lang') === 'en' ? 'en' : 'ru';
-            if ((prefs.locale === 'en' || prefs.locale === 'ru') && prefs.locale !== pageLocale) {
-              var next = switchLocaleHref(
-                location.pathname,
-                siteBase,
-                prefs.locale,
-                location.search,
-                location.hash,
-              );
-              var current = location.pathname + location.search + location.hash;
-              if (next && next !== current) {
-                location.replace(next);
-              }
+          var pageLocale = root.getAttribute('lang') === 'en' ? 'en' : 'ru';
+          if ((prefs.locale === 'en' || prefs.locale === 'ru') && prefs.locale !== pageLocale) {
+            var next = switchLocaleHref(
+              location.pathname,
+              siteBase,
+              prefs.locale,
+              location.search,
+              location.hash,
+            );
+            var current = location.pathname + location.search + location.hash;
+            if (next && next !== current) {
+              location.replace(next);
             }
           }
         }
 
-        applyShellPrefs({ deferExplorer: true });
+        applyShellPrefs();
 
-        if (!window.__rsbShellPrefsBound) {
-          window.__rsbShellPrefsBound = true;
-          // Before React hydrates the swapped page: hide mismatched view/filters.
-          document.addEventListener('astro:after-swap', function () {
-            applyShellPrefs({ deferExplorer: true });
-          });
-          // Keep theme/data-view in sync without re-hiding after React revealed the explorer.
-          document.addEventListener('astro:page-load', function () {
-            applyShellPrefs({ deferExplorer: false });
-          });
-        }
+        // bfcache restore (back/forward): prefs may have changed on another page.
+        window.addEventListener('pageshow', function (e) {
+          if (e.persisted) applyShellPrefs();
+        });
       })();
     `}
     />
@@ -268,7 +244,7 @@ const isAbout = pathname.includes('/about');
                 el.setAttribute('href', url.pathname + location.search + location.hash);
               }
 
-              // Capture phase: update href before ClientRouter handles the click.
+              // Capture phase: update href before the browser follows the link.
               document.addEventListener(
                 'click',
                 function (e) {

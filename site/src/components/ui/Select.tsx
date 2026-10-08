@@ -8,6 +8,8 @@ export type SelectOption = {
 };
 
 type Props = {
+  /** Exposed as data-select-name so the prepaint script can show the URL's label early. */
+  name?: string;
   value: string;
   options: SelectOption[];
   onChange: (value: string) => void;
@@ -15,7 +17,14 @@ type Props = {
   className?: string;
 };
 
-export function Select({ value, options, onChange, className, 'aria-label': ariaLabel }: Props) {
+export function Select({
+  name,
+  value,
+  options,
+  onChange,
+  className,
+  'aria-label': ariaLabel,
+}: Props) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const listId = useId();
@@ -38,7 +47,7 @@ export function Select({ value, options, onChange, className, 'aria-label': aria
   }, [open]);
 
   return (
-    <div ref={rootRef} className={cn('relative min-w-0', className)}>
+    <div ref={rootRef} className={cn('relative min-w-0', className)} data-select-name={name}>
       <button
         type="button"
         className="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-[oklch(var(--border))] bg-[oklch(var(--card))] px-3 text-left text-sm text-[oklch(var(--foreground))] transition hover:bg-[oklch(var(--accent))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]"
@@ -48,7 +57,13 @@ export function Select({ value, options, onChange, className, 'aria-label': aria
         aria-label={ariaLabel}
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="truncate">{selected?.label}</span>
+        <span className="truncate">
+          {options.map((opt) => (
+            <span key={opt.value} data-opt={opt.value} className={cn(opt !== selected && 'hidden')}>
+              {opt.label}
+            </span>
+          ))}
+        </span>
         <ChevronDown size={14} className={cn('shrink-0 transition', open && 'rotate-180')} />
       </button>
 

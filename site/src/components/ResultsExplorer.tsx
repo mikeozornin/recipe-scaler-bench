@@ -1,5 +1,4 @@
 import { useDeferredValue, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
 import { ArrowUpDown, Check, LayoutGrid, List } from 'lucide-react';
 import type { Locale, QualityTier, Run } from '../lib/types';
 import { t } from '../lib/i18n';
@@ -14,6 +13,7 @@ import {
 } from '../lib/filter';
 import { formatModelReleaseDate, primaryThumbFile, TIER_ORDER, thumbImagePath } from '../lib/runs';
 import { highlightText, tokenizeQuery } from '../lib/search';
+import { PREPAINT_STYLE_ID } from '../lib/prepaint';
 import { cn } from '../lib/utils';
 import { Select } from './ui/Select';
 
@@ -35,9 +35,8 @@ type Props = {
   locale: Locale;
   base: string;
   kpis: ExplorerKpis;
-  /** SSR seed from the request URL (and cookie for view) — avoids filter/view flash. */
+  /** SSR seed; the real URL/prefs state is painted early by the prepaint script. */
   initialFilter?: RunFilter;
-  initialView?: ViewMode;
 };
 
 function nonempty(value: string | null | undefined): string {
@@ -92,21 +91,7 @@ function formatRunTitle(run: Run): string {
 const runLinkClass = 'run-link font-medium leading-snug';
 
 const galleryGridClass =
-  'grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
-
-/** Consecutive runs sharing a tier → one row group (for tier sorts in gallery). */
-function groupRunsByTier(list: Run[]): Run[][] {
-  const groups: Run[][] = [];
-  for (const run of list) {
-    const last = groups[groups.length - 1];
-    if (last && last[0].tier === run.tier) {
-      last.push(run);
-    } else {
-      groups.push([run]);
-    }
-  }
-  return groups;
-}
+  'rsb-gallery grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
 
 export function ResultsExplorer({
   runs,
@@ -114,10 +99,10 @@ export function ResultsExplorer({
   base,
   kpis,
   initialFilter = DEFAULT_FILTER,
-  initialView = 'table',
 }: Props) {
   const m = t(locale);
-  const [view, setView] = useState<ViewMode>(initialView);
+  const [view, setView] = useState<ViewMode>('table');
+  const [synced, setSynced] = useState(false);
   const [agent, setAgent] = useState(initialFilter.agent);
   const [tier, setTier] = useState<'all' | QualityTier>(initialFilter.tier);
   const [sort, setSort] = useState<SortKey>(initialFilter.sort);
@@ -135,16 +120,20 @@ export function ResultsExplorer({
     const prefs = getPrefs();
     // URL is source of truth; prefs.sort only fills a missing sort param.
     const urlFilter = queryToFilter(new URLSearchParams(window.location.search), prefs.sort);
-    flushSync(() => {
-      setAgent(urlFilter.agent);
-      setTier(urlFilter.tier);
-      setSort(urlFilter.sort);
-      setQ(urlFilter.q);
-      setView(prefs.view);
-    });
+    setAgent(urlFilter.agent);
+    setTier(urlFilter.tier);
+    setSort(urlFilter.sort);
+    setQ(urlFilter.q);
+    setView(prefs.view);
+    setSynced(true);
     document.documentElement.setAttribute('data-view', prefs.view);
-    document.documentElement.classList.remove('defer-explorer');
   }, []);
+
+  // The prepaint stylesheet keeps the list correct until React renders the same
+  // state itself (deferredQ lags q by one render, so wait for it too).
+  useLayoutEffect(() => {
+    if (synced && deferredQ === q) document.getElementById(PREPAINT_STYLE_ID)?.remove();
+  }, [synced, deferredQ, q]);
 
   const setViewPersist = (next: ViewMode) => {
     setView(next);
@@ -258,11 +247,17 @@ export function ResultsExplorer({
   const renderGalleryCard = (run: Run, index: number) => {
     const thumb = primaryThumbFile(run);
     const href = runHrefWithFilter(run.id, locale, base, filter);
+    // Tier sorts: each tier group starts on a new grid row.
+    const startsTierGroup = isTierSort && index > 0 && filtered[index - 1].tier !== run.tier;
     return (
       <a
         key={run.id}
         href={href}
-        className="group min-w-0 overflow-hidden rounded-xl bg-[oklch(var(--muted))] transition"
+        data-run-id={run.id}
+        className={cn(
+          'group min-w-0 overflow-hidden rounded-xl bg-[oklch(var(--muted))] transition',
+          startsTierGroup && 'col-start-1',
+        )}
       >
         <div className="aspect-[16/10] bg-[oklch(var(--muted))]">
           {thumb ? (
@@ -346,6 +341,7 @@ export function ResultsExplorer({
           type="search"
         />
         <Select
+          name="agent"
           value={agent}
           options={agentOptions}
           onChange={setAgent}
@@ -353,6 +349,7 @@ export function ResultsExplorer({
           className="min-w-0 w-full sm:w-auto sm:min-w-[11rem]"
         />
         <Select
+          name="tier"
           value={tier}
           options={tierOptions}
           onChange={(v) => setTier(v as typeof tier)}
@@ -434,16 +431,19 @@ export function ResultsExplorer({
         </div>
       </div>
 
-      {filtered.length === 0 ? (
-        <p className="text-[oklch(var(--foreground))]">{m.empty}</p>
-      ) : view === 'table' ? (
-        <div className="flex min-w-0 w-full max-w-full flex-col">
+      <p className={cn('rsb-empty text-[oklch(var(--foreground))]', filtered.length > 0 && 'hidden')}>
+        {m.empty}
+      </p>
+      {/* Both views are always rendered; html[data-view] picks one (set before paint). */}
+      <div className={cn('rsb-results', filtered.length === 0 && 'hidden')}>
+        <div className="rsb-table flex min-w-0 w-full max-w-full flex-col">
           {filtered.map((run, index) => {
             const thumb = primaryThumbFile(run);
             const href = runHrefWithFilter(run.id, locale, base, filter);
             return (
               <article
                 key={run.id}
+                data-run-id={run.id}
                 className={cn(
                   'flex min-w-0 max-w-full flex-col gap-3 py-3',
                   'sm:flex-row sm:items-start sm:gap-4',
@@ -487,22 +487,10 @@ export function ResultsExplorer({
             );
           })}
         </div>
-      ) : isTierSort ? (
-        <div className="flex flex-col gap-4">
-          {groupRunsByTier(filtered).map((group, groupIdx) => (
-            <div key={group[0].tier} className={galleryGridClass}>
-              {group.map((run, idx) => {
-                const globalIndex = groupIdx === 0 ? idx : -1;
-                return renderGalleryCard(run, globalIndex);
-              })}
-            </div>
-          ))}
-        </div>
-      ) : (
         <div className={galleryGridClass}>
           {filtered.map((run, idx) => renderGalleryCard(run, idx))}
         </div>
-      )}
+      </div>
     </div>
   );
 }

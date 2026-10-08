@@ -1,65 +1,42 @@
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react';
+import { useEffect, useState, type CSSProperties, type MouseEvent } from 'react';
 import { X } from 'lucide-react';
 
-type Item = { src: string; label: string };
+type Item = { src: string; label: string; width: number; height: number };
 
 /**
  * @2x assets: CSS size = natural / 2 (retina density).
  * May shrink further via maxWidth: 100%; never larger than 50% of pixel size.
+ * Size comes from the build-time manifest, so the box is reserved before load.
  */
 function RetinaImage({
-  src,
-  alt,
+  item,
   className,
   onClick,
   fitViewport,
 }: {
-  src: string;
-  alt: string;
+  item: Item;
   className?: string;
   onClick?: (e: MouseEvent) => void;
   /** For lightbox overlay: also cap by viewport */
   fitViewport?: boolean;
 }) {
-  const ref = useRef<HTMLImageElement>(null);
-  const [style, setStyle] = useState<CSSProperties>({
-    // Until measured: don't paint at full pixel size (would look 2× too big)
+  const style: CSSProperties = {
+    width: item.width ? item.width / 2 : 'auto',
     maxWidth: '100%',
     height: 'auto',
-    width: 'auto',
-  });
-
-  const applySize = () => {
-    const el = ref.current;
-    if (!el?.naturalWidth) return;
-    // @2x → 50% CSS size (double density). maxWidth 100% allows shrink, not grow.
-    const cssW = el.naturalWidth / 2;
-    setStyle({
-      width: cssW,
-      maxWidth: '100%',
-      height: 'auto',
-      maxHeight: fitViewport ? '90vh' : undefined,
-      objectFit: 'contain',
-    });
+    maxHeight: fitViewport ? '90vh' : undefined,
+    objectFit: 'contain',
   };
-
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (el.complete && el.naturalWidth) {
-      applySize();
-    }
-  }, [src, fitViewport]);
 
   return (
     <img
-      ref={ref}
-      src={src}
-      alt={alt}
+      src={item.src}
+      alt={item.label}
+      width={item.width || undefined}
+      height={item.height || undefined}
       decoding="async"
       className={className}
       style={style}
-      onLoad={applySize}
       onClick={onClick}
     />
   );
@@ -91,7 +68,7 @@ export function ImageLightbox({ items }: { items: Item[] }) {
             className="inline-block max-w-full overflow-hidden rounded-xl border border-[oklch(var(--border))] bg-[oklch(var(--muted))] p-0 text-left align-top"
             onClick={() => setActive(item)}
           >
-            <RetinaImage src={item.src} alt={item.label} className="block" />
+            <RetinaImage item={item} className="block" />
           </button>
         ))}
       </div>
@@ -112,8 +89,7 @@ export function ImageLightbox({ items }: { items: Item[] }) {
             <X size={20} />
           </button>
           <RetinaImage
-            src={active.src}
-            alt={active.label}
+            item={active}
             fitViewport
             className="block"
             onClick={(e) => e.stopPropagation()}

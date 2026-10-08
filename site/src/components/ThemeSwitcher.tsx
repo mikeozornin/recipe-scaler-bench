@@ -18,11 +18,19 @@ export function ThemeSwitcher({ locale }: { locale: Locale }) {
   const m = t(locale);
   const menuId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
-  const [mode, setMode] = useState<ThemeMode>('system');
+  // null until prefs are read: the head script already applied the saved theme,
+  // so don't overwrite it with a placeholder 'system' on mount.
+  const [mode, setMode] = useState<ThemeMode | null>(null);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setMode(getPrefs().theme);
+    // bfcache restore: the theme may have been changed on another page.
+    const onShow = (e: PageTransitionEvent) => {
+      if (e.persisted) setMode(getPrefs().theme);
+    };
+    window.addEventListener('pageshow', onShow);
+    return () => window.removeEventListener('pageshow', onShow);
   }, []);
 
   useEffect(() => {
@@ -42,6 +50,7 @@ export function ThemeSwitcher({ locale }: { locale: Locale }) {
   }, [open]);
 
   useEffect(() => {
+    if (mode === null) return;
     const root = document.documentElement;
     root.setAttribute('data-theme-mode', mode);
     root.setAttribute('data-theme-resolved', resolveTheme(mode));
@@ -148,9 +157,6 @@ export function ThemeSwitcher({ locale }: { locale: Locale }) {
     setOpen(false);
   };
 
-  const Icon =
-    mode === 'light' ? Sun : mode === 'dark' ? Moon : mode === 'flashlight' ? LightbulbOff : SunMoon;
-
   const options: { value: ThemeMode; label: string; icon: typeof Sun }[] = [
     { value: 'system', label: m.themeSystem, icon: SunMoon },
     { value: 'light', label: m.themeLight, icon: Sun },
@@ -169,7 +175,11 @@ export function ThemeSwitcher({ locale }: { locale: Locale }) {
         title={m.themeLabel}
         onClick={() => setOpen((v) => !v)}
       >
-        <Icon size={16} />
+        {/* All icons rendered; CSS shows the one for html[data-theme-mode] (set before paint). */}
+        {options.map((opt) => {
+          const OptIcon = opt.icon;
+          return <OptIcon key={opt.value} size={16} className={`theme-icon theme-icon-${opt.value}`} />;
+        })}
         <ChevronDown size={12} />
       </button>
       <div className="theme-menu" id={menuId} role="menu" hidden={!open}>

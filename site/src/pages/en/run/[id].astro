@@ -5,6 +5,7 @@ import RunNav from '../../../components/RunNav.astro';
 import {
   formatModelReleaseDate,
   fullImagePath,
+  fullImageSize,
   getRunById,
   runs,
   thumbImagePath,
@@ -38,6 +39,7 @@ const items = screens
   .filter((s) => run.images[s.key])
   .map((s) => ({
     src: fullImagePath(run.images[s.key]!, base),
+    ...fullImageSize(run.images[s.key]!),
     label: s.label,
     thumb: thumbImagePath(run.images[s.key]!, base),
   }));
@@ -90,7 +92,7 @@ const runDate = formatModelReleaseDate(run.model, locale);
     ) : (
       <ImageLightbox
         client:idle
-        items={items.map((i) => ({ src: i.src, label: i.label }))}
+        items={items.map((i) => ({ src: i.src, label: i.label, width: i.width, height: i.height }))}
       />
     )
   }
