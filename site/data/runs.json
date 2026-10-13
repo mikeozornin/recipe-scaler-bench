@@ -1563,5 +1563,26 @@
       "mobile": "paper__opencode__mistral-large-4-high__mobile@2x.png",
       "promo": "paper__opencode__mistral-large-4-high__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-opencode-cat-jam",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Cat Jam*",
+    "runDate": "2026-10-13",
+    "time": "1 min 40 s",
+    "tokens": "10M",
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "Результат слабый, нейрослописто. Но как же это было быстро. 10 М токенов при этом (понятно, что чтение кеша, но у всех чтение кеша). Должно быть очень небольшая модель. Будет интересно узнать, что это за stealth-модель.",
+      "en": "The result is weak, kind of AI-slop-ish. But it was so fast. 10M tokens on top of that (obviously cache reads, but everyone's are cache reads). It must be a very small model. Would be interesting to know what this stealth model is."
+    },
+    "images": {
+      "all": "paper__opencode__cat-jam__all@2x.png",
+      "desktop": "paper__opencode__cat-jam__desktop@2x.png",
+      "mobile": "paper__opencode__cat-jam__mobile@2x.png",
+      "promo": "paper__opencode__cat-jam__promo@2x.png"
+    }
   }
 ]

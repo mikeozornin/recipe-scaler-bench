@@ -113,6 +113,10 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'pixel-canary': '2026-09-25', // vercel.com/changelog/pixel-canary-is-now-available-in-stealth-for-free-on-ai-gateway
   'pixel canary': '2026-09-25',
 
+  // OpenCode Zen stealth (cat-jam-free; no vendor announce, date = public catalog listing per X post)
+  'cat jam': '2026-10-13',
+  'cat-jam': '2026-10-13',
+
   // inclusionAI (OpenRouter listing; no vendor announce found)
   'ling 3.1 flash': '2026-10-02',
   'ling 3.1': '2026-10-02',
