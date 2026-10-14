@@ -33,6 +33,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'gpt-6.1 sol': '2026-09-29',
 
   // Google
+  'gemini 4 argon': '2026-09-30', // blog.google — Introducing Gemini 4 Argon (Fairwind); public GA 2026-10-13
+  'gemini-4-argon': '2026-09-30',
   'gemini 3.8 flash': '2026-09-02', // blog.google — Introducing Gemini 3.8 Flash and 3.8 Flash Cyber
   'gemini 3.1 pro': '2026-02-19',
   'gemini 3.5 flash': '2026-05-19',

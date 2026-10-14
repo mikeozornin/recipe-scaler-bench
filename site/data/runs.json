@@ -813,6 +813,27 @@
     }
   },
   {
+    "id": "paper-cursor-gemini-4-argon-high",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Gemini 4 Argon High",
+    "runDate": "2026-10-14",
+    "time": "15 min 39 s",
+    "tokens": "5.8M",
+    "cost": "9% квоты внешних моделей pro-тарифа",
+    "tier": "weak",
+    "comment": {
+      "ru": "Нейрослиписто в целом очень. Как будто обучали на b2b-продуктах, очень много всего, сделали космолет какой-то, везде все дико перегружено. Но в целом концепция «интерфейс» ему понятна. Промостраница очень плохая.",
+      "en": "Very AI-sloppy overall. Feels trained on B2B products — packed with everything, built a spaceship, wildly overloaded everywhere. The “interface” concept is generally clear, though. The promo page is very bad."
+    },
+    "images": {
+      "all": "paper__cursor__gemini-4-argon-high__all@2x.png",
+      "desktop": "paper__cursor__gemini-4-argon-high__desktop@2x.png",
+      "mobile": "paper__cursor__gemini-4-argon-high__mobile@2x.png",
+      "promo": "paper__cursor__gemini-4-argon-high__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-longcat-2-0",
     "tool": "paper",
     "agent": "Cursor",
