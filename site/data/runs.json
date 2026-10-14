@@ -821,7 +821,7 @@
     "time": "15 min 39 s",
     "tokens": "5.8M",
     "cost": "9% квоты внешних моделей pro-тарифа",
-    "tier": "weak",
+    "tier": "mid",
     "comment": {
       "ru": "Нейрослиписто в целом очень. Как будто обучали на b2b-продуктах, очень много всего, сделали космолет какой-то, везде все дико перегружено. Но в целом концепция «интерфейс» ему понятна. Промостраница очень плохая.",
       "en": "Very AI-sloppy overall. Feels trained on B2B products — packed with everything, built a spaceship, wildly overloaded everywhere. The “interface” concept is generally clear, though. The promo page is very bad."
