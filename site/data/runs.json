@@ -834,6 +834,27 @@
     }
   },
   {
+    "id": "paper-cursor-muse-wonder-max",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Muse Wonder Max*",
+    "runDate": "2026-10-16",
+    "time": "6 min 8 sec",
+    "tokens": "3.5M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Быстро, чисто, ничего выдающегося. * Продукт компании Meta, которая признана в РФ экстремистской и запрещена.",
+      "en": "Fast and clean, nothing outstanding. * Product by Meta, recognized as extremist and banned in Russia."
+    },
+    "images": {
+      "all": "paper__cursor__muse-wonder-max__all@2x.png",
+      "desktop": "paper__cursor__muse-wonder-max__desktop@2x.png",
+      "mobile": "paper__cursor__muse-wonder-max__mobile@2x.png",
+      "promo": "paper__cursor__muse-wonder-max__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-cursor-longcat-2-0",
     "tool": "paper",
     "agent": "Cursor",

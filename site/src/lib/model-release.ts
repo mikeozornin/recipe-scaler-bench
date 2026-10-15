@@ -108,6 +108,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'space bunny': '2026-09-23',
 
   // Meta
+  'muse wonder': '2026-10-12', // about.fb.com/news/2026/10/introducing-muse-wonder-models
   'muse spark 1.3': '2026-09-02', // research.meta.ai/blog/introducing-muse-spark-1-3
   'muse spark': '2026-09-02',
 
