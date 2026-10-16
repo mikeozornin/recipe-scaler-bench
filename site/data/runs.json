@@ -1631,15 +1631,15 @@
     "id": "paper-opencode-beam-max",
     "tool": "paper",
     "agent": "OpenCode",
-    "model": "Beam Max",
+    "model": "Beam Max*",
     "runDate": "2026-10-17",
     "time": "1 min 25 sec",
     "tokens": "5.6M",
     "cost": null,
     "tier": "weak",
     "comment": {
-      "ru": "Очень быстрая, конечно. Модель, вероятно, очень небольшая: слабый результат и высокая скорость.",
-      "en": "Very fast, of course. The model is probably very small: weak result and high speed."
+      "ru": "Очень быстрая, конечно. Модель, вероятно, очень небольшая: слабый результат и высокая скорость. * Stealth-модель.",
+      "en": "Very fast, of course. The model is probably very small: weak result and high speed. * Stealth model."
     },
     "images": {
       "all": "paper__opencode__beam-max__all@2x.png",

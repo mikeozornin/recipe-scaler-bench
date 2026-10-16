@@ -119,7 +119,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // OpenCode Zen stealth (cat-jam-free; no vendor announce, date = public catalog listing per X post)
   'cat jam': '2026-10-13',
   'cat-jam': '2026-10-13',
-  'beam max': '2026-10-16', // release date per user
+  'beam max': '2026-10-16', // stealth; release date per user
   beam: '2026-10-16',
 
   // inclusionAI (OpenRouter listing; no vendor announce found)
