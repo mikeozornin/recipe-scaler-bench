@@ -1626,5 +1626,26 @@
       "mobile": "paper__opencode__cat-jam__mobile@2x.png",
       "promo": "paper__opencode__cat-jam__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-opencode-beam-max",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Beam Max",
+    "runDate": "2026-10-17",
+    "time": "1 min 25 sec",
+    "tokens": "5.6M",
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "Очень быстрая, конечно. Модель, вероятно, очень небольшая: слабый результат и высокая скорость.",
+      "en": "Very fast, of course. The model is probably very small: weak result and high speed."
+    },
+    "images": {
+      "all": "paper__opencode__beam-max__all@2x.png",
+      "desktop": "paper__opencode__beam-max__desktop@2x.png",
+      "mobile": "paper__opencode__beam-max__mobile@2x.png",
+      "promo": "paper__opencode__beam-max__promo@2x.png"
+    }
   }
 ]
