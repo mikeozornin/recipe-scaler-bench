@@ -1647,5 +1647,26 @@
       "mobile": "paper__opencode__beam-max__mobile@2x.png",
       "promo": "paper__opencode__beam-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-cursor-deepseek-v4-1-flash-1017-max",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "DeepSeek V4.1 Flash, 1017 Max",
+    "runDate": "2026-10-17",
+    "time": "14:53",
+    "tokens": "21.6M",
+    "cost": "$0.167",
+    "tier": "mid",
+    "comment": {
+      "ru": "Дешево, но в дизайне всё ещё слабо. Быстро, однако общее время вышло большим: в отличие от стелс-моделей, вышедших в это же время, DeepSeek сделал длинную и сложную страницу на 21.6M токенов. Визуально слабо, десктоп перегружен, но задача «десктопный интерфейс» понята правильно. Безумный cache hit — 99,29%.",
+      "en": "Cheap, but still weak design-wise. Fast, yet the total time ended up long: unlike the stealth models released around the same time, DeepSeek built a long, complex page on 21.6M tokens. Visually weak and the desktop is overloaded, but the desktop-interface task was understood correctly. Insane cache hit rate — 99.29%."
+    },
+    "images": {
+      "all": "paper__cursor__deepseek-v4.1-flash-1017-max__all@2x.png",
+      "desktop": "paper__cursor__deepseek-v4.1-flash-1017-max__desktop@2x.png",
+      "mobile": "paper__cursor__deepseek-v4.1-flash-1017-max__mobile@2x.png",
+      "promo": "paper__cursor__deepseek-v4.1-flash-1017-max__promo@2x.png"
+    }
   }
 ]
