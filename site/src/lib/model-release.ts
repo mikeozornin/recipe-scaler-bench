@@ -84,6 +84,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // MiniMax
   'minimax 2.7': '2026-03-18',
   'minimax m2.7': '2026-03-18',
+  'minimax m3.1 flash': '2026-10-19', // minimax.io/blog/minimax-m31f — M3.1 Flash announce
+  'minimax m3.1': '2026-10-19',
   'minimax m3': '2026-05-31',
   'minimax 3': '2026-05-31',
 
