@@ -138,6 +138,9 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // Mistral (mistral.ai announce; marktechpost.com/2026/10/06 — public preview)
   'mistral large 4': '2026-10-06',
   'mistral-large-4': '2026-10-06',
+
+  // Grok Bot
+  'some model': '2026-09-22', // Grok Bot run (placeholder model name, dated like Opus 5.5 per Mike)
 };
 
 /** Keys sorted longest-first so more specific families win. */
