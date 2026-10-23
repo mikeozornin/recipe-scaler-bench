@@ -1710,5 +1710,26 @@
       "mobile": "paper__claude-code__opus-5.5-xhigh__mobile@2x.png",
       "promo": "paper__claude-code__opus-5.5-xhigh__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-grok-bot-some-model",
+    "tool": "paper",
+    "agent": "Grok Bot",
+    "model": "Some model",
+    "runDate": "2026-10-24",
+    "time": "14 min",
+    "tokens": null,
+    "cost": null,
+    "tier": "fancy",
+    "comment": {
+      "ru": "очень похоже, что грок работает сейчас на Опус 5.5. Очень похожий стиль, хотя качестве не xhigh, может ризонинг ниже.",
+      "en": "It really looks like Grok is running on Opus 5.5 right now. Very similar style, though the quality isn't xhigh — maybe the reasoning is lower."
+    },
+    "images": {
+      "all": "paper__grok-bot__some-model__all@2x.png",
+      "desktop": "paper__grok-bot__some-model__desktop@2x.png",
+      "mobile": "paper__grok-bot__some-model__mobile@2x.png",
+      "promo": "paper__grok-bot__some-model__promo@2x.png"
+    }
   }
 ]
