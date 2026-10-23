@@ -1689,5 +1689,26 @@
       "mobile": "paper__opencode__minimax-m3.1-flash-max__mobile@2x.png",
       "promo": "paper__opencode__minimax-m3.1-flash-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-claude-code-opus-5-5-xhigh",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 5.5 xhigh",
+    "runDate": "2026-10-24",
+    "time": "21 min",
+    "tokens": "9.0M",
+    "cost": null,
+    "tier": "fancy",
+    "comment": {
+      "ru": "Очень похоже на Opus 5.5 в Cursor, вероятно был разный набор скиллов и правил, поскольку текст тут заметно хуже. Но в целом узнаваемо.",
+      "en": "Very close to Opus 5.5 in Cursor. Probably a different set of skills and rules, since the copywriting here is noticeably weaker. But overall recognizable."
+    },
+    "images": {
+      "all": "paper__claude-code__opus-5.5-xhigh__all@2x.png",
+      "desktop": "paper__claude-code__opus-5.5-xhigh__desktop@2x.png",
+      "mobile": "paper__claude-code__opus-5.5-xhigh__mobile@2x.png",
+      "promo": "paper__claude-code__opus-5.5-xhigh__promo@2x.png"
+    }
   }
 ]
