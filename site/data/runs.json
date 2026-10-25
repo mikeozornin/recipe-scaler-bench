@@ -1712,6 +1712,27 @@
     }
   },
   {
+    "id": "paper-claude-code-opus-5-5-xhigh-hallmark",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 5.5, xhigh + Hallmark 2",
+    "runDate": "2026-10-25",
+    "time": "1 h 35 min",
+    "tokens": "27.1M",
+    "cost": null,
+    "tier": "fancy",
+    "comment": {
+      "ru": "я не отключил свой главный claude-md-файл и поэтому могли запускаться дополнительные циклы верификации. Лишнее время и токены могли взяться из него. Токены haiku в этой сессии: 15.6M.",
+      "en": "I did not turn off my main claude-md file, so extra verification loops may have run. The extra time and tokens may have come from it. Haiku tokens in this session: 15.6M."
+    },
+    "images": {
+      "all": "paper__claude-code__opus-5.5-xhigh-hallmark__all@2x.png",
+      "desktop": "paper__claude-code__opus-5.5-xhigh-hallmark__desktop@2x.png",
+      "mobile": "paper__claude-code__opus-5.5-xhigh-hallmark__mobile@2x.png",
+      "promo": "paper__claude-code__opus-5.5-xhigh-hallmark__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-grok-bot-some-model",
     "tool": "paper",
     "agent": "Grok Bot",
