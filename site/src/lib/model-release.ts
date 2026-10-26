@@ -74,6 +74,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'kimi 2.6': '2026-04-20',
   'kimi k2.6': '2026-04-20',
   'kimi k3': '2026-07-16',
+  'kimi 3.1 pro': '2026-10-23', // kimi.com/docs/kimi-code/whats-new — K3.1 Pro Series launch
+  'kimi 3.1': '2026-10-23',
 
   // Xiaomi
   'mimo v2.6 pro': '2026-09-21', // runtimewire / Xiaomi MiMo-V2.6 open-source
