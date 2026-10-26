@@ -1773,5 +1773,26 @@
       "mobile": "paper__kimi-code__kimi-3.1-pro-max__mobile@2x.png",
       "promo": "paper__kimi-code__kimi-3.1-pro-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-cursor-kimi-3-1-pro-max",
+    "tool": "paper",
+    "agent": "Cursor",
+    "model": "Kimi 3.1 Pro Max",
+    "runDate": "2026-10-26",
+    "time": "36 min 21 s",
+    "tokens": "8.0M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Не могу сказать, что это какой-то значимый рост с 2.8 / K3. Всё типично: мобилка самая хорошая, для десктопа выбран не тот экран, промостраница недостаточно интересная.",
+      "en": "I wouldn't call this a meaningful step up from 2.8 / K3. Typical pattern: mobile is the strongest, the wrong screen was chosen for desktop, and the promo page isn't interesting enough."
+    },
+    "images": {
+      "all": "paper__cursor__kimi-3.1-pro-max__all@2x.png",
+      "desktop": "paper__cursor__kimi-3.1-pro-max__desktop@2x.png",
+      "mobile": "paper__cursor__kimi-3.1-pro-max__mobile@2x.png",
+      "promo": "paper__cursor__kimi-3.1-pro-max__promo@2x.png"
+    }
   }
 ]
