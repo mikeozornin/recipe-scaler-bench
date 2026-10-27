@@ -1775,6 +1775,27 @@
     }
   },
   {
+    "id": "paper-pi-deepseek-4-1-flash-1017-hallmark",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "DeepSeek 4.1 Flash, 1017 + Hallmark",
+    "runDate": "2026-10-27",
+    "time": "25 min 30 s",
+    "tokens": "27.1M",
+    "cost": null,
+    "tier": "unknown",
+    "comment": {
+      "ru": "",
+      "en": ""
+    },
+    "images": {
+      "all": "paper__pi__deepseek-4.1-flash-1017-hallmark__all@2x.png",
+      "desktop": "paper__pi__deepseek-4.1-flash-1017-hallmark__desktop@2x.png",
+      "mobile": "paper__pi__deepseek-4.1-flash-1017-hallmark__mobile@2x.png",
+      "promo": "paper__pi__deepseek-4.1-flash-1017-hallmark__promo@2x.png"
+    }
+  },
+  {
     "id": "paper-grok-bot-some-model",
     "tool": "paper",
     "agent": "Grok Bot",
