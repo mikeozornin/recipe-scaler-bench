@@ -1543,7 +1543,7 @@
       "promo": "paper__claude-code__fable-5.1-xhigh__promo@2x.png"
     }
   },
-{
+  {
     "id": "paper-opencode-step-5-preview-free",
     "tool": "paper",
     "agent": "OpenCode",
@@ -1730,6 +1730,27 @@
       "desktop": "paper__claude-code__opus-5.5-xhigh-hallmark__desktop@2x.png",
       "mobile": "paper__claude-code__opus-5.5-xhigh-hallmark__mobile@2x.png",
       "promo": "paper__claude-code__opus-5.5-xhigh-hallmark__promo@2x.png"
+    }
+  },
+  {
+    "id": "paper-claude-code-opus-5-5-xhigh-frontend-design",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 5.5, xhigh + Frontend Design Skill",
+    "runDate": "2026-10-27",
+    "time": "27 min",
+    "tokens": "10.2M",
+    "cost": null,
+    "tier": "unknown",
+    "comment": {
+      "ru": "",
+      "en": ""
+    },
+    "images": {
+      "all": "paper__claude-code__opus-5.5-xhigh-frontend-design__all@2x.png",
+      "desktop": "paper__claude-code__opus-5.5-xhigh-frontend-design__desktop@2x.png",
+      "mobile": "paper__claude-code__opus-5.5-xhigh-frontend-design__mobile@2x.png",
+      "promo": "paper__claude-code__opus-5.5-xhigh-frontend-design__promo@2x.png"
     }
   },
   {
