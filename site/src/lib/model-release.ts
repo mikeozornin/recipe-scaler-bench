@@ -56,6 +56,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'deepseek v4.1 flash, 1017 max': '2026-10-17', // 1017 Max, user-confirmed release date
   'deepseek v4.1 flash 1017 max': '2026-10-17', // same variant without the comma
   'deepseek v4.1 flash': '2026-09-10', // deepseek.com/news/deepseek-v4-1-flash
+  'deepseek 4.1 flash, 1017': '2026-10-17', // 1017 snapshot, same day as the Max variant
   'deepseek 4.1 flash': '2026-09-10', // same model, label without the V
   'deepseek v4 pro': '2026-04-24',
   'deepseek v4': '2026-04-24',
