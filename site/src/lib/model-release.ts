@@ -53,11 +53,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'glm 5.1': '2026-04-07',
 
   // DeepSeek
-  'deepseek v4.1 flash, 1017 max': '2026-10-17', // 1017 Max, user-confirmed release date
-  'deepseek v4.1 flash 1017 max': '2026-10-17', // same variant without the comma
+  'deepseek v4.1 flash 1017': '2026-10-17', // 1017 snapshot, user-confirmed release date
   'deepseek v4.1 flash': '2026-09-10', // deepseek.com/news/deepseek-v4-1-flash
-  'deepseek 4.1 flash, 1017': '2026-10-17', // 1017 snapshot, same day as the Max variant
-  'deepseek 4.1 flash': '2026-09-10', // same model, label without the V
   'deepseek v4 pro': '2026-04-24',
   'deepseek v4': '2026-04-24',
 
@@ -149,7 +146,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
 /** Keys sorted longest-first so more specific families win. */
 const RELEASE_KEYS = Object.keys(MODEL_RELEASE_DATES).sort((a, b) => b.length - a.length);
 
-/** Normalize model label for matching (drop effort, provider notes). */
+/** Normalize model name for matching (lowercase, drop parentheses). */
 function normalizeModelLabel(model: string): string {
   return model
     .toLowerCase()
@@ -168,7 +165,6 @@ export function getModelReleaseDate(model: string): string | null {
   if (
     n === 'auto' ||
     n === 'default' ||
-    n === 'default thinking' ||
     n.startsWith('default ')
   ) {
     return null;

@@ -3,7 +3,7 @@ import { ResultsExplorer } from './ResultsExplorer';
 import { kpis, sortedRuns, TIER_ORDER } from '../lib/runs';
 import { t } from '../lib/i18n';
 import { kpiAgentsLabel, kpiImagesLabel, kpiModelsLabel, kpiRunsLabel } from '../lib/plural';
-import { DEFAULT_FILTER } from '../lib/filter';
+import { DEFAULT_FILTER, skillFilterOptions } from '../lib/filter';
 import { explorerPrepaintScript } from '../lib/prepaint';
 import type { Locale } from '../lib/types';
 
@@ -18,10 +18,9 @@ const list = sortedRuns();
 const stats = kpis(list);
 
 // Same option lists as ResultsExplorer builds for its selects.
-const agentOptions = ['all', ...[...new Set(list.map((r) => r.agent))].sort((a, b) => a.localeCompare(b))];
 const hasUnrated = list.some((r) => r.tier === 'unknown');
 const tierOptions = ['all', ...TIER_ORDER.filter((ti) => ti !== 'unknown' || hasUnrated)];
-const prepaint = explorerPrepaintScript(list, locale, agentOptions, tierOptions);
+const prepaint = explorerPrepaintScript(list, locale, skillFilterOptions(list), tierOptions);
 ---
 
 <script is:inline set:html={prepaint} />

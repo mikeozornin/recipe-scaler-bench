@@ -1,9 +1,9 @@
 import type { Locale, QualityTier, Run } from './types';
 import type { SortKey } from './prefs';
-import { compareRuns } from './filter';
+import { compareRuns, SKILL_NONE } from './filter';
 import { normalizeSearchString } from './search';
 import { PREFS_STORAGE_KEY } from './prefs';
-import { TIER_ORDER } from './runs';
+import { runLabel, TIER_ORDER } from './runs';
 
 const SORT_KEYS: SortKey[] = [
   'cost-desc',
@@ -29,7 +29,7 @@ export const PREPAINT_STYLE_ID = 'rsb-prepaint';
 export function explorerPrepaintScript(
   runs: Run[],
   locale: Locale,
-  agentOptions: string[],
+  skillOptions: string[],
   tierOptions: string[],
 ): string {
   const ranks: Record<string, number[]> = {};
@@ -45,13 +45,14 @@ export function explorerPrepaintScript(
 
   const data = {
     ids: runs.map((r) => r.id),
-    agents: runs.map((r) => r.agent),
+    skills: runs.map((r) => r.skills),
     tiers: runs.map((r) => r.tier),
     hay: runs.map((r) =>
-      normalizeSearchString(`${r.agent} ${r.model} ${r.comment.ru} ${r.comment.en}`),
+      normalizeSearchString(`${r.agent} ${runLabel(r)} ${r.comment.ru} ${r.comment.en}`),
     ),
     ranks,
-    agentOptions,
+    skillOptions,
+    skillNone: SKILL_NONE,
     tierOptions,
     validTiers: TIER_ORDER satisfies QualityTier[],
     defaultSort: 'tier-good',
@@ -91,18 +92,24 @@ export function explorerPrepaintScript(
     if (p && isSort(p.sort)) prefsSort = p.sort;
   } catch (e) {}
   var params = new URLSearchParams(location.search);
-  var agent = params.get('agent') || 'all';
+  var skills = (params.get('skills') || '').split(',').filter(Boolean);
   var tier = params.get('tier');
   if (D.validTiers.indexOf(tier) < 0) tier = 'all';
   var sortRaw = params.get('sort');
   var sort = isSort(sortRaw) ? sortRaw : prefsSort;
   var tokens = tokenize(params.get('q') || '');
 
+  function matchesSkills(runSkills) {
+    if (!skills.length) return true;
+    if (!runSkills.length) return skills.indexOf(D.skillNone) >= 0;
+    return runSkills.some(function (s) { return skills.indexOf(s) >= 0; });
+  }
+
   var visible = [];
   var css = [];
   for (var i = 0; i < D.ids.length; i++) {
     var ok =
-      (agent === 'all' || D.agents[i] === agent) &&
+      matchesSkills(D.skills[i]) &&
       (tier === 'all' || D.tiers[i] === tier) &&
       tokens.every(function (t) { return D.hay[i].indexOf(t) >= 0; });
     if (ok) visible.push(i);
@@ -132,7 +139,16 @@ export function explorerPrepaintScript(
     css.push(root + '[data-opt]{display:none!important}');
     css.push(root + '[data-opt=' + attr(shown) + ']{display:inline!important}');
   }
-  selectLabel('agent', agent, D.agentOptions);
+  // Multi-select: show every selected option, ", " before all but the first.
+  var shownSkills = D.skillOptions.filter(function (s) { return skills.indexOf(s) >= 0; });
+  var skillsRoot = '[data-select-name="skills"] ';
+  css.push(skillsRoot + '[data-opt]{display:none!important}');
+  if (!shownSkills.length) css.push(skillsRoot + '[data-opt=""]{display:inline!important}');
+  shownSkills.forEach(function (s, pos) {
+    var sel = skillsRoot + '[data-opt=' + attr(s) + ']';
+    css.push(sel + '{display:inline!important}');
+    css.push(sel + '::before{content:' + (pos ? '", "' : 'none') + '!important}');
+  });
   selectLabel('tier', tier, D.tierOptions);
 
   var style = document.createElement('style');

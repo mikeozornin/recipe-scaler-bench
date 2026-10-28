@@ -9,12 +9,15 @@ import {
   filterToQuery,
   queryToFilter,
   runHrefWithFilter,
+  SKILL_NONE,
+  skillFilterOptions,
   type RunFilter,
 } from '../lib/filter';
-import { formatModelReleaseDate, primaryThumbFile, TIER_ORDER, thumbImagePath } from '../lib/runs';
+import { formatModelReleaseDate, primaryThumbFile, runLabel, TIER_ORDER, thumbImagePath } from '../lib/runs';
 import { highlightText, tokenizeQuery } from '../lib/search';
 import { PREPAINT_STYLE_ID } from '../lib/prepaint';
 import { cn } from '../lib/utils';
+import { MultiSelect } from './ui/MultiSelect';
 import { Select } from './ui/Select';
 
 export type ExplorerKpis = {
@@ -85,7 +88,7 @@ function RunMeta({
 
 /** «Opus 4.7, xhigh (Claude Code), paper» */
 function formatRunTitle(run: Run): string {
-  return `${run.model} (${run.agent}), ${run.tool}`;
+  return `${runLabel(run)} (${run.agent}), ${run.tool}`;
 }
 
 const runLinkClass = 'run-link font-medium leading-snug';
@@ -103,7 +106,7 @@ export function ResultsExplorer({
   const m = t(locale);
   const [view, setView] = useState<ViewMode>('table');
   const [synced, setSynced] = useState(false);
-  const [agent, setAgent] = useState(initialFilter.agent);
+  const [skills, setSkills] = useState(initialFilter.skills);
   const [tier, setTier] = useState<'all' | QualityTier>(initialFilter.tier);
   const [sort, setSort] = useState<SortKey>(initialFilter.sort);
   const [sortOpen, setSortOpen] = useState(false);
@@ -120,7 +123,7 @@ export function ResultsExplorer({
     const prefs = getPrefs();
     // URL is source of truth; prefs.sort only fills a missing sort param.
     const urlFilter = queryToFilter(new URLSearchParams(window.location.search), prefs.sort);
-    setAgent(urlFilter.agent);
+    setSkills(urlFilter.skills);
     setTier(urlFilter.tier);
     setSort(urlFilter.sort);
     setQ(urlFilter.q);
@@ -151,14 +154,14 @@ export function ResultsExplorer({
   // referrer's link target.
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const qs = filterToQuery({ agent, tier, q: deferredQ, sort });
+    const qs = filterToQuery({ skills, tier, q: deferredQ, sort });
     const { pathname, search, hash } = window.location;
     const nextUrl = `${pathname}${qs}${hash}`;
     const current = `${pathname}${search}${hash}`;
     if (nextUrl !== current) {
       window.history.replaceState(window.history.state, '', nextUrl);
     }
-  }, [agent, tier, deferredQ, sort]);
+  }, [skills, tier, deferredQ, sort]);
 
   useEffect(() => {
     const el = sentinelRef.current;
@@ -197,14 +200,9 @@ export function ResultsExplorer({
     };
   }, [sortOpen]);
 
-  const agents = useMemo(
-    () => [...new Set(runs.map((r) => r.agent))].sort((a, b) => a.localeCompare(b)),
-    [runs],
-  );
-
   const filter: RunFilter = useMemo(
-    () => ({ agent, tier, q: deferredQ, sort }),
-    [agent, tier, deferredQ, sort],
+    () => ({ skills, tier, q: deferredQ, sort }),
+    [skills, tier, deferredQ, sort],
   );
 
   const filtered = useMemo(
@@ -219,10 +217,14 @@ export function ResultsExplorer({
   const viewBtnClass =
     'view-btn inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-[oklch(var(--border))] text-[oklch(var(--foreground))] transition hover:bg-[oklch(var(--accent))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(var(--brand)/0.35)]';
 
-  const agentOptions = [
-    { value: 'all', label: m.filterAll },
-    ...agents.map((a) => ({ value: a, label: a })),
-  ];
+  const skillOptions = useMemo(
+    () =>
+      skillFilterOptions(runs).map((s) => ({
+        value: s,
+        label: s === SKILL_NONE ? m.filterNoSkill : s,
+      })),
+    [runs, m],
+  );
   const hasUnrated = useMemo(() => runs.some((r) => r.tier === 'unknown'), [runs]);
   const tierOptions = [
     { value: 'all', label: m.filterAll },
@@ -340,12 +342,13 @@ export function ResultsExplorer({
           placeholder={m.filterSearch}
           type="search"
         />
-        <Select
-          name="agent"
-          value={agent}
-          options={agentOptions}
-          onChange={setAgent}
-          aria-label={m.filterAgent}
+        <MultiSelect
+          name="skills"
+          value={skills}
+          options={skillOptions}
+          onChange={setSkills}
+          emptyLabel={m.filterAll}
+          aria-label={m.filterSkills}
           className="min-w-0 w-full sm:w-auto sm:min-w-[11rem]"
         />
         <Select

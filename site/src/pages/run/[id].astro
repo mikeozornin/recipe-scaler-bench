@@ -7,6 +7,7 @@ import {
   fullImagePath,
   fullImageSize,
   getRunById,
+  runLabel,
   runs,
   thumbImagePath,
 } from '../../lib/runs';
@@ -53,7 +54,7 @@ const cost = costRaw && costRaw !== '—' ? costRaw : '';
 const runDate = formatModelReleaseDate(run.model, locale);
 ---
 
-<BaseLayout locale={locale} title={`${run.model} (${run.agent})`} description={comment}>
+<BaseLayout locale={locale} title={`${runLabel(run)} (${run.agent})`} description={comment}>
   <header class="mb-6 space-y-3">
     <RunNav
       currentId={run.id}
@@ -64,7 +65,7 @@ const runDate = formatModelReleaseDate(run.model, locale);
       fallbackSort={getPrefs().sort}
     />
     <h1 class="text-3xl font-bold tracking-tight">
-      {run.model} ({run.agent})
+      {runLabel(run)} ({run.agent})
     </h1>
     <div class="flex flex-wrap items-center gap-3 text-sm text-[oklch(var(--foreground))]">
       {time && (

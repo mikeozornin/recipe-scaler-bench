@@ -1,14 +1,14 @@
 import type { Locale, QualityTier, Run } from './types';
 import type { SortKey } from './prefs';
 import { modelReleaseTimestamp } from './model-release';
-import { runHref, runs, TIER_ORDER } from './runs';
+import { runHref, runLabel, runs, TIER_ORDER } from './runs';
 import { matchesAllTokens, tokenizeQuery } from './search';
 
 export type NavLink = { href: string; label: string } | null;
 
 export type RunFilter = {
-  /** 'all' or exact agent name */
-  agent: string;
+  /** Selected skill options (SKILL_NONE or skill names); empty = all runs */
+  skills: string[];
   /** 'all' or a valid QualityTier */
   tier: 'all' | QualityTier;
   /** Raw search query string (pre-tokenization) */
@@ -18,7 +18,7 @@ export type RunFilter = {
 };
 
 export const DEFAULT_FILTER: RunFilter = {
-  agent: 'all',
+  skills: [],
   tier: 'all',
   q: '',
   sort: 'tier-good',
@@ -43,9 +43,25 @@ const VALID_SORTS: Record<SortKey, true> = {
   'alpha-desc': true,
 };
 
+/** Skill filter option for runs without any skills. */
+export const SKILL_NONE = 'none';
+
+/** Skill filter option values: SKILL_NONE first, then skill names A→Z. */
+export function skillFilterOptions(list: Run[]): string[] {
+  const names = [...new Set(list.flatMap((r) => r.skills))].sort((a, b) => a.localeCompare(b));
+  return [SKILL_NONE, ...names];
+}
+
+/** A run passes when it matches any selected option; nothing selected = all. */
+function matchesSkills(run: Run, selected: string[]): boolean {
+  if (!selected.length) return true;
+  if (!run.skills.length) return selected.includes(SKILL_NONE);
+  return run.skills.some((s) => selected.includes(s));
+}
+
 /** «Opus 4.7, xhigh (Claude Code), paper» */
 function formatRunTitle(run: Run): string {
-  return `${run.model} (${run.agent}), ${run.tool}`;
+  return `${runLabel(run)} (${run.agent}), ${run.tool}`;
 }
 
 /** USD from "$12.30"; non-dollar / missing → null (sorted last). */
@@ -117,14 +133,14 @@ export function compareRuns(a: Run, b: Run, sort: SortKey, locale: Locale): numb
   }
 }
 
-/** Apply the agent/tier/q predicate, then sort by the filter's sort key. */
+/** Apply the skills/tier/q predicate, then sort by the filter's sort key. */
 export function filterAndSortRuns(list: Run[], filter: RunFilter, locale: Locale): Run[] {
   const tokens = tokenizeQuery(filter.q);
   const filtered = list.filter((r) => {
-    if (filter.agent !== 'all' && r.agent !== filter.agent) return false;
+    if (!matchesSkills(r, filter.skills)) return false;
     if (filter.tier !== 'all' && r.tier !== filter.tier) return false;
     if (!tokens.length) return true;
-    const hay = `${r.agent} ${r.model} ${r.comment.ru} ${r.comment.en}`;
+    const hay = `${r.agent} ${runLabel(r)} ${r.comment.ru} ${r.comment.en}`;
     return matchesAllTokens(hay, tokens);
   });
   return filtered.sort((a, b) => compareRuns(a, b, filter.sort, locale));
@@ -145,7 +161,7 @@ export function adjacentInList(
 
 export function isDefaultFilter(filter: RunFilter): boolean {
   return (
-    filter.agent === DEFAULT_FILTER.agent &&
+    filter.skills.length === 0 &&
     filter.tier === DEFAULT_FILTER.tier &&
     filter.q === DEFAULT_FILTER.q &&
     filter.sort === DEFAULT_FILTER.sort
@@ -155,7 +171,7 @@ export function isDefaultFilter(filter: RunFilter): boolean {
 /** Encode a filter as a URL query string (always leading '?', even when empty). */
 export function filterToQuery(filter: RunFilter): string {
   const params = new URLSearchParams();
-  params.set('agent', filter.agent);
+  params.set('skills', filter.skills.join(','));
   params.set('tier', filter.tier);
   params.set('q', filter.q);
   params.set('sort', filter.sort);
@@ -167,7 +183,7 @@ export function filterToQuery(filter: RunFilter): string {
  * to the supplied `fallbackSort` (so callers can pass the persisted SitePrefs sort).
  */
 export function queryToFilter(params: URLSearchParams, fallbackSort: SortKey): RunFilter {
-  const agent = params.get('agent');
+  const skills = (params.get('skills') ?? '').split(',').filter(Boolean);
   const tier = params.get('tier');
   const q = params.get('q') ?? '';
   const sortRaw = params.get('sort');
@@ -177,7 +193,7 @@ export function queryToFilter(params: URLSearchParams, fallbackSort: SortKey): R
     : fallbackSort;
 
   return {
-    agent: agent && agent !== '' ? agent : 'all',
+    skills,
     tier: tier && tier in VALID_TIERS ? (tier as QualityTier) : 'all',
     q,
     sort,
@@ -214,11 +230,11 @@ export function getAdjacentRunsForPage(
   const { prev, next } = adjacentInList(list, currentId);
   const qs = filterToQuery(filter);
 
-  const toLink = (run: { id: string; model: string; agent: string } | null): NavLink => {
+  const toLink = (run: Run | null): NavLink => {
     if (!run) return null;
     return {
       href: runHref(run.id, locale, base) + qs,
-      label: `${run.model} (${run.agent})`,
+      label: `${runLabel(run)} (${run.agent})`,
     };
   };
 

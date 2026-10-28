@@ -1,7 +1,7 @@
 import type { APIContext } from 'astro';
 import rss from '@astrojs/rss';
 import { t } from './i18n';
-import { homeHref, runHref, runs } from './runs';
+import { homeHref, runHref, runLabel, runs } from './runs';
 import type { Locale, Run } from './types';
 
 /**
@@ -29,7 +29,7 @@ function toolLabel(run: Run, locale: Locale): string {
 }
 
 function itemTitle(run: Run, locale: Locale): string {
-  return `${run.agent} · ${run.model} (${toolLabel(run, locale)})`;
+  return `${run.agent} · ${runLabel(run)} (${toolLabel(run, locale)})`;
 }
 
 function itemDescription(run: Run, locale: Locale): string {

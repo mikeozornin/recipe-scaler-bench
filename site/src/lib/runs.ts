@@ -24,6 +24,13 @@ export function formatModelReleaseDate(model: string, locale: Locale): string {
 
 export const runs = runsData as Run[];
 
+/** «Opus 5.5, xhigh + Frontend Design» — model, reasoning and skills in one label. */
+export function runLabel(run: Pick<Run, 'model' | 'reasoning' | 'skills'>): string {
+  const reasoning = run.reasoning ? `, ${run.reasoning}` : '';
+  const skills = run.skills.map((s) => ` + ${s}`).join('');
+  return `${run.model}${reasoning}${skills}`;
+}
+
 type ManifestEntry = { hashed?: string; width?: number; height?: number; bytes?: number };
 const manifest = imageManifest as Record<string, ManifestEntry>;
 
@@ -42,7 +49,7 @@ export function sortedRuns(list: Run[] = runs): Run[] {
   return [...list].sort((a, b) => {
     if (a.tool !== b.tool) return a.tool.localeCompare(b.tool);
     if (a.agent !== b.agent) return a.agent.localeCompare(b.agent);
-    return a.model.localeCompare(b.model);
+    return runLabel(a).localeCompare(runLabel(b));
   });
 }
 
@@ -135,18 +142,15 @@ export function switchLocaleHref(
 }
 
 /**
- * Normalize a model display name to its base identity: drop reasoning/effort
- * qualifiers ("xhigh", "high", "med", "Max Reasoning", "Thinking"), provider and
- * cloud annotations ("(OpenRouter)", "(z.ai coding plan)", "(Kilo cloud)"),
- * duplicate markers "(1)"/"(2)" and skill suffixes ("+ Frontend Design").
+ * Normalize a model name to its base identity: drop provider and cloud
+ * annotations ("(OpenRouter)", "(z.ai coding plan)", "(Kilo cloud)") and
+ * duplicate markers "(1)"/"(2)". Reasoning and skills live in their own fields.
  * Different model versions ("4.5" vs "4.6") stay distinct.
  */
 function normalizeModelName(model: string): string {
   let s = model;
   s = s.replace(/\s*\((?:openrouter|z\.ai coding plan|kilo cloud)\)/gi, ' ');
   s = s.replace(/\s*\(\d+\)/g, ' ');
-  s = s.replace(/\s*\+.*$/, ' ');
-  s = s.replace(/[,\s]+(?:max reasoning|extra high|xhigh|high|medium|med|low|thinking)\s*$/gi, ' ');
   return s.replace(/\s+/g, ' ').trim().toLowerCase();
 }
 

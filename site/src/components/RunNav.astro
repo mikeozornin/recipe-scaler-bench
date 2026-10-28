@@ -8,7 +8,7 @@ import {
   queryToFilter,
 } from '../lib/filter';
 import { getModelReleaseDate } from '../lib/model-release';
-import { runHref, runs } from '../lib/runs';
+import { runHref, runLabel, runs } from '../lib/runs';
 
 type Link = { href: string; label: string } | null;
 
@@ -33,8 +33,8 @@ const fallbackQs = filterToQuery(fallbackFilter);
 
 const toHref = (run: { id: string } | null): string | null =>
   run ? runHref(run.id, locale, base) + fallbackQs : null;
-const toLabel = (run: { model: string; agent: string } | null): string | null =>
-  run ? `${run.model} (${run.agent})` : null;
+const toLabel = (run: (typeof runs)[number] | null): string | null =>
+  run ? `${runLabel(run)} (${run.agent})` : null;
 
 const prevHref = toHref(prev);
 const prevLabel = toLabel(prev);
@@ -44,7 +44,8 @@ const nextLabel = toLabel(next);
 const runData = runs.map((r) => ({
   id: r.id,
   agent: r.agent,
-  model: r.model,
+  skills: r.skills,
+  label: runLabel(r),
   modelReleaseDate: getModelReleaseDate(r.model),
   tier: r.tier,
   cost: r.cost,
@@ -151,7 +152,7 @@ const baseJson = JSON.stringify(base);
       return i < 0 ? TIER_ORDER.length : i;
     }
 
-    function formatRunTitle(r) { return r.model + ' (' + r.agent + '), ' + r.tool; }
+    function formatRunTitle(r) { return r.label + ' (' + r.agent + '), ' + r.tool; }
 
     function compareRuns(a, b, sort, locale) {
       const coll = locale === 'en' ? 'en' : 'ru';
@@ -175,13 +176,13 @@ const baseJson = JSON.stringify(base);
     }
 
     function queryToFilter(params, fallbackSort) {
-      const agent = params.get('agent');
+      const skills = (params.get('skills') || '').split(',').filter(Boolean);
       const tier = params.get('tier');
       const q = params.get('q') || '';
       const sortRaw = params.get('sort');
       const sort = sortRaw && VALID_SORTS[sortRaw] ? sortRaw : fallbackSort;
       return {
-        agent: agent && agent !== '' ? agent : 'all',
+        skills: skills,
         tier: tier && TIER_ORDER.indexOf(tier) >= 0 ? tier : 'all',
         q: q,
         sort: sort,
@@ -190,20 +191,27 @@ const baseJson = JSON.stringify(base);
 
     function filterToQuery(filter) {
       const p = new URLSearchParams();
-      p.set('agent', filter.agent);
+      p.set('skills', filter.skills.join(','));
       p.set('tier', filter.tier);
       p.set('q', filter.q);
       p.set('sort', filter.sort);
       return '?' + p.toString();
     }
 
+    // Mirrors matchesSkills in lib/filter.ts ('none' = SKILL_NONE).
+    function matchesSkills(r, selected) {
+      if (!selected.length) return true;
+      if (!r.skills.length) return selected.indexOf('none') >= 0;
+      return r.skills.some(function (s) { return selected.indexOf(s) >= 0; });
+    }
+
     function filterAndSort(list, filter, locale) {
       const tokens = tokenizeQuery(filter.q);
       const filtered = list.filter(function (r) {
-        if (filter.agent !== 'all' && r.agent !== filter.agent) return false;
+        if (!matchesSkills(r, filter.skills)) return false;
         if (filter.tier !== 'all' && r.tier !== filter.tier) return false;
         if (!tokens.length) return true;
-        const hay = r.agent + ' ' + r.model + ' ' + ((r.comment && r.comment.ru) || '') + ' ' + ((r.comment && r.comment.en) || '');
+        const hay = r.agent + ' ' + r.label + ' ' + ((r.comment && r.comment.ru) || '') + ' ' + ((r.comment && r.comment.en) || '');
         return matchesAllTokens(hay, tokens);
       });
       return filtered.sort(function (a, b) { return compareRuns(a, b, filter.sort, locale); });
@@ -231,7 +239,7 @@ const baseJson = JSON.stringify(base);
         if (!run) return null;
         return {
           href: base + (base.endsWith('/') ? '' : '/') + localePrefix + 'run/' + run.id + '/' + qs,
-          label: run.model + ' (' + run.agent + ')',
+          label: run.label + ' (' + run.agent + ')',
         };
       }
 

@@ -12,8 +12,14 @@ export type RunImages = {
 export type Run = {
   id: string;
   tool: Tool;
+  /** Harness: Claude Code, Cursor, OpenCode, Pi… */
   agent: string;
+  /** Model name only, without reasoning level or skills */
   model: string;
+  /** Reasoning / effort level as set in the harness (xhigh, max…); null if default or unknown */
+  reasoning: string | null;
+  /** Skills loaded for the run (Frontend Design, Hallmark…) */
+  skills: string[];
   /** Experiment day (YYYY-MM-DD, Europe/Moscow), from Paper file createdAt */
   runDate?: string;
   time: string | null;
