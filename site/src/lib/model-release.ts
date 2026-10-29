@@ -31,6 +31,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'gpt 5.6': '2026-07-09',
   'gpt 6.1 sol': '2026-09-29', // techcrunch.com/2026/09/29/openai-launches-gpt-6-1-sol — DevDay 29 Sep; openrouter.ai listing
   'gpt-6.1 sol': '2026-09-29',
+  'gpt 6.1 terra': '2026-10-26', // deploymentsafety.openai.com addendum "Published October 26, 2026"; bleepingcomputer.com 26 Oct 2026
+  'gpt-6.1 terra': '2026-10-26',
 
   // Google
   'gemini 4 argon': '2026-09-30', // blog.google — Introducing Gemini 4 Argon (Fairwind); public GA 2026-10-13
