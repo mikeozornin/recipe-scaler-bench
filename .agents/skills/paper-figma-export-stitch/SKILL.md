@@ -1,12 +1,12 @@
 ---
 name: paper-figma-export-stitch
 description: >-
-  Скачивает скриншоты экранов из Paper и Figma через MCP в масштабе 2x, сохраняет в tmp/download/
-  с именами {tool}__agent__model__(page-slug)__screen@2x, оптимизирует PNG (pngquant / Pillow),
-  склеивает desktop/mobile/promo в одну полосу с прозрачным фоном и отступом 100px, создаёт
-  уменьшенные копии 2400px по большей стороне и снова оптимизирует; в site/data/runs.json
-  записывает runDate (день эксперимента), время, токены и цену треда (цену — только если отдал провайдер), а в site/src/lib/model-release.ts — дату релиза модели.
-  Триггер: экспорт макетов воркшопа, архив кадров для results, «скачай из Paper/Figma», stitch strip.
+  Используй, когда пользователь даёт ссылку на файл или страницу Paper/Figma с прогоном бенчмарка
+  и просит скачать или экспортировать макеты, заархивировать кадры для results, склеить
+  desktop/mobile/promo в полосу или добавить ран на сайт: «скачай из Paper», «экспортни из Figma»,
+  «добавь ран», «stitch strip». Результат: 8 PNG в tmp/download/ (3 экрана, склейка, копии 2400px)
+  и данные рана — runDate, time, tokens, cost в site/data/runs.json и дата релиза модели
+  в site/src/lib/model-release.ts. Не для работы над дизайном и не для разового скриншота на просмотр.
 ---
 
 # Paper + Figma: экспорт кадров и склейка
