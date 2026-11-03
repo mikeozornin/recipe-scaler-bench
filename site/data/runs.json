@@ -2220,5 +2220,28 @@
       "mobile": "paper__codex__gpt-6.1-terra-max__mobile@2x.png",
       "promo": "paper__codex__gpt-6.1-terra-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-dsh-deepseek-v4-1-flash-1017-max",
+    "tool": "paper",
+    "agent": "DSH",
+    "model": "DeepSeek V4.1 Flash 1017",
+    "reasoning": "max",
+    "skills": [],
+    "runDate": "2026-11-03",
+    "time": "16 min",
+    "tokens": "14.35M",
+    "cost": "$0.14",
+    "tier": "mid",
+    "comment": {
+      "ru": "Проверял в родном харнесе DeepSeek, не лучше ли он там работает. Нет, не лучше, в целом так же.",
+      "en": "Tested it in DeepSeek's native harness to see whether it works better there. No, not better — broadly the same."
+    },
+    "images": {
+      "all": "paper__dsh__deepseek-v4.1-flash-1017-max__all@2x.png",
+      "desktop": "paper__dsh__deepseek-v4.1-flash-1017-max__desktop@2x.png",
+      "mobile": "paper__dsh__deepseek-v4.1-flash-1017-max__mobile@2x.png",
+      "promo": "paper__dsh__deepseek-v4.1-flash-1017-max__promo@2x.png"
+    }
   }
 ]
