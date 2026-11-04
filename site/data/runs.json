@@ -2243,5 +2243,28 @@
       "mobile": "paper__dsh__deepseek-v4.1-flash-1017-max__mobile@2x.png",
       "promo": "paper__dsh__deepseek-v4.1-flash-1017-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-hy4-high",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "Hy4",
+    "reasoning": "high",
+    "skills": [],
+    "runDate": "2026-11-04",
+    "time": "21 min",
+    "tokens": "13.7M",
+    "cost": "$0.475",
+    "tier": "mid",
+    "comment": {
+      "ru": "Дообучение с hy4-превью прошло не зря, результат кратно лучше. Агент другой на этот раз, но как будто не должно настолько сильно повлиять. Цена с учетом скидки 50%, полная была бы вдвое больше.",
+      "en": "Fine-tuning from hy4-preview paid off: the result is many times better. The agent is different this time, but it shouldn't make that much difference. Price includes a 50% discount; the full price would be double."
+    },
+    "images": {
+      "all": "paper__pi__hy4-high__all@2x.png",
+      "desktop": "paper__pi__hy4-high__desktop@2x.png",
+      "mobile": "paper__pi__hy4-high__mobile@2x.png",
+      "promo": "paper__pi__hy4-high__promo@2x.png"
+    }
   }
 ]
