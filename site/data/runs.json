@@ -2316,5 +2316,30 @@
       "mobile": "paper__pi__deepseek-4.1-flash-1017-image-skill__mobile@2x.png",
       "promo": "paper__pi__deepseek-4.1-flash-1017-image-skill__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-claude-code-opus-5-5-xhigh-impeccable",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Opus 5.5",
+    "reasoning": "xhigh",
+    "skills": [
+      "Impeccable"
+    ],
+    "runDate": "2026-11-05",
+    "time": "43 min 2 s",
+    "tokens": "19.75M",
+    "cost": null,
+    "tier": "fancy",
+    "comment": {
+      "ru": "Скилл совсем меняет внешний вид, но «дизайна» ради дизайна многовато.",
+      "en": "The skill completely changes the look, but there is a bit too much \"design\" for design's sake."
+    },
+    "images": {
+      "all": "paper__claude-code__opus-5.5-xhigh-impeccable__all@2x.png",
+      "desktop": "paper__claude-code__opus-5.5-xhigh-impeccable__desktop@2x.png",
+      "mobile": "paper__claude-code__opus-5.5-xhigh-impeccable__mobile@2x.png",
+      "promo": "paper__claude-code__opus-5.5-xhigh-impeccable__promo@2x.png"
+    }
   }
 ]
