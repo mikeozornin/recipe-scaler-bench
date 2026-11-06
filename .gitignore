@@ -14,10 +14,6 @@ tmp/
 *.tmp
 tmp.txt
 
-# Blog post drafts (not for public repo)
-post-en.txt
-post-ru.txt
-
 # Personal local paths / scripts
 move-folder.sh
 
