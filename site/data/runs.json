@@ -2416,5 +2416,30 @@
       "mobile": "paper__pi__glm-5.3-flash-max-hallmark__mobile@2x.png",
       "promo": "paper__pi__glm-5.3-flash-max-hallmark__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-minimax-m3-1-flash-max-impeccable",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "MiniMax M3.1 Flash",
+    "reasoning": "max",
+    "skills": [
+      "Impeccable"
+    ],
+    "runDate": "2026-11-06",
+    "time": "50 min 50 s",
+    "tokens": "42.41M",
+    "cost": "$0.78",
+    "tier": "weak",
+    "comment": {
+      "ru": "Скилл сделал дизайн почище, но беднее и проще. Кое-где в автолейаут не осилило. После запуска уже обнаружил, что Минимакс позвал в ревьюверы Опус, ну будем считать, что это не очень повлияло, перезапускать чот лень.",
+      "en": "The skill made the design cleaner, but poorer and simpler. It struggled with autolayout in places. After the run, I discovered that MiniMax had called Opus for the reviewers; we'll assume it didn't have much impact, and I'm too lazy to rerun it."
+    },
+    "images": {
+      "all": "paper__pi__minimax-m3.1-flash-max-impeccable__all@2x.png",
+      "desktop": "paper__pi__minimax-m3.1-flash-max-impeccable__desktop@2x.png",
+      "mobile": "paper__pi__minimax-m3.1-flash-max-impeccable__mobile@2x.png",
+      "promo": "paper__pi__minimax-m3.1-flash-max-impeccable__promo@2x.png"
+    }
   }
 ]
