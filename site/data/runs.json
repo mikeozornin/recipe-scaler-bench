@@ -2441,5 +2441,28 @@
       "mobile": "paper__pi__minimax-m3.1-flash-max-impeccable__mobile@2x.png",
       "promo": "paper__pi__minimax-m3.1-flash-max-impeccable__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-flint-minimal",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "Flint",
+    "reasoning": "minimal",
+    "skills": [],
+    "runDate": "2026-11-06",
+    "time": "20 min 31 s",
+    "tokens": "8.11M",
+    "cost": "$0.00",
+    "tier": "unknown",
+    "comment": {
+      "ru": "",
+      "en": ""
+    },
+    "images": {
+      "all": "paper__pi__flint-minimal__all@2x.png",
+      "desktop": "paper__pi__flint-minimal__desktop@2x.png",
+      "mobile": "paper__pi__flint-minimal__mobile@2x.png",
+      "promo": "paper__pi__flint-minimal__promo@2x.png"
+    }
   }
 ]

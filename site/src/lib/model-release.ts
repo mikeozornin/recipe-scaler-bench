@@ -143,6 +143,10 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
 
   // Grok Bot
   'some model': '2026-09-22', // Grok Bot run (placeholder model name, dated like Opus 5.5 per Mike)
+
+  // Recursive (openrouter.ai/recursive/flint-v1.0:free; several reviews give the same 2026-10-21 release date)
+  'flint v1.0': '2026-10-21',
+  flint: '2026-10-21',
 };
 
 /** Keys sorted longest-first so more specific families win. */
