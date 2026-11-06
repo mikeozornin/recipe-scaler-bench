@@ -2391,5 +2391,30 @@
       "mobile": "paper__claude-code__haiku-5.5-max-hallmark__mobile@2x.png",
       "promo": "paper__claude-code__haiku-5.5-max-hallmark__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-glm-5-3-flash-max-hallmark",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "GLM 5.3 Flash",
+    "reasoning": "max",
+    "skills": [
+      "Hallmark 2"
+    ],
+    "runDate": "2026-11-06",
+    "time": "38 min 46 s",
+    "tokens": "9.27M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Лейаут очень похож на другие hallmark-2-результаты, не сказать что сильнее, чем другие скиллы.",
+      "en": "The layout is very similar to other Hallmark 2 results, not stronger than the other skills."
+    },
+    "images": {
+      "all": "paper__pi__glm-5.3-flash-max-hallmark__all@2x.png",
+      "desktop": "paper__pi__glm-5.3-flash-max-hallmark__desktop@2x.png",
+      "mobile": "paper__pi__glm-5.3-flash-max-hallmark__mobile@2x.png",
+      "promo": "paper__pi__glm-5.3-flash-max-hallmark__promo@2x.png"
+    }
   }
 ]
