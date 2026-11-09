@@ -2464,5 +2464,28 @@
       "mobile": "paper__pi__flint-minimal__mobile@2x.png",
       "promo": "paper__pi__flint-minimal__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-claude-code-fable-5-2-xhigh",
+    "tool": "paper",
+    "agent": "Claude Code",
+    "model": "Fable 5.2",
+    "reasoning": "xhigh",
+    "skills": [],
+    "runDate": "2026-11-09",
+    "time": "23 min 0 s",
+    "tokens": "14.42M",
+    "cost": null,
+    "tier": "fancy",
+    "comment": {
+      "ru": "Чисто, слоп есть, мог бы не добавлять. Имхо какой-то значимой разницы с Опусом 5.5 нет. Сделал экран галереи, а не рецепта в десктопе, за это минус, рецепт был бы лучше.",
+      "en": "Clean, there's some slop, I could have left it out. IMHO there's no significant difference from Opus 5.5. Made a gallery screen instead of a recipe screen on desktop, which is a minus; a recipe screen would have been better."
+    },
+    "images": {
+      "all": "paper__claude-code__fable-5.2-xhigh__all@2x.png",
+      "desktop": "paper__claude-code__fable-5.2-xhigh__desktop@2x.png",
+      "mobile": "paper__claude-code__fable-5.2-xhigh__mobile@2x.png",
+      "promo": "paper__claude-code__fable-5.2-xhigh__promo@2x.png"
+    }
   }
 ]
