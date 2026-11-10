@@ -2487,5 +2487,28 @@
       "mobile": "paper__claude-code__fable-5.2-xhigh__mobile@2x.png",
       "promo": "paper__claude-code__fable-5.2-xhigh__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-gemini-carbon-high",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "Gemini Carbon",
+    "reasoning": "high",
+    "skills": [],
+    "runDate": "2026-11-10",
+    "time": "27 min 5 s",
+    "tokens": "4.94M",
+    "cost": "$2.03",
+    "tier": "mid",
+    "comment": {
+      "ru": "Чище Аргона (прошлой модели), хотя по структуре ровно то же самое, невероятно похоже. Похоже скорее на чуть дотюненный Аргон, нежели на новую модель. В целом такое и аргон мог выдать с учетом того, что то было в Курсоре, а это в Pi. Недорого для большой гугловой модели.",
+      "en": "Cleaner than Argon (the previous model), though structurally exactly the same — incredibly similar. Looks more like a slightly tuned Argon than a new model. Overall, Argon could have produced something like this too, given that run was in Cursor and this one in Pi. Inexpensive for a big Google model."
+    },
+    "images": {
+      "all": "paper__pi__gemini-carbon-high__all@2x.png",
+      "desktop": "paper__pi__gemini-carbon-high__desktop@2x.png",
+      "mobile": "paper__pi__gemini-carbon-high__mobile@2x.png",
+      "promo": "paper__pi__gemini-carbon-high__promo@2x.png"
+    }
   }
 ]

@@ -36,6 +36,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'gpt-6.1 terra': '2026-10-26',
 
   // Google
+  'gemini 4 carbon': '2026-11-10', // openrouter.ai listing (google/gemini-4-carbon); official announce not found
+  'gemini carbon': '2026-11-10',
   'gemini 4 argon': '2026-09-30', // blog.google — Introducing Gemini 4 Argon (Fairwind); public GA 2026-10-13
   'gemini-4-argon': '2026-09-30',
   'gemini 3.8 flash': '2026-09-02', // blog.google — Introducing Gemini 3.8 Flash and 3.8 Flash Cyber
