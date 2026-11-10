@@ -1,13 +1,13 @@
 I am creating a design for a product.
 
 # Task
-Create new pages:
+Create new screens:
 1. A promo page describing the product. Screen width: 1400px.
 2. A desktop screen interface — choose the main screen and design it. Screen width: 1400px.
 3. A recipe screen interface for mobile. You need to design a recipe screen. Screen width: 375px.
 
-# Where to create it and expected result
-Where to create: https://app.paper.design/file/01M6HECG24PK51SDRA482K4SM4/p-1-0
+# Where to create it and expected result 
+Where to create: https://app.paper.design/file/01M736JERA26SBXC8VRJD2ETXG/p-1-0
 
 If the mockups are long, you can make a tall frame/artboard/layout. You do not have to fit standard screen proportions.
 
