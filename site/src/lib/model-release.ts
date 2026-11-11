@@ -70,6 +70,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'qwen 3.6': '2026-04-27',
   'qwen 3.7 max': '2026-05-21',
   'qwen 3.7': '2026-05-21',
+  'qwen 4 max': '2026-11-11', // Qwen4-Max preview on Alibaba Token Plan — first usable Qwen 4 (Apsara Sep 22 was announce-only)
+  'qwen 4': '2026-11-11',
 
   // Moonshot
   'kimi 2.8': '2026-09-11', // kimi.com/code/docs — K2.8 Preview in Kimi Code
