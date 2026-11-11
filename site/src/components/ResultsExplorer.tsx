@@ -166,22 +166,34 @@ export function ResultsExplorer({
   useEffect(() => {
     const el = sentinelRef.current;
     if (!el) return;
-    // sticky top-[3.25rem] → px only (rootMargin rejects rem)
-    const headerOffsetPx = Math.round(
-      parseFloat(getComputedStyle(document.documentElement).fontSize || '16') * 3.25,
-    );
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        // When sentinel leaves the top of the viewport (below sticky offset), bar is stuck
-        setFiltersStuck(!entry.isIntersecting);
-      },
-      {
-        rootMargin: `-${headerOffsetPx}px 0px 0px 0px`,
-        threshold: 0,
-      },
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    // The site header is sticky and its height varies (two rows on narrow screens),
+    // so the filter bar sticks right under its measured height, not a fixed offset.
+    const header = document.querySelector<HTMLElement>('.site-header');
+    const root = document.documentElement;
+    let io: IntersectionObserver | null = null;
+    let lastPx = -1;
+    const setup = () => {
+      const headerPx = Math.round(header?.getBoundingClientRect().height ?? 52);
+      if (headerPx === lastPx) return;
+      lastPx = headerPx;
+      root.style.setProperty('--site-header-h', `${headerPx}px`);
+      io?.disconnect();
+      io = new IntersectionObserver(
+        ([entry]) => {
+          // When sentinel leaves the top of the viewport (below sticky offset), bar is stuck
+          setFiltersStuck(!entry.isIntersecting);
+        },
+        { rootMargin: `-${headerPx}px 0px 0px 0px`, threshold: 0 },
+      );
+      io.observe(el);
+    };
+    setup();
+    const ro = header ? new ResizeObserver(setup) : null;
+    if (header) ro?.observe(header);
+    return () => {
+      ro?.disconnect();
+      io?.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -325,7 +337,7 @@ export function ResultsExplorer({
 
       <div
         className={cn(
-          'sticky top-[3.25rem] z-30 -mx-1 flex min-w-0 max-w-full flex-wrap gap-2 bg-[oklch(var(--background)/0.92)] px-1 py-2.5 backdrop-blur-md supports-[backdrop-filter]:bg-[oklch(var(--background)/0.85)]',
+          'sticky top-[var(--site-header-h,3.25rem)] z-30 -mx-1 flex min-w-0 max-w-full flex-wrap gap-2 bg-[oklch(var(--background)/0.92)] px-1 py-2.5 backdrop-blur-md supports-[backdrop-filter]:bg-[oklch(var(--background)/0.85)]',
           // Stuck: more top breathing room under header, tighter bottom to panel edge
           filtersStuck && 'pt-[14px] pb-1',
         )}
@@ -349,7 +361,7 @@ export function ResultsExplorer({
           onChange={setSkills}
           emptyLabel={m.filterAll}
           aria-label={m.filterSkills}
-          className="min-w-0 w-full sm:w-auto sm:min-w-[11rem]"
+          className="min-w-0 flex-[1_1_8rem] sm:flex-[0_1_auto] sm:w-auto sm:min-w-[11rem]"
         />
         <Select
           name="tier"
@@ -357,7 +369,7 @@ export function ResultsExplorer({
           options={tierOptions}
           onChange={(v) => setTier(v as typeof tier)}
           aria-label={m.filterTier}
-          className="min-w-0 w-full sm:w-auto sm:min-w-[11rem]"
+          className="min-w-0 flex-[1_1_8rem] sm:flex-[0_1_auto] sm:w-auto sm:min-w-[11rem]"
         />
         <div ref={sortRef} className="relative shrink-0">
           <button
