@@ -1086,7 +1086,7 @@
     "time": "17 min",
     "tokens": "2.2M",
     "cost": "$0.42",
-    "tier": "mid",
+    "tier": "weak",
     "comment": {
       "ru": "В целом Квен справился неплохо. Туповато, но крепко. 1/30 от опуса по цене",
       "en": "In general Qwen did decently. A bit dim, but pretty solid. 1/30 of Opus's price"
