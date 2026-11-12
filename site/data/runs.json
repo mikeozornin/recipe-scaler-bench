@@ -2556,5 +2556,28 @@
       "mobile": "paper__qoder__qwen-4-max-preview-xhigh__mobile@2x.png",
       "promo": "paper__qoder__qwen-4-max-preview-xhigh__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-gemini-4-hydrogen-high",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "Gemini 4 Hydrogen",
+    "reasoning": "high",
+    "skills": [],
+    "runDate": "2026-11-12",
+    "time": "59 min 22 s",
+    "tokens": "5.48M",
+    "cost": "$1.70",
+    "tier": "mid",
+    "comment": {
+      "ru": "Для гугловой модели неплохо, но в целом середнячок по текущей ситуации. Самая слабая как обычно промостраница.",
+      "en": "Not bad for a Google model, but overall a middle-of-the-pack result by current standards. The promo page is the weakest, as usual."
+    },
+    "images": {
+      "all": "paper__pi__gemini-4-hydrogen-high__all@2x.png",
+      "desktop": "paper__pi__gemini-4-hydrogen-high__desktop@2x.png",
+      "mobile": "paper__pi__gemini-4-hydrogen-high__mobile@2x.png",
+      "promo": "paper__pi__gemini-4-hydrogen-high__promo@2x.png"
+    }
   }
 ]
