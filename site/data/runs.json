@@ -2579,5 +2579,28 @@
       "mobile": "paper__pi__gemini-4-hydrogen-high__mobile@2x.png",
       "promo": "paper__pi__gemini-4-hydrogen-high__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-hy4-flash-high",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "Hy4 Flash",
+    "reasoning": "high",
+    "skills": [],
+    "runDate": "2026-11-16",
+    "time": "1 h 42 min",
+    "tokens": "20.67M",
+    "cost": "$0.06",
+    "tier": "mid",
+    "comment": {
+      "ru": "Очень достойно для такой небольшой модели. Невероятно долго просто. Хотя казалось бы хостить модель такого размера несложно. Цена указана со скидкой 38%.",
+      "en": "Very decent for such a small model. Just incredibly slow. Though you'd think hosting a model of this size would be easy. The price shown includes a 38% discount."
+    },
+    "images": {
+      "all": "paper__pi__hy4-flash-high__all@2x.png",
+      "desktop": "paper__pi__hy4-flash-high__desktop@2x.png",
+      "mobile": "paper__pi__hy4-flash-high__mobile@2x.png",
+      "promo": "paper__pi__hy4-flash-high__promo@2x.png"
+    }
   }
 ]

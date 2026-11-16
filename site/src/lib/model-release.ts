@@ -102,6 +102,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'nemotron 3 ultra': '2026-06-04',
 
   // Tencent
+  'hy4 flash': '2026-11-16', // hy.tencent.ai/research/hy4-flash — Introducing Hy4 flash
   'hy4 preview': '2026-08-28',
   hy4: '2026-11-04',
   'hy3 preview': '2026-04-22',
