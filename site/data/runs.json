@@ -2625,5 +2625,28 @@
       "mobile": "paper__codex__gpt-6.2-sol-xhigh__mobile@2x.png",
       "promo": "paper__codex__gpt-6.2-sol-xhigh__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-codex-gpt-6-2-astra-xhigh",
+    "tool": "paper",
+    "agent": "Codex",
+    "model": "GPT 6.2 Astra",
+    "reasoning": "xhigh",
+    "skills": [],
+    "runDate": "2026-11-17",
+    "time": "12 min 15 s",
+    "tokens": "2.42M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Ожидал сильно большего, видно, что 6.2 Сол и 6.2 Астра это модели одного семейства, возможно дистилированы из одной большой.\nНа мой вкус для модели, которая хочет быть «фронтирной» — катастрофа. Промостраница на уровне китайцев (вон, малюсенький hy-flash за копейки) сделал в целом так же плохо. Десктоп не понял концепцию десктопа. Мобилка ок. Верстка выросла на уровне отдельных запчастей, но …\nОчень быстро зато.",
+      "en": "I expected much more. 6.2 Sol and 6.2 Astra clearly belong to the same family, perhaps distilled from one larger model.\nFor a model aiming to be frontier, this is a disaster in my view. The promo page is on par with the Chinese models (tiny, cheap hy-flash did about as badly). The desktop design missed the concept of desktop. Mobile is okay. The layout has improved at the level of individual parts, but ...\nVery fast, though."
+    },
+    "images": {
+      "all": "paper__codex__gpt-6.2-astra-xhigh__all@2x.png",
+      "desktop": "paper__codex__gpt-6.2-astra-xhigh__desktop@2x.png",
+      "mobile": "paper__codex__gpt-6.2-astra-xhigh__mobile@2x.png",
+      "promo": "paper__codex__gpt-6.2-astra-xhigh__promo@2x.png"
+    }
   }
 ]
