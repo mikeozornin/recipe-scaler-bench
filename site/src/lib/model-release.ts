@@ -159,6 +159,10 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // Recursive (openrouter.ai/recursive/flint-v1.0:free; several reviews give the same 2026-10-21 release date)
   'flint v1.0': '2026-10-21',
   flint: '2026-10-21',
+
+  // Thinking Machines (openrouter.ai listing; no vendor announce found)
+  'inkling 2 small': '2026-11-10',
+  'inkling 2': '2026-11-10',
 };
 
 /** Keys sorted longest-first so more specific families win. */
