@@ -40,6 +40,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'gpt-6.1 terra': '2026-10-26',
 
   // Google
+  'gemini 4 neon': '2026-11-18', // openrouter.ai listing (google/gemini-4-neon); official announce not found
+  'gemini neon': '2026-11-18',
   'gemini 4 hydrogen': '2026-11-12', // openrouter.ai listing (google/gemini-4-hydrogen); official announce not found
   'gemini hydrogen': '2026-11-12',
   'gemini 4 carbon': '2026-11-10', // openrouter.ai listing (google/gemini-4-carbon); official announce not found
