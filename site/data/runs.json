@@ -2740,5 +2740,28 @@
       "mobile": "paper__pi__gemini-4-neon-xhigh__mobile@2x.png",
       "promo": "paper__pi__gemini-4-neon-xhigh__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-opencode-tidepool-alpha-max",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "Tidepool Alpha*",
+    "reasoning": "max",
+    "skills": [],
+    "runDate": "2026-11-19",
+    "time": "28 min 32 s",
+    "tokens": "6.68M",
+    "cost": null,
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Давно я не видел модели, которая так ошиблась. Она там что, вмещается в телефон по размеру?\n* Stealth-модель.",
+      "en": "I haven't seen a model get it this wrong in a long time. That mobile screen — is it even supposed to fit on a phone?\n* Stealth model."
+    },
+    "images": {
+      "all": "paper__opencode__tidepool-alpha-max__all@2x.png",
+      "desktop": "paper__opencode__tidepool-alpha-max__desktop@2x.png",
+      "mobile": "paper__opencode__tidepool-alpha-max__mobile@2x.png",
+      "promo": "paper__opencode__tidepool-alpha-max__promo@2x.png"
+    }
   }
 ]

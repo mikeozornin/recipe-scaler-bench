@@ -141,6 +141,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'cat-jam': '2026-10-13',
   'beam max': '2026-10-16', // stealth; release date per user
   beam: '2026-10-16',
+  'tidepool alpha': '2026-11-18', // models.dev providers/opencode/models/tidepool-alpha-free.toml release_date
+  tidepool: '2026-11-18',
 
   // inclusionAI (OpenRouter listing; no vendor announce found)
   'ling 3.1 flash': '2026-10-02',
