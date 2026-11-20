@@ -2763,5 +2763,28 @@
       "mobile": "paper__opencode__tidepool-alpha-max__mobile@2x.png",
       "promo": "paper__opencode__tidepool-alpha-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-antigravity-gemini-4-neon-xhigh",
+    "tool": "paper",
+    "agent": "Antigravity",
+    "model": "Gemini 4 Neon",
+    "reasoning": "xhigh",
+    "skills": [],
+    "runDate": "2026-11-20",
+    "time": "26 min 54 s",
+    "tokens": "7.38M",
+    "cost": null,
+    "tier": "mid",
+    "comment": {
+      "ru": "Я немного путаюсь в моделях Gemini 4, эта уже 4-я, не понимаю какая самая крутая. Эта в целом продолжает минорные улучшения, но практически разницы между Carbon и этой не заметно.\n\nТир сложно поставить, это самая граница мид и фенси.",
+      "en": "I'm a bit lost among the Gemini 4 models — this is already the 4th one, and I can't tell which one is the most capable. Overall it continues the minor improvements, but in practice the difference from Carbon is barely noticeable.\n\nHard to assign a tier — it sits right on the border between mid and fancy."
+    },
+    "images": {
+      "all": "paper__antigravity__gemini-4-neon-xhigh__all@2x.png",
+      "desktop": "paper__antigravity__gemini-4-neon-xhigh__desktop@2x.png",
+      "mobile": "paper__antigravity__gemini-4-neon-xhigh__mobile@2x.png",
+      "promo": "paper__antigravity__gemini-4-neon-xhigh__promo@2x.png"
+    }
   }
 ]
