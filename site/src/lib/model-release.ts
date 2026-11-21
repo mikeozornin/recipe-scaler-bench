@@ -167,6 +167,8 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   // Thinking Machines (openrouter.ai listing; no vendor announce found)
   'inkling 2 small': '2026-11-10',
   'inkling 2': '2026-11-10',
+  // Inkling 2 Mini — release date given by Mike in chat
+  'inkling 2 mini': '2026-11-20',
 };
 
 /** Keys sorted longest-first so more specific families win. */

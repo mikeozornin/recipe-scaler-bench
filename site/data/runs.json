@@ -2786,5 +2786,28 @@
       "mobile": "paper__antigravity__gemini-4-neon-xhigh__mobile@2x.png",
       "promo": "paper__antigravity__gemini-4-neon-xhigh__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-inkling-2-mini-max",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "Inkling 2 Mini",
+    "reasoning": "max",
+    "skills": [],
+    "runDate": "2026-11-21",
+    "time": "42 min 21 s",
+    "tokens": "7.80M",
+    "cost": "$0.42",
+    "tier": "weak",
+    "comment": {
+      "ru": "Дизайн очень плохой. Результат — впечатляющий для модели такого размера.",
+      "en": "The design is very poor. The result is impressive for a model of this size."
+    },
+    "images": {
+      "all": "paper__pi__inkling-2-mini-max__all@2x.png",
+      "desktop": "paper__pi__inkling-2-mini-max__desktop@2x.png",
+      "mobile": "paper__pi__inkling-2-mini-max__mobile@2x.png",
+      "promo": "paper__pi__inkling-2-mini-max__promo@2x.png"
+    }
   }
 ]
