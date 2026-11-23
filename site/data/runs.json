@@ -2809,5 +2809,28 @@
       "mobile": "paper__pi__inkling-2-mini-max__mobile@2x.png",
       "promo": "paper__pi__inkling-2-mini-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-glm-5-4-max",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "GLM 5.4",
+    "reasoning": "max",
+    "skills": [],
+    "runDate": "2026-11-23",
+    "time": "52 min 41 s",
+    "tokens": "27.09M",
+    "cost": null,
+    "tier": "fancy",
+    "comment": {
+      "ru": "Очень ждал новый глм. Очень достойный результат для открытой модели.\n\nНевероятно сильно похоже на опус, я бы в целом не откидывал мысль, что они сервят опус вместо глм, настолько оно похоже: https://mikeozornin.ru/recipe-scaler-bench/run/paper-cursor-opus-5-5",
+      "en": "I was really looking forward to the new GLM. A very decent result for an open model.\n\nIt is incredibly similar to Opus — I honestly wouldn't rule out that they are serving Opus instead of GLM, it is that close: https://mikeozornin.ru/recipe-scaler-bench/run/paper-cursor-opus-5-5"
+    },
+    "images": {
+      "all": "paper__pi__glm-5.4-max__all@2x.png",
+      "desktop": "paper__pi__glm-5.4-max__desktop@2x.png",
+      "mobile": "paper__pi__glm-5.4-max__mobile@2x.png",
+      "promo": "paper__pi__glm-5.4-max__promo@2x.png"
+    }
   }
 ]

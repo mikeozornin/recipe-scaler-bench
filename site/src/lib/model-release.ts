@@ -61,6 +61,7 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'grok build': '2026-05-20',
 
   // Z.ai (z.ai/blog)
+  'glm 5.4': '2026-11-23', // release date confirmed by user in chat
   'glm 5.3 flash': '2026-08-26', // z.ai/blog/glm-5.3-flash
   'glm 5.3': '2026-08-14', // z.ai/blog/glm-5.3 (Max same family)
   'glm 5.1': '2026-04-07',
