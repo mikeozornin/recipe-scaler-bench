@@ -2832,5 +2832,28 @@
       "mobile": "paper__pi__glm-5.4-max__mobile@2x.png",
       "promo": "paper__pi__glm-5.4-max__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-opencode-gigachat4-708b-a41b-high",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "GigaChat4-708B-A41B",
+    "reasoning": "high",
+    "skills": [],
+    "runDate": "2026-11-26",
+    "time": "4 min 3 s",
+    "tokens": "1.05M",
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "Почему-то провайдер гигачата не давал юзать тулы, пришлось написать мини-прокси по переписыванию формата. Поэтому насколько справедливы результаты я знаю не до конца.",
+      "en": "For some reason the GigaChat provider wouldn't let the model use tools, so I had to write a mini-proxy that rewrites the format. So I'm not entirely sure how fair the results are."
+    },
+    "images": {
+      "all": "paper__opencode__gigachat4-708b-a41b__all@2x.png",
+      "desktop": "paper__opencode__gigachat4-708b-a41b__desktop@2x.png",
+      "mobile": "paper__opencode__gigachat4-708b-a41b__mobile@2x.png",
+      "promo": "paper__opencode__gigachat4-708b-a41b__promo@2x.png"
+    }
   }
 ]

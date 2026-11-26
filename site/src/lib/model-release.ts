@@ -170,6 +170,11 @@ const MODEL_RELEASE_DATES: Record<string, string> = {
   'inkling 2': '2026-11-10',
   // Inkling 2 Mini — release date given by Mike in chat
   'inkling 2 mini': '2026-11-20',
+
+  // Sber (giga.chat/blog/posts/gigachat-4 — official announce; HF weights repos created 2026-11-20)
+  'gigachat4-708b-a41b': '2026-11-26',
+  'gigachat 4': '2026-11-26',
+  gigachat4: '2026-11-26',
 };
 
 /** Keys sorted longest-first so more specific families win. */
