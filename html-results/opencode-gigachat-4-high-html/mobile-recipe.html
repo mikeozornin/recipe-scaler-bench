@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1">
+<title>Recipe Scaler · mobile recipe</title>
+<style>
+  :root{
+    --bg:#F7F2EA;
+    --surface:#FFFDF7;
+    --ink:#2B221E;
+    --ink-2:#5A4A40;
+    --muted:#98897B;
+    --line:#E7D9C8;
+    --accent:#E4562C;
+    --accent-2:#F28A2E;
+    --green:#4D7A3C;
+    --blue:#3B6EA0;
+    --shadow:0 6px 22px -10px rgba(44,35,29,.22);
+    --font:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --display:"Georgia","Times New Roman",serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{width:375px;min-height:100vh;font-family:var(--font);font-size:13.5px;line-height:1.45;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;position:relative}
+  a{color:var(--accent);text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* Status bar */
+  .statusbar{height:24px;padding:0 16px;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:600;color:var(--ink);position:sticky;top:0;background:var(--bg);z-index:40}
+  .statusbar .l{display:flex;gap:3px;align-items:center}
+
+  /* Header */
+  .mhead{position:sticky;top:24px;z-index:35;display:flex;align-items:center;gap:8px;padding:12px 14px;background:var(--bg);border-bottom:1px solid var(--line)}
+  .mhead .back{width:36px;height:36px;border-radius:10px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink-2);font-size:16px}
+  .mhead .t{flex:1;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mhead .iconbtn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:15px;color:var(--ink-2)}
+
+  /* Hero */
+  .hero{position:relative}
+  .hero img{width:100%;height:300px;object-fit:cover}
+  .hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,34,30,0) 45%,rgba(43,34,30,.86))}
+  .hero .cap{position:absolute;left:16px;right:16px;bottom:16px;color:#fff}
+  .hero .cap .tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:7px}
+  .tag{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+  .tag-orange{background:#FBE6D8;color:var(--accent)}
+  .tag-amber{background:#FDEEC9;color:#B97A1D}
+  .tag-green{background:#E3EED9;color:var(--green)}
+  .hero .cap h1{font-family:var(--display);font-size:30px;line-height:1.1;font-weight:700;letter-spacing:-.01em}
+  .hero .cap .by{font-size:12px;opacity:.92;margin-top:7px;display:flex;align-items:center;gap:7px}
+  .avatar{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700}
+
+  /* Scaler */
+  .scaler{background:var(--surface);border:1px solid var(--line);border-radius:16px;margin:20px 14px 0;box-shadow:var(--shadow);overflow:hidden}
+  .scaler .lbl{padding:14px 16px 4px;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .stepper{display:flex;align-items:center;gap:10px;padding:8px 16px 14px}
+  .seg{display:flex;align-items:center;gap:2px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:4px;margin-right:4px}
+  .seg button{width:34px;height:34px;border-radius:9px;border:none;background:var(--surface);color:var(--ink-2);font-size:18px;font-weight:700;cursor:pointer;display:grid;place-items:center}
+  .seg button:hover{background:var(--accent);color:#fff}
+  .seg input{width:46px;text-align:center;border:none;background:transparent;font-size:18px;font-weight:700;font-family:var(--display);color:var(--ink);-moz-appearance:textfield}
+  .seg input::-webkit-outer-spin-button,.seg input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .scale-note{font-size:11.5px;color:var(--muted);margin-left:auto;text-align:right;line-height:1.3}
+  .scale-note b{color:var(--accent);font-weight:700}
+
+  /* Nutrition strip */
+  .nutri{display:flex;gap:8px;padding:0 14px 4px;overflow-x:auto;scrollbar-width:none}
+  .nutri::-webkit-scrollbar{display:none}
+  .nutri .cell{flex:none;width:150px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 13px}
+  .nutri .k{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .nutri .v{font-family:var(--display);font-size:19px;font-weight:700;margin-top:4px}
+  .nutri .per{font-size:11px;color:var(--accent);font-weight:700;margin-top:2px}
+
+  /* Tabs */
+  .tabs{position:sticky;top:66px;z-index:30;display:flex;gap:6px;padding:12px 14px;background:var(--bg);border-bottom:1px solid var(--line)}
+  .tabs button{flex:1;padding:9px 0;border:none;border-radius:999px;font-size:12.5px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);cursor:pointer;transition:.15s;white-space:nowrap}
+  .tabs button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  /* Body */
+  .body{padding:10px 14px calc(86px + 14px)}
+
+  /* Ingredients */
+  .section-h{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 4px 6px}
+  .ing{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--line);position:relative}
+  .ing input[type=checkbox]{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+  .ing .amt{font-family:var(--display);font-size:14.5px;font-weight:700;min-width:58px}
+  .ing .amt .old{font-size:11px;color:var(--muted);font-weight:400;text-decoration:line-through;margin-left:6px}
+  .ing .nm{font-size:13px;color:var(--ink-2)}
+  .ing .nm .note{color:var(--muted);font-size:11.5px}
+  .ing .add{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--accent);border:1px solid var(--line);background:var(--surface);padding:6px 11px;border-radius:9px;cursor:pointer;white-space:nowrap}
+  .ing .add:hover{background:#FBE6D8;border-color:var(--accent)}
+  .checkbox-cell{width:22px;flex:none}
+
+  /* Steps */
+  .step{display:flex;gap:13px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .step .n{width:30px;height:30px;flex:none;border-radius:50%;background:#FBE6D8;color:var(--accent);font-weight:700;font-size:12.5px;display:grid;place-items:center;font-family:var(--display);margin-top:2px}
+  .step.active .n{background:var(--accent);color:#fff}
+  .step .body{flex:1;min-width:0}
+  .step .top{display:flex;align-items:baseline;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .step h4{font-size:14px;font-weight:700}
+  .step .dur{font-size:11px;color:var(--muted);font-weight:600}
+  .step p{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+  .step .scaled{font-size:11.5px;color:var(--accent);font-weight:600;margin-top:6px}
+  .step .timer-row{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+  .timer-btn{font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .timer-btn.running{background:#FDEEC9;border-color:#E2B96A;color:#8C5E16}
+  .timer-btn.done{background:#E3EED9;border-color:#B7CEA8;color:var(--green)}
+  .running-bar{position:fixed;top:66px;left:0;right:0;height:3px;background:var(--accent);z-index:50;animation:pulse 3s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  /* Sticky cook bar */
+  .cookbar{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 14px 14px;display:flex;gap:10px;align-items:center;z-index:40;box-shadow:0 -6px 22px -10px rgba(44,35,29,.18)}
+  .cookbar .chef{flex:none;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:18px;display:grid;place-items:center}
+  .cookbar .txt{flex:1;min-width:0}
+  .cookbar .txt b{font-size:12.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cookbar .txt span{font-size:11px;color:var(--muted)}
+  .cookbar .big{padding:13px 18px;border-radius:13px;background:var(--accent);border:none;color:#fff;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+
+  /* Bottom nav */
+  .bnav{position:fixed;bottom:84px;left:0;right:0;display:flex;justify-content:space-around;padding:6px 0 8px;background:var(--bg);border-top:1px solid var(--line);z-index:35}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-radius:10px}
+  .bnav a.active{color:var(--accent);background:rgba(228,86,44,.08)}
+  .bnav a .ic{font-size:17px;line-height:1}
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="l">9:41 <span style="font-size:10px;opacity:.7">· 5G</span></div>
+  <div>🔋 82%</div>
+</div>
+
+<!-- Header -->
+<div class="mhead">
+  <button class="back" type="button" aria-label="Back">‹</button>
+  <div class="t">Spaghetti Carbonara</div>
+  <button class="iconbtn" type="button" aria-label="Search">🔍</button>
+  <button class="iconbtn" type="button" aria-label="More">⋯</button>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <img src="../../images/5ae2de2e-a03b-48df-ab53-4d4f81ceb703.png" alt="Spaghetti carbonara in a pan" loading="lazy">
+  <div class="shade"></div>
+  <div class="cap">
+    <div class="tags">
+      <span class="tag tag-orange">Italian</span>
+      <span class="tag tag-amber">25 min</span>
+      <span class="tag tag-green">×2.0 scaled</span>
+    </div>
+    <h1>Spaghetti<br>Carbonara</h1>
+    <div class="by"><span class="avatar">RS</span> Roman Shamin · 4.8 ★ · cooked 124 times</div>
+  </div>
+</div>
+
+<!-- Scaler -->
+<div class="scaler">
+  <div class="lbl">Serves · changes the list and the text</div>
+  <div class="stepper">
+    <div class="seg">
+      <button type="button" aria-label="Fewer">−</button>
+      <input type="number" value="4" min="1" aria-label="Servings">
+      <button type="button" aria-label="More">+</button>
+    </div>
+    <span class="scale-note">was <b>2</b><br>amounts ×<b>2.0</b></span>
+  </div>
+</div>
+
+<!-- Nutrition strip -->
+<div class="nutri">
+  <div class="cell"><div class="k">Energy</div><div class="v">487<span style="font-size:12px;font-weight:400"> kcal</span></div><div class="per">per serving</div></div>
+  <div class="cell"><div class="k">Protein</div><div class="v">18<span style="font-size:12px;font-weight:400"> g</span></div><div class="per">· 72 g / dish</div></div>
+  <div class="cell"><div class="k">Fat</div><div class="v">22<span style="font-size:12px;font-weight:400"> g</span></div><div class="per">per 100 g · 11 g</div></div>
+  <div class="cell"><div class="k">Carbs</div><div class="v">52<span style="font-size:12px;font-weight:400"> g</span></div><div class="per">per serving</div></div>
+  <div class="cell"><div class="k">Weight</div><div class="v">980<span style="font-size:12px;font-weight:400"> g</span></div><div class="per">whole dish</div></div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button type="button" class="active">Ingredients</button>
+  <button type="button">Steps</button>
+  <button type="button">Notes</button>
+  <button type="button">Nutrition</button>
+</div>
+
+<div class="running-bar" style="display:none" id="bar"></div>
+
+<!-- Body -->
+<div class="body">
+
+  <!-- Ingredients -->
+  <section id="ingredients">
+    <div class="section-h">Buy</div>
+    <div class="ing">
+      <input type="checkbox" class="checkbox-cell" aria-label="Bought">
+      <div class="amt">400 g<span class="old">200 g</span></div>
+      <div class="nm">Spaghetti <span class="note">· bronze die</span></div>
+      <button class="add" type="button">+ list</button>
+    </div>
+    <div class="ing">
+      <input type="checkbox" class="checkbox-cell" aria-label="Bought">
+      <div class="amt">240 g<span class="old">120 g</span></div>
+      <div class="nm">Guanciale <span class="note">· pancetta works</span></div>
+      <button class="add" type="button">+ list</button>
+    </div>
+    <div class="ing">
+      <input type="checkbox" class="checkbox-cell" aria-label="Bought">
+      <div class="amt">6<span class="old">3</span></div>
+      <div class="nm">Egg yolks, large</div>
+      <button class="add" type="button">+ list</button>
+    </div>
+    <div class="ing">
+      <input type="checkbox" class="checkbox-cell" aria-label="Bought">
+      <div class="amt">120 g<span class="old">60 g</span></div>
+      <div class="nm">Pecorino Romano, grated</div>
+      <button class="add" type="button">+ list</button>
+    </div>
+    <div class="ing">
+      <input type="checkbox" class="checkbox-cell" aria-label="Bought" checked>
+      <div class="amt">—</div>
+      <div class="nm">Black pepper, cracked</div>
+      <button class="add" type="button">+ list</button>
+    </div>
+    <div class="section-h">Pantry</div>
+    <div class="ing">
+      <input type="checkbox" class="checkbox-cell" aria-label="Bought">
+      <div class="amt">1 ladle<span class="old">½</span></div>
+      <div class="nm">Starchy pasta water</div>
+      <button class="add" type="button">+ list</button>
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section id="steps" style="display:none">
+    <div class="step active">
+      <div class="n">1</div>
+      <div class="body">
+        <div class="top"><h4>Salt the water like the sea</h4><span class="dur">5 min</span></div>
+        <p>Boil a big pot, salt it well — the only moment the pasta itself gets seasoned.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <div class="top"><h4>Render the guanciale slowly</h4><span class="dur">10 min · low</span></div>
+        <p>1 cm strips, cold pan, medium-low. Fat renders, edges go golden and crisp. No oil needed.</p>
+        <div class="timer-row"><button class="timer-btn" type="button">⏱ 10:00</button></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <div class="top"><h4>Beat yolks with Pecorino off the heat</h4><span class="dur">3 min</span></div>
+        <p>Whisk yolks, cheese and a lot of pepper until thick and creamy.</p>
+        <div class="scaled">scaled: 6 yolks · 120 g cheese</div>
+        <div class="timer-row">
+          <button class="timer-btn running" type="button">⏱ 2:41 running</button>
+          <button class="timer-btn" type="button">+1 min</button>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">4</div>
+      <div class="body">
+        <div class="top"><h4>Off the heat, then combine fast</h4><span class="dur">2 min</span></div>
+        <p>Pull the pan off. Pasta in, a ladle of starchy water, then the egg mix. Toss hard — silk, not scrambled eggs.</p>
+        <div class="timer-row"><button class="timer-btn" type="button">⏱ 2:00</button></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">5</div>
+      <div class="body">
+        <div class="top"><h4>Finish with pepper and serve now</h4><span class="dur">—</span></div>
+        <p>No cream, no garlic, no peas. Twirl, plate, crack pepper, eat immediately.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes -->
+  <section id="notes" style="display:none">
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 16px 12px;font-size:12.5px;color:var(--ink-2);line-height:1.55">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Note to self</div>
+      Guanciale from the deli on Khitrovka — ask for the thicker cut. Yolks at room temp, always. Double pepper at the table, never in the pan.
+    </div>
+    <div style="margin-top:14px;display:flex;gap:9px;flex-wrap:wrap">
+      <span class="tag tag-orange">No sign-up needed</span>
+      <span class="tag tag-green">Screen stays on</span>
+      <span class="tag tag-amber">Push · timer ready</span>
+    </div>
+  </section>
+
+  <!-- Nutrition -->
+  <section id="nutrition" style="display:none">
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line)">
+        <div style="background:var(--surface);padding:14px 14px 12px"><div class="k" style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Per dish</div><div style="font-family:var(--display);font-size:20px;font-weight:700;margin-top:5px">1948 kcal</div></div>
+        <div style="background:var(--surface);padding:14px 14px 12px"><div class="k" style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Per 100 g</div><div style="font-family:var(--display);font-size:20px;font-weight:700;margin-top:5px">201 kcal</div></div>
+        <div style="background:var(--surface);padding:14px 14px 12px"><div class="k" style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Per serving</div><div style="font-family:var(--display);font-size:20px;font-weight:700;margin-top:5px">487 kcal</div></div>
+        <div style="background:var(--surface);padding:14px 14px 12px"><div class="k" style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Serving</div><div style="font-family:var(--display);font-size:20px;font-weight:700;margin-top:5px">~245 g</div></div>
+      </div>
+      <div style="padding:14px;font-size:11.5px;color:var(--muted);line-height:1.5">Numbers come from the recipe's ingredients. If AI got an amount wrong, tap the ingredient and correct it — the whole table recomputes.</div>
+    </div>
+    <button class="tag tag-orange" style="margin-top:12px" type="button">✏ Edit Pecorino (120 g → 90 g)</button>
+  </section>
+
+</div>
+
+<!-- Sticky cook bar -->
+<div class="cookbar">
+  <div class="chef">👨‍🍳</div>
+  <div class="txt"><b>Ask the chef — mid-cook rescue</b><span>Sauce split? Too salty? What's next?</span></div>
+  <button class="big" type="button">Start cooking</button>
+</div>
+
+<!-- Bottom nav -->
+<nav class="bnav">
+  <a href="#" class="active"><span class="ic">📖</span>Recipes</a>
+  <a href="#"><span class="ic">✨</span>Discover</a>
+  <a href="#"><span class="ic">🛒</span>List</a>
+  <a href="#"><span class="ic">🤖</span>Chef</a>
+  <a href="#"><span class="ic">⚙️</span>Me</a>
+</nav>
+
+</body>
+</html>
