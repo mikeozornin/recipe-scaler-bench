@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Scaler — desktop, My recipes</title>
+<style>
+  :root{
+    --bg:#F4EEE0; --paper:#FFFFFF; --ink:#2A1F14; --muted:#716353; --line:#E3D8C4;
+    --accent:#E75A1C; --accent-soft:#F6E4D6; --teal:#2A8C6F; --teal-soft:#DDEEE6;
+    --gold:#C8912A; --radius:14px; --shadow:0 10px 26px rgba(42,31,20,.07);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .artboard{width:1400px;min-height:1080px;height:auto;background:var(--bg);display:grid;
+    grid-template-columns:250px 1fr 300px;grid-template-rows:64px 1fr;overflow:hidden}
+
+  /* ---- Top bar ---- */
+  .topbar{grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:0 24px;background:rgba(244,238,224,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20;position:relative}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17px;color:var(--ink);text-decoration:none;white-space:nowrap}
+  .logo .dot{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#D9742B);display:grid;place-items:center;color:#fff;font-size:13px;font-weight:800}
+  .search{flex:1;max-width:560px;position:relative}
+  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+  .search input{width:100%;padding:10px 12px 10px 38px;border-radius:11px;border:1px solid var(--line);background:var(--paper);font-size:14px;color:var(--ink);outline:none}
+  .search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .top-actions{display:flex;align-items:center;gap:10px}
+  .pill-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-size:13px;font-weight:700;color:var(--ink);cursor:default}
+  .pill-btn .hd{width:18px;height:18px;border-radius:6px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:11px}
+  .sync{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--teal)}
+  .sync .green{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 2px var(--teal-soft)}
+  .avatar{width:34px;height:34px;border-radius:10px;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+
+  /* ---- Sidebar ---- */
+  .sidebar{background:var(--paper);border-right:1px solid var(--line);overflow-y:auto;padding:14px 12px}
+  .nav-label{font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;font-weight:800;color:#A89A86;padding:12px 10px 6px}
+  .nav-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;margin-bottom:3px;font-size:14px;font-weight:600;color:var(--muted);text-decoration:none;cursor:default}
+  .nav-item:hover{background:rgba(231,90,28,.06)}
+  .nav-item.active{background:var(--accent-soft);color:var(--accent)}
+  .nav-item .nico{min-width:22px;text-align:center;font-size:15px}
+  .badge{background:var(--accent);color:#fff;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:999px;margin-left:auto}
+  .collapse{color:#A89A86;font-size:11px;padding:6px 12px;cursor:default}
+  .coll-list{list-style:none;margin:6px 0 4px;padding:0 6px}
+  .coll-list li{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;font-size:13px;color:var(--muted)}
+  .coll-list li .tag-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  .coll-list li:hover{background:var(--accent-soft)}
+  .sidebar-foot{margin-top:20px;border-top:1px solid var(--line);padding:12px 10px 4px;font-size:12px;color:var(--muted)}
+  .sidebar-foot b{color:var(--ink);font-weight:700}
+
+  /* ---- Main ---- */
+  .main{padding:24px 32px;overflow-y:auto;display:flex;flex-direction:column;gap:20px}
+  .m-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .m-head h1{font-size:28px;letter-spacing:-.6px;margin:0;font-weight:900}
+  .m-head .counts{font-size:13.5px;color:var(--muted);margin-top:4px}
+  .m-head .counts b{color:var(--accent);font-weight:800}
+  .seg{display:flex;gap:7px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:5px;box-shadow:0 1px 4px rgba(42,31,20,.04)}
+  .seg button{background:transparent;border:none;padding:7px 13px;border-radius:8px;font-size:13.5px;font-weight:700;color:var(--muted);cursor:default}
+  .seg button:hover{color:var(--ink)}
+  .seg button.on{background:var(--accent);color:#fff}
+  .sort{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:8px 13px}
+  .sort b{color:var(--ink)}
+
+  .filters{display:flex;gap:8px;flex-wrap:wrap}
+  .fchip{background:var(--paper);border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;cursor:default}
+  .fchip:hover{border-color:var(--accent);color:var(--accent)}
+  .fchip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  /* recipe grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-bottom:18px}
+  .r-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 10px rgba(42,31,20,.05);display:flex;flex-direction:column;transition:.15s}
+  .r-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+  .r-card .rimg{height:168px;overflow:hidden;position:relative}
+  .r-card .rimg img{width:100%;height:100%;object-fit:cover;display:block}
+  .r-card .flags{position:absolute;top:12px;left:12px;display:flex;gap:6px}
+  .r-card .flags span{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px;background:rgba(20,17,13,.55);color:#F3EBD8;backdrop-filter:blur(4px)}
+  .r-card .fav{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.25);font-size:15px}
+  .r-card .body{padding:15px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .r-card h4{margin:0;font-size:16px;font-weight:800;letter-spacing:-.2px;line-height:1.25}
+  .r-card .meta{display:flex;gap:12px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+  .r-card .scale{display:flex;align-items:center;justify-content:space-between;background:var(--accent-soft);border-radius:10px;padding:8px 11px}
+  .r-card .scale .lbl{font-size:12px;font-weight:700;color:var(--accent)}
+  .stepper{display:inline-flex;align-items:center;gap:3px}
+  .stepper button{width:24px;height:24px;border-radius:7px;border:none;background:var(--paper);color:var(--accent);font-size:14px;font-weight:800;cursor:default}
+  .stepper b{min-width:26px;text-align:center;font-size:13px;font-weight:800}
+  .r-card .row{display:flex;align-items:center;justify-content:space-between;font-size:13px}
+  .r-card .row span:first-child{color:var(--muted)}
+  .r-card .row b{font-variant-numeric:tabular-nums}
+
+  /* ---- Right rail ---- */
+  .rail{background:var(--paper);border-left:1px solid var(--line);overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:18px}
+  .panel h3{font-size:13px;letter-spacing:.6px;text-transform:uppercase;font-weight:800;color:var(--muted);margin:0 0 12px}
+  .cooking{background:linear-gradient(135deg,#2A1F14,#3A2B1D);border-radius:14px;color:#F3EBD8;padding:18px;position:relative;overflow:hidden}
+  .cooking .tag{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+  .cooking h4{margin:8px 0 4px;font-size:16px;color:#fff;font-weight:800}
+  .cooking p{font-size:12.5px;color:rgba(243,235,216,.7);margin:0 0 14px}
+  .timer-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(243,235,216,.16)}
+  .timer-row:last-child{border-bottom:none}
+  .timer-row .t{font-size:13px;font-weight:700}
+  .timer-row .clock{font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--gold)}
+  .cooking .hint{font-size:11.5px;color:rgba(243,235,216,.55)}
+  .stat{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+  .stat:last-child{border-bottom:none}
+  .stat .ic{width:38px;height:38px;border-radius:11px;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;font-size:18px;flex:none}
+  .stat .d .k{font-size:12.5px;color:var(--muted);font-weight:600}
+  .stat .d .v{font-size:15px;font-weight:800}
+  .n-strip{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+  .n-card{background:var(--accent-soft);border-radius:11px;padding:12px;text-align:center}
+  .n-card b{display:block;font-size:18px;font-weight:900;color:var(--accent)}
+  .n-card span{font-size:11px;color:var(--muted);font-weight:700}
+  .mini-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .mini-list li{display:flex;align-items:center;gap:10px;font-size:13px;background:var(--bg);border-radius:10px;padding:10px 12px}
+  .mini-list .g{width:64px;height:54px;border-radius:9px;overflow:hidden;flex:none;background:#2A1F14}
+  .mini-list .g img{width:100%;height:100%;object-fit:cover;display:block}
+  .mini-list .t{font-weight:700;font-size:12.5px;display:block}
+  .mini-list .s{font-size:11.5px;color:var(--muted)}
+  .import-chips{display:flex;flex-wrap:wrap;gap:8px}
+  .ichip{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:9px 12px;border-radius:10px;border:1px dashed var(--line);background:var(--bg);color:var(--ink);cursor:default}
+  .ichip:hover{border-style:solid;border-color:var(--accent)}
+  .empty{color:#A89A86;font-size:12.5px;text-align:center;padding:22px 14px}
+
+  .scrollpad{height:26px}
+</style>
+</head>
+<body>
+<div class="artboard">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <a class="logo" href="#"><span class="dot">RS</span> Recipe Scaler</a>
+    <div class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" placeholder="Search recipes, ingredients, authors…">
+    </div>
+    <div class="top-actions">
+      <span class="sync"><span class="green"></span>Synced · 4 offline changes</span>
+      <a class="pill-btn" href="#"><span class="hd">＋</span> Import recipe</a>
+      <div class="avatar">MO</div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="nav-label">Navigation</div>
+    <a class="nav-item active"><span class="nico">🍳</span>My recipes<span class="badge">124</span></a>
+    <a class="nav-item"><span class="nico">🔍</span>Discover</a>
+    <a class="nav-item"><span class="nico">🛒</span>Shopping list<span class="badge">12</span></a>
+    <a class="nav-item"><span class="nico">⏱</span>Timers</a>
+    <a class="nav-item"><span class="nico">📕</span>Cookbook</a>
+    <a class="nav-item"><span class="nico">👨‍🍳</span>AI chef</a>
+
+    <div class="nav-label">Collections</div>
+    <div class="collapse">▸ 18 collections</div>
+    <ul class="coll-list">
+      <li><span class="tag-dot"></span>Weeknight dinners</li>
+      <li><span class="tag-dot"></span>Guests coming over</li>
+      <li><span class="tag-dot"></span>Baking</li>
+      <li><span class="tag-dot"></span>5 ingredients or less</li>
+    </ul>
+
+    <div class="nav-label">Tags</div>
+    <div class="collapse">▸ 36 tags</div>
+    <ul class="coll-list">
+      <li>Vegetarian</li><li>Under 30 min</li><li>Freezer</li><li>High protein</li>
+    </ul>
+
+    <div class="sidebar-foot">Hotkeys: <b>/</b> search · <b>⌘K</b> import · <b>⌘N</b> new recipe.<br>Screen stays on while cooking.</div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="m-head">
+      <div>
+        <h1>Your recipes</h1>
+        <div class="counts"><b>124</b> recipes · <b>4</b> added offline · synced 2 min ago</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="seg">
+          <button class="on">All</button><button>Dinner</button><button>Breakfast</button><button>Dessert</button><button>Saved</button>
+        </div>
+        <div class="sort">Sort: <b>Recently scaled</b> ▾</div>
+      </div>
+    </div>
+
+    <div class="filters">
+      <span class="fchip on">All</span><span class="fchip">Pasta</span><span class="fchip">Soup</span><span class="fchip">Baking</span>
+      <span class="fchip">Under 30 min</span><span class="fchip">High protein</span><span class="fchip">To try</span>
+    </div>
+
+    <div class="grid">
+      <!-- Scaled card (highlight) -->
+      <div class="r-card">
+        <div class="rimg"><img src="images/7832758b-7ddb-4c40-bce4-8c322b00adaa.png" alt="Lemon spaghetti">
+          <div class="flags"><span>⏱ Cooking now</span></div>
+          <div class="fav">♡</div>
+        </div>
+        <div class="body">
+          <h4>Weeknight lemon spaghetti</h4>
+          <div class="meta"><span>🍝 Pasta</span><span>20 min</span><span>2 → <b style="color:var(--accent)">4</b> servings</span></div>
+          <div class="scale"><span class="lbl">Scaled 2 → 4</span>
+            <div class="stepper"><button>−</button><b>4</b><button>+</button></div>
+          </div>
+          <div class="row"><span>Spaghetti</span><b>400 g</b></div>
+          <div class="row"><span>Lemon</span><b>2</b></div>
+          <div class="row"><span>Parmesan</span><b>120 g</b></div>
+          <div class="row"><span>Black pepper</span><b>2 tsp</b></div>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="rimg"><img src="images/c45d481d-e2cd-4ad1-9824-f02414681f0b.png" alt="Roasted tomato soup">
+          <div class="flags"><span>🍲 Soup</span></div><div class="fav">♡</div>
+        </div>
+        <div class="body">
+          <h4>Roasted tomato soup</h4>
+          <div class="meta"><span>Lunch</span><span>45 min</span><span>4 servings</span></div>
+          <div class="scale"><span class="lbl">Servings</span>
+            <div class="stepper"><button>−</button><b>4</b><button>+</button></div>
+          </div>
+          <div class="row"><span>Tomatoes</span><b>1.6 kg</b></div>
+          <div class="row"><span>Onion</span><b>2</b></div>
+          <div class="row"><span>Vegetable stock</span><b>720 ml</b></div>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="rimg"><img src="images/bf4ea019-ae8e-475b-b1f4-7c4c1f39bca8.png" alt="Olive oil cake">
+          <div class="flags"><span>🍰 Dessert</span></div><div class="fav">♡</div>
+        </div>
+        <div class="body">
+          <h4>Olive oil cake</h4>
+          <div class="meta"><span>Baking</span><span>1 h 10</span><span>8 servings</span></div>
+          <div class="scale"><span class="lbl">Servings</span>
+            <div class="stepper"><button>−</button><b>8</b><button>+</button></div>
+          </div>
+          <div class="row"><span>Flour</span><b>300 g</b></div>
+          <div class="row"><span>Extra-virgin olive oil</span><b>180 ml</b></div>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="rimg"><img src="images/9ea431c9-1297-4ec8-97fa-7cc4f55491ca.png" alt="Miso salmon bowl">
+          <div class="flags"><span>🍱 Bowl</span></div><div class="fav">♡</div>
+        </div>
+        <div class="body">
+          <h4>Miso salmon bowl</h4>
+          <div class="meta"><span>Dinner</span><span>30 min</span><span>2 servings</span></div>
+          <div class="scale"><span class="lbl">Servings</span>
+            <div class="stepper"><button>−</button><b>2</b><button>+</button></div>
+          </div>
+          <div class="row"><span>Salmon fillet</span><b>340 g</b></div>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="rimg"><img src="images/5c6478af-d7b0-4cda-8971-2a6a24e214bf.png" alt="Mushroom risotto">
+          <div class="flags"><span>🍚 Rice</span></div><div class="fav">♡</div>
+        </div>
+        <div class="body">
+          <h4>Mushroom risotto</h4>
+          <div class="meta"><span>Dinner</span><span>55 min</span><span>6 servings</span></div>
+          <div class="scale"><span class="lbl">Servings</span>
+            <div class="stepper"><button>−</button><b>6</b><button>+</button></div>
+          </div>
+          <div class="row"><span>Arborio rice</span><b>360 g</b></div>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="rimg"><img src="images/089052e3-9ce5-4072-95c9-f92bb49fde7c.png" alt="Chocolate muffins">
+          <div class="flags"><span>🧁 Baking</span></div><div class="fav">♡</div>
+        </div>
+        <div class="body">
+          <h4>Chocolate muffins</h4>
+          <div class="meta"><span>Baking</span><span>35 min</span><span>12 servings</span></div>
+          <div class="scale"><span class="lbl">Servings</span>
+            <div class="stepper"><button>−</button><b>12</b><button>+</button></div>
+          </div>
+          <div class="row"><span>Dark chocolate</span><b>200 g</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="scrollpad"></div>
+  </main>
+
+  <!-- Right rail -->
+  <aside class="rail">
+    <div class="panel cooking">
+      <div class="tag">Cooking now</div>
+      <h4>Lemon spaghetti</h4>
+      <p>Step 3 of 6 · “Toast the pepper 1 min, then add the lemon zest.” Screen stays on.</p>
+      <div class="timer-row"><span class="t">Boil pasta</span><span class="clock">⏱ 8:00</span></div>
+      <div class="timer-row"><span class="t">Rest sauce</span><span class="clock">⏱ 3:00</span></div>
+      <div class="timer-row"><span class="t">Push timer · phone</span><span class="clock">on 🔔</span></div>
+      <div class="hint">Timers also run on the computer.</div>
+    </div>
+
+    <div class="panel">
+      <h3>Today</h3>
+      <div class="stat"><div class="ic">🛒</div><div class="d"><div class="k">Shopping list</div><div class="v">12 items · shared with Anna</div></div></div>
+      <div class="stat"><div class="ic">📕</div><div class="d"><div class="k">Cookbook</div><div class="v">“Autumn dinners” · 96 pages</div></div></div>
+      <div class="stat"><div class="ic">👨‍🍳</div><div class="d"><div class="k">AI chef</div><div class="v">2 chats · last: sauce fix</div></div></div>
+    </div>
+
+    <div class="panel">
+      <h3>Nutrition · lemon spaghetti</h3>
+      <div class="n-strip">
+        <div class="n-card"><b>642</b><span>Kcal</span></div><div class="n-card"><b>34 g</b><span>Protein</span></div>
+        <div class="n-card"><b>22 g</b><span>Fat</span></div><div class="n-card"><b>48 g</b><span>Carbs</span></div>
+      </div>
+      <div class="empty" style="margin-top:8px">Per serving · switch: dish / 100 g / serving</div>
+    </div>
+
+    <div class="panel">
+      <h3>Recently scaled</h3>
+      <ul class="mini-list">
+        <li><div class="g"><img src="images/6c026a30-32b5-448a-9202-e1c97c215eee.png" alt=""></div><div><span class="t">Cinnamon rolls</span><span class="s">12 → 18 · 2 days ago</span></div></li>
+        <li><div class="g"><img src="images/7e9ebd37-43f2-498c-b5c3-e8554aa771b7.png" alt=""></div><div><span class="t">Greek salad</span><span class="s">2 → 6 · yesterday</span></div></li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Import a recipe</h3>
+      <div class="import-chips">
+        <span class="ichip">✏ Text</span><span class="ichip">🔗 One link</span><span class="ichip">🔗🔗 Many links</span>
+        <span class="ichip">📄 File</span><span class="ichip">📷 Cookbook photo</span>
+      </div>
+      <div class="empty" style="margin-top:10px">Telegram bot · Chrome extension · MCP: recipe-scaler.ru/mcp</div>
+    </div>
+  </aside>
+
+</div>
+</body>
+</html>
