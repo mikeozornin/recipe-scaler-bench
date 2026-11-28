@@ -2903,5 +2903,28 @@
       "mobile": "paper__pi__gigachat4-708b-a41b__mobile@2x.png",
       "promo": "paper__pi__gigachat4-708b-a41b__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-opencode-gigachat4-708b-a41b-high-2",
+    "tool": "paper",
+    "agent": "OpenCode",
+    "model": "GigaChat4-708B-A41B (2)",
+    "reasoning": "high",
+    "skills": [],
+    "runDate": "2026-11-28",
+    "time": "4 min 38 s",
+    "tokens": "1.18M",
+    "cost": null,
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Полная катастрофа с вызовом тулов, если делать то же задание, но просить сделать html-файл результаты заметно лучше. Странно, что в pi результаты сильно лучше, но тоже наблюдаются проблемы с тулами. А в силу того, что модель не мультимодальная, она даже проблему через скриншот обнаружить не может. Проверю другой инструмент.",
+      "en": "A complete disaster with tool calling. If I give the same task but ask for an HTML file instead, the results are noticeably better. Strange that in Pi the results are much better, though it has tool problems too. And since the model isn't multimodal, it can't even spot the problem from a screenshot. I will try another tool."
+    },
+    "images": {
+      "all": "paper__opencode__gigachat4-708b-a41b-2__all@2x.png",
+      "desktop": "paper__opencode__gigachat4-708b-a41b-2__desktop@2x.png",
+      "mobile": "paper__opencode__gigachat4-708b-a41b-2__mobile@2x.png",
+      "promo": "paper__opencode__gigachat4-708b-a41b-2__promo@2x.png"
+    }
   }
 ]
