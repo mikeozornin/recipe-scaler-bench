@@ -27,6 +27,7 @@ function toolLabel(run: Run, locale: Locale): string {
   const m = t(locale);
   if (run.tool === 'paper') return m.toolPaper;
   if (run.tool === 'figma') return m.toolFigma;
+  if (run.tool === 'html') return m.toolHtml;
   return m.toolPen;
 }
 

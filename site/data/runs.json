@@ -2949,5 +2949,28 @@
       "mobile": "pen__pi__gigachat4-708b-a41b__mobile@2x.png",
       "promo": "pen__pi__gigachat4-708b-a41b__promo@2x.png"
     }
+  },
+  {
+    "id": "html-opencode-gigachat4-708b-a41b-high",
+    "tool": "html",
+    "agent": "OpenCode",
+    "model": "GigaChat4-708B-A41B",
+    "reasoning": "high",
+    "skills": [],
+    "runDate": "2026-11-28",
+    "time": "5 min 36 s",
+    "tokens": "0.52M",
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "В отличие от paper html-файлы дались лучше. Дизайн просто слабый.",
+      "en": "Unlike with Paper, the HTML files turned out better. The design is just weak."
+    },
+    "images": {
+      "all": "html__opencode__gigachat4-708b-a41b__all@2x.png",
+      "desktop": "html__opencode__gigachat4-708b-a41b__desktop@2x.png",
+      "mobile": "html__opencode__gigachat4-708b-a41b__mobile@2x.png",
+      "promo": "html__opencode__gigachat4-708b-a41b__promo@2x.png"
+    }
   }
 ]
