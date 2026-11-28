@@ -2880,5 +2880,28 @@
       "mobile": "paper__claude-code__opus-5.5-high-jakub-kr-skills__mobile@2x.png",
       "promo": "paper__claude-code__opus-5.5-high-jakub-kr-skills__promo@2x.png"
     }
+  },
+  {
+    "id": "paper-pi-gigachat4-708b-a41b",
+    "tool": "paper",
+    "agent": "Pi",
+    "model": "GigaChat4-708B-A41B",
+    "reasoning": null,
+    "skills": [],
+    "runDate": "2026-11-28",
+    "time": "12 min 52 s",
+    "tokens": "3.25M",
+    "cost": null,
+    "tier": "failed_tools",
+    "comment": {
+      "ru": "Какая-то проблема с вызовом тулов, если делать то же задание, но просить сделать html-файл результаты заметно лучше. Проверю другой инструмент.",
+      "en": "There is some problem with tool calling. If I give the same task but ask for an HTML file instead, the results are noticeably better. I will try another tool."
+    },
+    "images": {
+      "all": "paper__pi__gigachat4-708b-a41b__all@2x.png",
+      "desktop": "paper__pi__gigachat4-708b-a41b__desktop@2x.png",
+      "mobile": "paper__pi__gigachat4-708b-a41b__mobile@2x.png",
+      "promo": "paper__pi__gigachat4-708b-a41b__promo@2x.png"
+    }
   }
 ]
