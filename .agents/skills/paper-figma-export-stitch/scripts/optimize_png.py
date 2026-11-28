@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""PNG optimization for workshop exports (pngquant preferred, Pillow fallback)."""
+"""PNG optimization for workshop exports (pngquant, required)."""
 
 from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 
@@ -42,18 +43,13 @@ def optimize_png(path: Path, quality: str = DEFAULT_QUALITY) -> tuple[int, int, 
             tmp.unlink()
         if result.returncode == 99:
             return before, before, "skipped"
+    else:
+        print(
+            "pngquant not found — install it first: brew install pngquant",
+            file=sys.stderr,
+        )
+        return before, before, "skipped: no pngquant"
 
-    from PIL import Image
-
-    im = Image.open(path).convert("RGBA")
-    quantized = im.quantize(colors=256, method=Image.Quantize.FASTOCTREE)
-    quantized.save(tmp, format="PNG", optimize=True)
-    after = tmp.stat().st_size
-    if after < before:
-        tmp.replace(path)
-        return before, after, "pillow"
-    if tmp.exists():
-        tmp.unlink()
     return before, before, "skipped"
 
 

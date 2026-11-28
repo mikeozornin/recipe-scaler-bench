@@ -142,7 +142,7 @@ MCP **не отдаёт список страниц** документа: акт
 
 1. **Экспорт 2x** — три файла `desktop`, `mobile`, `promo` в `tmp/download/`.
 2. **Оптимизация экранов** — все три PNG (см. «Оптимизация PNG»).
-3. **Склейка** — `__all@2x.png` (ImageMagick или `stitch_exports.py`; скрипт оптимизирует результат сам).
+3. **Склейка** — `__all@2x.png` (ImageMagick), затем оптимизируй результат (см. «Оптимизация PNG»).
 4. **Копии `-2400`** — для каждого из четырёх файлов (3 экрана + all).
 5. **Оптимизация `-2400`** — все четыре уменьшенные копии.
 6. **Дата прогона** — запиши `runDate` в `site/data/runs.json` (см. раздел «Дата прогона»).
@@ -172,17 +172,7 @@ magick \
 
 Для страницы с `{page-slug}` подставь тот же slug во всех путях (включая выходной `__all@2x.png`).
 
-После склейки проверь визуально при возможности (размеры, порядок).
-
-Альтернатива без ImageMagick — скрипт `scripts/stitch_exports.py` (Pillow): та же склейка (порядок desktop · mobile · promo, верхнее выравнивание, прозрачный фон, gap) и **автоматическая оптимизация результата** (см. «Оптимизация PNG»; отключается `--no-optimize`):
-
-```bash
-python3 .agents/skills/paper-figma-export-stitch/scripts/stitch_exports.py \
-  --out tmp/download/{tool}__{agent}__{model}__all@2x.png \
-  tmp/download/{tool}__{agent}__{model}__desktop@2x.png \
-  tmp/download/{tool}__{agent}__{model}__mobile@2x.png \
-  tmp/download/{tool}__{agent}__{model}__promo@2x.png
-```
+После склейки проверь визуально при возможности (размеры, порядок) и **оптимизируй результат**: `optimize_exports.py tmp/download/{tool}__{agent}__{model}__all@2x.png` или `pngquant` вручную (см. «Оптимизация PNG»).
 
 ## Оптимизация PNG
 
@@ -190,7 +180,7 @@ python3 .agents/skills/paper-figma-export-stitch/scripts/stitch_exports.py \
 
 ### Скрипты (предпочтительно)
 
-Общая логика в `scripts/optimize_png.py` (pngquant lossy `0-90`; при отсутствии pngquant — Pillow 256 цветов).
+Общая логика в `scripts/optimize_png.py` (pngquant lossy `0-90`; pngquant обязателен — без него скрипт завершается ошибкой).
 
 **Пакетная оптимизация** всех PNG в `tmp/download/` (шаги 2 и 5 пайплайна):
 
@@ -202,7 +192,7 @@ python3 .agents/skills/paper-figma-export-stitch/scripts/optimize_exports.py tmp
 
 Флаги: `--quality 0-90` (по умолчанию, lossy до 90), `--dry-run` — только список файлов.
 
-**Склейка** через `stitch_exports.py` оптимизирует выходной `__all@2x.png` автоматически (`--no-optimize` — отключить).
+**Склейка** не оптимизирует результат автоматически — прогони `optimize_exports.py` на `__all@2x.png` после magick-склейки.
 
 ### Ручной pngquant
 
@@ -214,7 +204,7 @@ pngquant --quality 0-90 --speed 1 --force --ext .png tmp/download/<файлы>.p
 - Прозрачность сохраняется.
 - Палитра 256 цветов: для плоских заливок её хватает с запасом. Если в макете фотореалистичные изображения или плавные градиенты — сузь диапазон (`--quality 70-90`) либо используй `oxipng` без квантования (lossless).
 - Проверка деградации: перед массовым прогоном просмотри самый тяжёлый файл — бандинг плоских заливок, чёткость мелкого текста.
-- `pngquant` не установлен (`brew install pngquant`) — скрипты откатываются на Pillow-квантование; при чисто ручном пути через magick оптимизацию запускай отдельно, не забывая про `-2400` копии.
+- `pngquant` не установлен — скрипты не работают: установи `brew install pngquant`. При чисто ручном пути через magick оптимизацию запускай отдельно, не забывая про `-2400` копии.
 
 ## Уменьшенные копии 2400px
 

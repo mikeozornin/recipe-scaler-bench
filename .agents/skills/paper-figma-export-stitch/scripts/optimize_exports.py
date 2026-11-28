@@ -2,7 +2,7 @@
 """
 Batch-optimize PNG exports in tmp/download/ (or a given directory).
 
-Uses pngquant when available, else Pillow palette quantization.
+Requires pngquant (brew install pngquant).
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from optimize_png import DEFAULT_QUALITY, format_size, optimize_png  # noqa: E40
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Optimize PNG workshop exports in place (pngquant or Pillow)."
+        description="Optimize PNG workshop exports in place (pngquant, required)."
     )
     parser.add_argument(
         "paths",
