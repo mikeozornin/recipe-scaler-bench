@@ -168,6 +168,7 @@ export function kpis(list: Run[] = runs) {
     models: new Set(list.map((r) => normalizeModelName(r.model))).size,
     paper: list.filter((r) => r.tool === 'paper').length,
     figma: list.filter((r) => r.tool === 'figma').length,
+    pen: list.filter((r) => r.tool === 'pen').length,
   };
 }
 

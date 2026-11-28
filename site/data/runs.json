@@ -2926,5 +2926,28 @@
       "mobile": "paper__opencode__gigachat4-708b-a41b-2__mobile@2x.png",
       "promo": "paper__opencode__gigachat4-708b-a41b-2__promo@2x.png"
     }
+  },
+  {
+    "id": "pen-pi-gigachat4-708b-a41b",
+    "tool": "pen",
+    "agent": "Pi",
+    "model": "GigaChat4-708B-A41B",
+    "reasoning": null,
+    "skills": [],
+    "runDate": "2026-11-28",
+    "time": "5 min 9 s",
+    "tokens": "1.84M",
+    "cost": null,
+    "tier": "weak",
+    "comment": {
+      "ru": "В отличие от paper гигачат справляется с вызовами тулов pen dev заметно лучше. Дизайн получился слабым, но хотя бы законченным.",
+      "en": "Unlike with Paper, GigaChat handles pen.dev tool calls noticeably better. The design turned out weak, but at least finished."
+    },
+    "images": {
+      "all": "pen__pi__gigachat4-708b-a41b__all@2x.png",
+      "desktop": "pen__pi__gigachat4-708b-a41b__desktop@2x.png",
+      "mobile": "pen__pi__gigachat4-708b-a41b__mobile@2x.png",
+      "promo": "pen__pi__gigachat4-708b-a41b__promo@2x.png"
+    }
   }
 ]

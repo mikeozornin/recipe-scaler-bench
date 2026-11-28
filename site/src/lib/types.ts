@@ -1,5 +1,5 @@
 export type QualityTier = 'fancy' | 'mid' | 'weak' | 'failed_tools' | 'unknown';
-export type Tool = 'paper' | 'figma';
+export type Tool = 'paper' | 'figma' | 'pen';
 export type Locale = 'ru' | 'en';
 
 export type RunImages = {

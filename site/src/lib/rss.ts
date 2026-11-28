@@ -25,7 +25,9 @@ export function feedRuns(): Array<Run & { runDate: string }> {
 
 function toolLabel(run: Run, locale: Locale): string {
   const m = t(locale);
-  return run.tool === 'paper' ? m.toolPaper : m.toolFigma;
+  if (run.tool === 'paper') return m.toolPaper;
+  if (run.tool === 'figma') return m.toolFigma;
+  return m.toolPen;
 }
 
 function itemTitle(run: Run, locale: Locale): string {
